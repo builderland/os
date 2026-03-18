@@ -1511,6 +1511,9 @@ body {
                         width: 100%;
                         height: 100%;
                         text-align: center;
+                        // 변경: iOS Safari UA 스타일로 버튼 텍스트가 파랗게 보이는 현상 방지
+                        color: #111827;
+                        -webkit-text-fill-color: currentColor;
                         font-size: 16px;
                         font-weight: 300;
                         line-height: 1;
