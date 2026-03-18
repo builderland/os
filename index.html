@@ -1,11 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
 </head>
+
 <body>
-    
+    <header>
+        <div class="service-name">builderland</div>
+        <button>자주 묻는 질문</button>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-content-text">
+                <div class="hero-content-title">숨은 비용 없이<br>내가 직접 관리하는 투명한 인테리어</div>
+                <div class="hero-content-service-name">builderland</div>
+            </div>
+            <a href="self.html" class="hero-button">셀프 견적해보기</a>
+        </div>
+        <div class="hero-image">
+            <img src="assets/images/hero_img.png" alt="hero-image">
+            <div class="dim"></div>
+        </div>
+    </section>
+    <section class="problem">
+        <div class="problem__inner">
+
+            <!-- 헤더 -->
+            <div class="problem__header">
+                <h2 class="problem__title">
+                    왜 소비자에게 유리한 인테리어는 없을까요?
+                </h2>
+
+                <p class="problem__desc">
+                    턴키 방식의 인테리어는 한 업체가 모든 과정을 맡아 편리합니다.<br />
+                    하자에 대한 책임도 해당 업체가 전적으로 부담합니다.<br /><br />
+                    하지만 리스크가 한 곳에 집중되면서 피해가 커질 수 있고,<br />
+                    숨은 비용을 <span class="highlight">소비자가 부담</span>하게 됩니다.
+                </p>
+            </div>
+
+            <!-- 카드 영역 -->
+            <div class="problem__grid">
+
+                <!-- 카드 1 -->
+                <div class="problem-card">
+                    <div class="problem-card__thumb"></div>
+
+                    <div class="problem-card__content">
+                        <h3 class="problem-card__title">리스크 과중</h3>
+                        <p class="problem-card__text">
+                            턴키 인테리어 업체는 하자 책임도 일괄로 가져갑니다.
+                            그래서 리스크가 업체 한 곳에 집중되게 됩니다.
+                            만약, 업체가 폐업하거나, 잠수를 타거나, 분쟁이 발생하면
+                            모든 피해는 소비자의 몫이 됩니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="problem-card">
+                    <div class="problem-card__thumb problem-card__thumb--cost">
+                        <p class="problem-card__thumb-title">
+                            소비자가 부담하는 하자보수충당부채
+                        </p>
+
+                        <div class="problem-card__tags">
+                            <span>리스크 대비 비용</span>
+                            <span>하자 대비 비용</span>
+                            <span>일정 지연 비용</span>
+                            <span>분쟁 대응 비용</span>
+                        </div>
+                    </div>
+
+                    <div class="problem-card__content">
+                        <h3 class="problem-card__title">숨은 비용</h3>
+                        <p class="problem-card__text">
+                            리스크가 한 업체에 집중되는 구조에서는, 인테리어 업체가 마진 외에
+                            하자보수충당금을 견적에 포함합니다. 이는 발생 여부가 불확실한 예비 비용으로,
+                            실제 하자가 없더라도 소비자가 부담하게 됩니다.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 하단 문구 -->
+            <p class="problem__bottom">
+                우리는 이 구조를 바꿉니다
+            </p>
+
+        </div>
+    </section>
+    <section class="how">
+        <div class="how__inner">
+            <div class="how__header">
+                <p class="how__eyebrow">HOW IT WORKS</p>
+                <h2 class="how__title">
+                    인테리어 구조를 마진 중심에서<br />
+                    운영 중심으로 바꿉니다.
+                </h2>
+                <p class="how__desc">
+                    턴키 방식의 편의성은 유지하고 리스크와 비용만 줄였습니다.
+                </p>
+            </div>
+
+            <div class="how__grid">
+                <!-- 카드 1 -->
+                <div class="how-card">
+                    <span class="how-card__badge">리스크 분산</span>
+                    <h3 class="how-card__title">공정마다 단계별로 나누어 결제</h3>
+                    <p class="how-card__text">
+                        공정별 시공 완료 건마다 결제하며, 각 공정을 담당한 업체가 하자 책임을 맡는 구조로
+                        한 업체에 책임이 집중되지 않도록 리스크를 분산합니다.
+                    </p>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="how-card">
+                    <span class="how-card__badge">하자 책임</span>
+                    <h3 class="how-card__title">명확한 책임 분담</h3>
+                    <p class="how-card__text">
+                        설계부터 시공 완료 이후 하자 처리까지 전 과정을 체계적으로 기록하고 관리하여,
+                        문제 발생 시 책임 소재를 명확히 구분할 수 있도록 합니다.
+                    </p>
+                </div>
+
+                <!-- 카드 3 -->
+                <div class="how-card">
+                    <span class="how-card__badge">투명한 비용</span>
+                    <h3 class="how-card__title">숨은 비용 제거</h3>
+                    <p class="how-card__text">
+                        하자가 발생할 경우 실제 발생한 비용만 정산하며, 사전에 포함되던 예비비와 같은
+                        숨은 비용은 제외했습니다.
+                    </p>
+                </div>
+
+                <!-- 카드 4 -->
+                <div class="how-card">
+                    <span class="how-card__badge">플랫폼 비용</span>
+                    <h3 class="how-card__title">최소한의 운영 비용</h3>
+                    <p class="how-card__text">
+                        빌더랜드는 최소한의 운영비만 반영해, 소비자가 최적의 비용으로 인테리어를 진행할 수 있도록 돕습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="corevalue">
+        <div class="headline">
+            <span class="eyebrow">core value</span>
+            <span class="title">인테리어 기준을<br>소비자 중심으로 바꿉니다.</span>
+        </div>
+        <div class="content">
+            <ul class="list-items">
+                <li class="title">리스크가 줄어듭니다.</li>
+                <li class="body">디자인 문제는 디자이너가, 시공 문제는 각 공정의 시공사가 책임집니다.</li>
+                <li class="body">책임이 분산된 구조로 리스크가 한 곳에 집중되지 않습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">숨은 비용이 없습니다.</li>
+                <li class="body">리스크에 대비한 예비비나 하자보수충당비를 미리 포함하지 않습니다.</li>
+                <li class="body">하자가 발생한 경우에만 실제 비용을 기준으로 정산합니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">공정별로 나누어 결제합니다.</li>
+                <li class="body">공정별 시공 완료 후 확인하고 결제합니다.</li>
+                <li class="body">진행 과정과 비용을 단계별로 직접 확인할 수 있습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">전문성은 그대로 유지됩니다.</li>
+                <li class="body">디자인은 전문 디자이너가, 시공은 공정별 전문 업체가 담당합니다.</li>
+                <li class="body">각 분야의 전문성을 유지하면서도 구조만 개선했습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">일정과 공정은 체계적으로 관리됩니다.</li>
+                <li class="body">현장 소장이 전체 일정과 공정을 관리합니다.</li>
+                <li class="body">각 공정은 확인과 승인 과정을 거쳐 안정적으로 진행됩니다.</li>
+            </ul>
+        </div>
+    </section>
+    <section class="action">
+        <div class="action-container">
+            <span class="action-description">
+                3분만에 우리집 인테리어 공사비를 알아보세요.
+            </span>
+            <!-- 변경: index 전용 CTA 색상 적용을 위한 클래스 추가 -->
+            <a href="self.html" class="action-cta action-cta--index">
+                <span class="label">셀프 견적해보기</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="round" />
+                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="bevel" />
+                </svg>
+            </a>
+        </div>
+    </section>
+    <section class="footer">
+        <div class="service-name">
+            builderland
+        </div>
+        <div class="info">
+            <ul class="list-items">
+                <li class="info-title">Company</li>
+                <li class="info-item">주식회사 똑똑한소비자</li>
+                <li class="info-item">사업자등록번호 702-86-01564</li>
+                <li class="info-item">(06541) 서울시 서초구 사평대로 57길 21-2, 4층</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Terms & Conditions</li>
+                <li class="info-item">개인정보처리방침</li>
+                <li class="info-item">이용약관</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Contact</li>
+                <li class="info-item">제휴 문의</li>
+            </ul>
+        </div>
+    </section>
 </body>
+
 </html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="service-name">builderland</div>
+        <button>자주 묻는 질문</button>
+    </header>
+    <section class="self-head">
+        <h1>셀프 견적</h1>
+        <span>공간 정보와 원하는 공사 범위를 선택하면 예상 견적 범위가 빠르게 계산됩니다.</span>
+    </section>
+    <section class="self-form">
+        <div class="self-form-items">
+            <div class="self-form-item">
+                <h2>공간 정보</h2>
+                <div class="self-form-item-content">
+                    <div class="self-form-select">
+                        <label for="type">유형</label>
+                        <select name="type" id="type">
+                            <option value="">공간 유형을 선택해주세요</option>
+                            <option value="1">아파트</option>
+                            <option value="2">오피스텔</option>
+                            <option value="3">주택</option>
+                        </select>
+                    </div>
+                    <div class="self-form-select">
+                        <label for="size">면적(평)</label>
+                        <select name="size" id="size">
+                            <option value="">공간 면적을 선택해주세요</option>
+                            <!-- 변경: 면적 옵션(15~70평)은 script/self-invoice.js에서 동적 생성 -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="self-form-item">
+                <h2>마감재</h2>
+                <div class="self-form-item-content">
+                    <div class="self-form-select">
+                        <label for="finish-grade">등급</label>
+                        <select name="finish-grade" id="finish-grade">
+                            <option value="">마감재 등급을 선택해주세요</option>
+                            <option value="1">베이직</option>
+                            <option value="2">스탠다드</option>
+                            <option value="3">프리미엄</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="self-form-item" id="self-form-range">
+                <h2>공사 범위</h2>
+                <div class="self-form-item-option">
+                    <div class="option-grid">
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="all">
+                            <span class="card-content">
+                                <span class="text">전체</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="kitchen">
+                            <span class="card-content">
+                                <span class="text">주방</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="bathroom">
+                            <span class="card-content">
+                                <span class="text">욕실</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="living">
+                            <span class="card-content">
+                                <span class="text">거실</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="room">
+                            <span class="card-content">
+                                <span class="text">침실</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="entrance">
+                            <span class="card-content">
+                                <span class="text">현관</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="self-form-item" id="self-form-optional">
+                <h2>선택 공사</h2>
+                <div class="self-form-item-option">
+                    <div class="option-grid">
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="all">
+                            <span class="card-content">
+                                <span class="text">발코니 확장</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="kitchen">
+                            <span class="card-content">
+                                <span class="text">창호</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="space[]" value="bathroom">
+                            <span class="card-content">
+                                <span class="text">시스템 에어컨</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 인보이스 번호 자동 생성을 위한 카드 영역 -->
+        <div class="estimate-card">
+            <h1 class="estimate-card__title">예상 견적</h1>
+
+            <div class="estimate-card__meta">
+                <!-- JS에서 자동 생성한 인보이스 번호가 표시되는 영역 -->
+                <span class="estimate-card__invoice"></span>
+                <!-- JS에서 오늘+7일(yyyy/mm/dd)로 자동 표시 -->
+                <span class="estimate-card__valid"></span>
+            </div>
+
+            <div class="estimate-card__price">
+                <p class="estimate-card__label">견적 금액(만원)</p>
+                <p class="estimate-card__range">0</p>
+            </div>
+
+            <div class="estimate-card__detail">
+                <h2 class="estimate-card__subtitle">세부 항목</h2>
+
+                <!-- 변경: 모바일에서 표는 래퍼를 100% fill로 두고 가로 스크롤로 확인 -->
+                <div class="estimate-table-scroll">
+                    <table class="estimate-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>항목</th>
+                                <th>최소금액(만원)</th>
+                                <th>최대금액(만원)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>기본 공사비</td>
+                                <td class="number">0</td>
+                                <td class="number">0</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>선택 공사비</td>
+                                <td class="number">0</td>
+                                <td class="number">0</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>직접 공사비 외 비용</td>
+                                <td class="number">0</td>
+                                <td class="number">0</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">합계(만원)</td>
+                                <td class="number">0</td>
+                                <td class="number">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="estimate-card__notice">
+                    <p>*예상 견적은 참고용입니다.</p>
+                    <p>*현장 조사 후 실제 견적과 차이가 발생할 수 있습니다.</p>
+                    <p>*모든 금액은 부가세 미포함 금액입니다.</p>
+                    <p>*직접 공사비 외 비용은 인허가, 보양, 현장관리 등이 포함된 비용입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="action">
+        <div class="action-container">
+            <span class="action-description">
+                예상 견적이 어떻게 나왔는지 확인해 보세요.
+            </span>
+            <button class="action-cta">
+                <span class="label">견적 비교</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="round" />
+                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="bevel" />
+                </svg>
+            </button>
+        </div>
+    </section>
+    <section class="footer">
+        <div class="service-name">
+            builderland
+        </div>
+        <div class="info">
+            <ul class="list-items">
+                <li class="info-title">Company</li>
+                <li class="info-item">주식회사 똑똑한소비자</li>
+                <li class="info-item">사업자등록번호 702-86-01564</li>
+                <li class="info-item">(06541) 서울시 서초구 사평대로 57길 21-2, 4층</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Terms & Conditions</li>
+                <li class="info-item">개인정보처리방침</li>
+                <li class="info-item">이용약관</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Contact</li>
+                <li class="info-item">제휴 문의</li>
+            </ul>
+        </div>
+    </section>
+    <!-- 셀프 견적 페이지 인보이스 번호 자동 생성 및 저장을 위한 스크립트 (모듈 로드로 변경) -->
+    <script type="module" src="script/self-invoice.js"></script>
+</body>
+
+</html>

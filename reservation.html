@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="service-name">builderland</div>
+        <button>자주 묻는 질문</button>
+    </header>
+    <section class="reservation-head">
+        <h1>상담 예약</h1>
+        <div class="notice">
+            <span class="title">안내 사항</span>
+            <div class="content">
+                <span class="body">상담은 신논현역에서 보도 1분 거리에 위치한 라운지에서 진행되며 예약이 확정되었어도 일정에 따라 조율될 수 있습니다. <br>BUILDERLAND
+                    서비스는 현재 초기 단계입니다. 아직 많은 사례는 없지만 그만큼 저희가 직접 서비스 구조를 설명하고 함께 프로젝트를 설계합니다.</span>
+                <span class="lounge">상담 라운지 위치: 서울시 서초구 사평대로 57길 21-2, 4층</span>
+            </div>
+        </div>
+    </section>
+    <form id="reservation-form" action="" method="">
+        <section class="reservation-form">
+            <h2>예약 정보 입력</h2>
+            <div class="reservation-form-item">
+                <span class="reservation-form-item-title">날짜와 시간을 선택해주세요.</span>
+                <input type="hidden" id="date" name="date">
+                <div class="calendar-wrapper">
+                    <div class="calendar-header">
+                        <button class="nav-btn" id="prev-month">
+                            <svg class="nav-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 26L10 16L20 6" stroke="currentColor" stroke-linecap="square"
+                                    stroke-linejoin="bevel" />
+                            </svg>
+                        </button>
+                        <div class="year-month" id="current-year-month">2026-02</div>
+                        <button class="nav-btn" id="next-month">
+                            <svg class="nav-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 26L22 16L12 6" stroke="currentColor" stroke-linecap="square"
+                                    stroke-linejoin="bevel" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="calendar-grid" id="calendar-grid">
+                        <div class="weekday">일</div>
+                        <div class="weekday">월</div>
+                        <div class="weekday">화</div>
+                        <div class="weekday">수</div>
+                        <div class="weekday">목</div>
+                        <div class="weekday">금</div>
+                        <div class="weekday">토</div>
+                        <!-- Javascript로 날짜 주입 -->
+                    </div>
+                </div>
+                <div class="time-group">
+                    <div class="time-group-item">
+                        <label for="time">오전</label>
+                        <button type="button" data-time="11:00">11:00</button>
+                    </div>
+                    <div class="time-group-item">
+                        <label for="time">오후</label>
+                        <button type="button" data-time="14:00">2:00</button>
+                    </div>
+                    <div class="time-group-item">
+                        <label for="time"></label>
+                        <button type="button" data-time="16:00">4:00</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reservation-form-item">
+                <span class="reservation-form-item-title">이름과 연락처를 작성해 주세요.</span>
+                <div class="reservation-form-item-content">
+                    <div class="reservation-form-item-content-item">
+                        <label for="name">이름</label>
+                        <input class="user-input" placeholder="홍길동" name="name" required>
+                    </div>
+                    <div class="reservation-form-item-content-item">
+                        <label for="phone">연락처</label>
+                        <input class="user-input" type="tel" placeholder="01012345678" name="phone" required>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="action" id="action">
+            <div class="action-container">
+                <span class="action-description">
+                    입력한 정보로 예약을 진행하며 개인정보 수집 및 이용 약관에 동의합니다.
+                </span>
+                <button class="action-cta">
+                    <span class="label">예약하기</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                            stroke-linejoin="round" />
+                        <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5"
+                            stroke-linecap="square" stroke-linejoin="bevel" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </form>
+    <section class="footer">
+        <div class="service-name">
+            builderland
+        </div>
+        <div class="info">
+            <ul class="list-items">
+                <li class="info-title">Company</li>
+                <li class="info-item">주식회사 똑똑한소비자</li>
+                <li class="info-item">사업자등록번호 702-86-01564</li>
+                <li class="info-item">(06541) 서울시 서초구 사평대로 57길 21-2, 4층</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Terms & Conditions</li>
+                <li class="info-item">개인정보처리방침</li>
+                <li class="info-item">이용약관</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Contact</li>
+                <li class="info-item">제휴 문의</li>
+            </ul>
+        </div>
+    </section>
+    <!-- Javascript: 모듈 스크립트로 변경하여 Supabase 연동을 사용할 수 있도록 수정 -->
+    <script type="module" src="script/reservation.js"></script>
+</body>
+
+</html>

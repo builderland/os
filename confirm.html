@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="service-name">builderland</div>
+        <button>자주 묻는 질문</button>
+    </header>
+    <section class="confirm">
+        <div class="confirm-container">
+            <div class="confirm-image">
+                <img src="assets/images/confirm_img.png" alt="Lounge Image">
+            </div>
+            <div class="confirm-content">
+                <h1>예약 완료</h1>
+                <dl>
+                    <dt>예약일</dt>
+                <dd id="confirm-date">2026년 2월 25일 수요일 오후 2:00</dd>
+
+                    <dt>예약자</dt>
+                <dd id="confirm-name">앨리스</dd>
+
+                    <dt>연락처</dt>
+                <dd id="confirm-phone">01012345678</dd>
+
+                    <dt>견적서</dt>
+                    <!-- 예약 완료 시 self 페이지에서 저장한 인보이스 번호를 표시하기 위한 영역 -->
+                    <dd id="confirm-invoice"></dd>
+                </dl>
+            </div>
+            <div class="confirm-lounge">
+                <span class="title">라운지 정보</span>
+                <dl>
+                    <dt>위치</dt>
+                    <dd>서울시 서초구 사평대로 57길 21-2, 4층(신논현역 도로 1분 거리)</dd>
+
+                    <dt>주차</dt>
+                    <dd>건물 1층에 주차 가능, 만차인 경우 근처 유료주차장 이용</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+    <section class="action">
+        <div class="action-container">
+            <span class="action-description">
+                확인 버튼을 클릭하면 메인페이지로 돌아갑니다. 예약 정보를 확인해 주세요.
+            </span>
+            <!-- 변경: 확인 CTA를 a 링크로 변경하여 index.html로 이동 -->
+            <a href="index.html" class="action-cta">
+                <span class="label">확인</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="round" />
+                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="bevel" />
+                </svg>
+            </a>
+        </div>
+    </section>
+    <section class="footer">
+        <div class="service-name">
+            builderland
+        </div>
+        <div class="info">
+            <ul class="list-items">
+                <li class="info-title">Company</li>
+                <li class="info-item">주식회사 똑똑한소비자</li>
+                <li class="info-item">사업자등록번호 702-86-01564</li>
+                <li class="info-item">(06541) 서울시 서초구 사평대로 57길 21-2, 4층</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Terms & Conditions</li>
+                <li class="info-item">개인정보처리방침</li>
+                <li class="info-item">이용약관</li>
+            </ul>
+            <ul class="list-items">
+                <li class="info-title">Contact</li>
+                <li class="info-item">제휴 문의</li>
+            </ul>
+        </div>
+    </section>
+    <!-- 예약 완료 페이지에서 sessionStorage에 저장된 예약 정보를 불러오기 위한 스크립트 -->
+    <script type="module" src="script/confirm.js"></script>
+</body>
+
+</html>

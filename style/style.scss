@@ -1,0 +1,2180 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Pretendard", sans-serif;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+
+    &:visited {
+        color: inherit;
+    }
+}
+
+// header
+body {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 150px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+
+
+        .service-name {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    // 변경: 모바일(0~767px) 헤더 패딩/버튼 크기 조정
+    @media (max-width: 767px) {
+        header {
+            padding: 16px 20px;
+
+            .service-name {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 12px 16px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+// index.html
+body {
+    .hero {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 176px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            .hero-content-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+                color: #fff;
+
+                .hero-content-title {
+                    font-size: 24px;
+                    font-weight: 500;
+                    line-height: 1.4;
+                    letter-spacing: -0.01em;
+                    text-align: center;
+                }
+
+                .hero-content-service-name {
+                    font-size: 48px;
+                    font-weight: 700;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    text-transform: uppercase;
+                }
+            }
+
+            .hero-button {
+                background-color: #fff;
+                color: #E15619;
+                border: none;
+                padding: 24px 48px;
+                border-radius: 50px;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 1;
+                text-align: center;
+                letter-spacing: -0.01em;
+            }
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .dim {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+    }
+
+    // 변경: 모바일(0~767px) 히어로 콘텐츠가 화면에 맞도록 간격/타이포/버튼 조정
+    @media (max-width: 767px) {
+        .hero {
+            .hero-content {
+                width: calc(100% - 40px);
+                gap: 56px;
+            }
+
+            .hero-content-text {
+                gap: 16px;
+
+                .hero-content-title {
+                    font-size: 18px;
+                    line-height: 1.5;
+                }
+
+                .hero-content-service-name {
+                    font-size: 36px;
+                }
+            }
+
+            .hero-button {
+                width: 100%;
+                max-width: 320px;
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .problem {
+        background: #1f1b1a;
+        color: #fff;
+        padding: 80px 150px;
+        padding-bottom: 0;
+
+        &__inner {
+            margin: 0 auto;
+        }
+
+        /* 헤더 */
+        &__header {
+            text-align: center;
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        &__desc {
+            margin-top: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+            color: #cfcfcf;
+        }
+
+        .highlight {
+            color: #f05a14;
+            font-weight: 700;
+        }
+
+        /* 카드 */
+        &__grid {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        /* 하단 문구 */
+        &__bottom {
+            margin: 0 auto;
+            margin-top: 600px;
+            // 변경: 한 줄 문구가 섹션 중앙에 오도록 정렬
+            width: 100%;
+            text-align: center;
+            // 변경: 브라우저 폭이 줄어도 줄바꿈 없이(1줄) 보이도록 처리
+            white-space: nowrap;
+            // 변경: 큰 화면에서 폰트가 작아 보이지 않도록 상한을 상향
+            font-size: clamp(28px, 8vw, 180px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #f1f1f1;
+        }
+    }
+
+    /* 카드 */
+    .problem-card {
+        background: #e9e9e9;
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        &__thumb {
+            height: 320px;
+            background: #dcdcdc;
+        }
+
+        &__content {
+            padding: 28px;
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: #f05a14;
+        }
+
+        &__text {
+            margin-top: 16px;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 500;
+            color: #777;
+        }
+
+        /* 오른쪽 카드 커스텀 */
+        &__thumb--cost {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px;
+            padding-bottom: 40px;
+        }
+
+        &__thumb-title {
+            font-size: 24px;
+            color: #777;
+            text-align: center;
+        }
+
+        &__tags {
+            margin-top: auto;
+            position: relative;
+            width: 100%;
+            height: 140px;
+            padding-bottom: 10px;
+            --tags-scale: 1;
+            transform: scale(var(--tags-scale));
+            transform-origin: center bottom;
+
+            span {
+                background: #f3f3f3;
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-size: 18px;
+                color: #333;
+                position: absolute;
+                left: 50%;
+                bottom: 20%;
+                transform: translate(-50%, -50%);
+
+                &:nth-child(1) {
+                    z-index: 4;
+                    transform: translate(-50%, -50%) translate(-90px, -30px) rotate(-22deg);
+                }
+
+                &:nth-child(2) {
+                    z-index: 3;
+                    transform: translate(-50%, -50%) translate(60px, -20px) rotate(11deg);
+                }
+
+                &:nth-child(3) {
+                    z-index: 2;
+                    transform: translate(-50%, -50%) translate(-56px, 35px) rotate(-6deg);
+                }
+
+                &:nth-child(4) {
+                    z-index: 1;
+                    transform: translate(-50%, -50%) translate(90px, 45px) rotate(4deg);
+                }
+            }
+        }
+    }
+
+    /* 반응형 */
+    @media (max-width: 1024px) {
+        .problem {
+            padding: 100px 16px;
+            padding-bottom: 0;
+
+            &__title {
+                font-size: 28px;
+            }
+
+            &__desc {
+                font-size: 16px;
+            }
+
+            &__bottom {
+                text-align: center;
+                font-size: clamp(28px, 8vw, 200px);
+                margin-top: 300px;
+            }
+        }
+
+        // 변경: 화면 축소 시 태그 스택 형태 유지(비율만 축소)
+        .problem-card__tags {
+            --tags-scale: 0.9;
+        }
+    }
+
+    // 변경: 모바일 브레이크포인트를 767px로 통일
+    @media (max-width: 767px) {
+        .problem {
+            &__grid {
+                grid-template-columns: 1fr;
+            }
+
+            &__bottom {
+                // 변경: 모바일에서 너무 작게 보이지 않도록 clamp로 스케일링
+                font-size: clamp(36px, 10vw, 64px);
+                // 변경: 모바일에서 과도한 여백(600px) 축소
+                margin-top: 160px;
+            }
+        }
+
+        // 변경: 모바일에서 태그 스택 형태 유지(비율만 축소)
+        .problem-card__tags {
+            --tags-scale: 0.78;
+            height: 120px;
+        }
+    }
+
+    .how {
+        background: #f3f3f3;
+        padding: 80px 150px;
+
+        &__inner {
+            margin: 0 auto;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__eyebrow {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            color: #777;
+            margin: 0 0 16px;
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.3;
+            color: #111;
+            letter-spacing: -0.03em;
+        }
+
+        &__desc {
+            margin-top: 32px;
+            font-size: 18px;
+            color: #777;
+        }
+
+        &__grid {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+    }
+
+    .how-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 32px;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+
+        &__badge {
+            display: inline-block;
+            background: #f05a14;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin-bottom: 64px;
+            width: fit-content;
+        }
+
+        &__title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: #111;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+        }
+
+        &__text {
+            margin-top: 14px;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #777;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .how {
+            padding: 80px 16px;
+
+            &__title {
+                font-size: 32px;
+            }
+
+            &__grid {
+                gap: 20px;
+            }
+        }
+
+        .how-card {
+            padding: 28px;
+
+            &__title {
+                font-size: 18px;
+            }
+
+            &__text {
+                font-size: 14px;
+            }
+        }
+    }
+
+    // 변경: 모바일 브레이크포인트를 767px로 통일
+    @media (max-width: 767px) {
+        .how {
+            &__grid {
+                grid-template-columns: 1fr;
+            }
+
+            &__title {
+                font-size: 26px;
+            }
+        }
+    }
+
+    .corevalue {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        padding: 80px 150px;
+        background-color: #555445;
+
+        .headline {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: #fff;
+
+            .eyebrow {
+                font-size: 14px;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            .title {
+                font-size: 32px;
+                font-weight: 600;
+                line-height: 1.3;
+                letter-spacing: -0.01em;
+            }
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+
+            .list-items {
+                padding-bottom: 16px;
+                border-bottom: solid 1px #777;
+
+                .title {
+                    font-size: 24px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    color: #fff;
+                    padding-bottom: 10px;
+                }
+
+                .body {
+                    font-size: 18px;
+                    font-weight: 300;
+                    line-height: 1.5;
+                    letter-spacing: -0.01em;
+                    color: #eee;
+                }
+            }
+        }
+    }
+
+    // 변경: 모바일(0~767px) corevalue 2컬럼 → 1컬럼 스택
+    @media (max-width: 767px) {
+        .corevalue {
+            flex-direction: column;
+            gap: 40px;
+            padding: 64px 20px;
+
+            .headline {
+                .title {
+                    font-size: 26px;
+                }
+            }
+
+            .content {
+                gap: 40px;
+
+                .list-items {
+                    .title {
+                        font-size: 18px;
+                    }
+
+                    .body {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//self.html
+body {
+    .self-head {
+        padding: 150px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: #F9F8F4;
+
+        h1 {
+            font-size: 64px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        span {
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    section.self-form {
+        padding: 80px 150px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        background-color: #F9F8F4;
+        width: 100%;
+
+        .self-form-items {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: 56px;
+            border-radius: 24px;
+            padding: 40px;
+            background-color: #fff;
+
+            .self-form-item {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                h2 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.03em;
+                    margin: 0;
+                }
+
+                .self-form-item-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+
+                    .self-form-select {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: start;
+                        align-items: start;
+                        gap: 10px;
+
+                        label {
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 1;
+                            letter-spacing: -0.02em;
+                        }
+
+                        select {
+                            width: 100%;
+                            padding: 16px;
+                            padding-right: 24px;
+                            border-radius: 8px;
+                            border: 1px solid #E2E4E8;
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 1;
+                            letter-spacing: -0.01em;
+                            background-color: #fff;
+                            color: #50545D;
+                        }
+                    }
+                }
+            }
+
+            #self-form-range,
+            #self-form-optional {
+                .option-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+                }
+
+                /* 카드 기본 */
+                .card {
+                    cursor: pointer;
+                }
+
+                .card input {
+                    display: none;
+                }
+
+                .card-content {
+                    border: 1px solid #E2E4E8;
+                    border-radius: 8px;
+                    padding: 16px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: all 0.2s ease;
+                    background: #fff;
+                }
+
+                /* 텍스트 */
+                .text {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                }
+
+                /* 체크 네모 */
+                .check-icon {
+                    width: 24px;
+                    height: 24px;
+                    border: 1px solid #E2E4E8;
+                    border-radius: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                /* 선택되었을 때 */
+                .card input:checked+.card-content {
+                    background: #f05a1a;
+                    color: white;
+                }
+
+                /* 선택 시 체크 아이콘 스타일 */
+                .card input:checked+.card-content .check-icon {
+                    background: white;
+                    border-color: white;
+                }
+
+                .card input:checked+.card-content .check-icon::after {
+                    content: "✓";
+                    color: #f05a1a;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .estimate-card {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            border-radius: 24px;
+            padding: 40px;
+            background-color: #fff;
+
+            &__title {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                margin-bottom: 56px;
+            }
+
+            &__meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #E2E4E8;
+                margin-bottom: 40px;
+                color: #90939B;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1;
+                letter-spacing: -0.01em;
+            }
+
+            &__price {
+                margin-bottom: 80px;
+
+                .estimate-card__label {
+                    font-size: 16px;
+                    letter-spacing: -0.03em;
+                    margin-bottom: 32px;
+                    font-weight: 600;
+                    line-height: 1;
+                }
+
+                .estimate-card__range {
+                    font-size: 48px;
+                    font-weight: 600;
+                    text-align: right;
+                    letter-spacing: -0.03em;
+                    line-height: 1;
+                }
+            }
+
+            &__subtitle {
+                font-size: 16px;
+                letter-spacing: -0.03em;
+                margin-bottom: 16px;
+                font-weight: 600;
+                line-height: 1;
+            }
+
+            .estimate-table {
+                width: 100%;
+                border-collapse: collapse;
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                margin-bottom: 32px;
+
+                th,
+                td {
+                    padding: 18px 10px;
+                    font-size: 14px;
+                    border-bottom: 1px solid #e5e5e5;
+                }
+
+                th {
+                    text-align: left;
+                    font-weight: 600;
+                    color: #666;
+                }
+
+                thead th:nth-child(3),
+                thead th:nth-child(4) {
+                    text-align: right;
+                }
+
+                td {
+                    color: #111;
+                }
+
+                .number {
+                    text-align: right;
+                    font-weight: 500;
+                }
+
+                tfoot {
+                    td {
+                        font-weight: 700;
+                        border-top: 1px solid #000;
+                        border-bottom: none;
+                        padding-top: 22px;
+                        padding-bottom: 22px;
+                        font-size: 14px;
+                    }
+                }
+
+                tbody tr:last-child td {
+                    border-bottom: none;
+                }
+            }
+
+            &__notice {
+                font-size: 12px;
+                color: #9a9a9a;
+                line-height: 1.3;
+
+                p {
+                    margin: 0 0 6px 0;
+                }
+            }
+        }
+    }
+
+    // 변경: self.html 모바일(0~767px) 1열 스택/패딩 축소/타이포 조정
+    @media (max-width: 767px) {
+        .self-head {
+            padding: 96px 20px 16px;
+            gap: 12px;
+
+            h1 {
+                font-size: clamp(32px, 9vw, 44px);
+            }
+
+            span {
+                font-size: clamp(14px, 4.2vw, 16px);
+                line-height: 1.45;
+            }
+        }
+
+        section.self-form {
+            padding: 24px 20px 56px;
+            flex-direction: column;
+            gap: 16px;
+
+            .self-form-items {
+                padding: 24px;
+                gap: 32px;
+
+                .self-form-item {
+                    h2 {
+                        font-size: 18px;
+                    }
+
+                    .self-form-item-content {
+                        gap: 16px;
+                    }
+                }
+
+                #self-form-range,
+                #self-form-optional {
+                    .option-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+
+                    .card-content {
+                        padding: 14px;
+                    }
+
+                    .text {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .estimate-card {
+                padding: 24px;
+
+                &__title {
+                    font-size: 18px;
+                    margin-bottom: 28px;
+                }
+
+                &__meta {
+                    font-size: 12px;
+                    margin-bottom: 24px;
+                }
+
+                &__price {
+                    margin-bottom: 40px;
+
+                    .estimate-card__label {
+                        font-size: 14px;
+                        margin-bottom: 16px;
+                    }
+
+                    .estimate-card__range {
+                        font-size: clamp(28px, 9vw, 40px);
+                    }
+                }
+
+                // 변경: 모바일에서 표는 래퍼를 100% fill로 두고 가로 스크롤로 확인(레이아웃 유지)
+                .estimate-table-scroll {
+                    width: 100%;
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .estimate-table {
+                    width: 100%;
+                    min-width: 520px;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}
+
+//about.html
+body {
+    .about-head {
+        padding: 150px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: #F9F8F4;
+
+
+        h1 {
+            font-size: 64px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        span {
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+    }
+
+    // 변경: about.html 모바일(0~767px) 패딩/타이포 최적화
+    @media (max-width: 767px) {
+        .about-head {
+            padding: 96px 20px 16px;
+            gap: 12px;
+
+            h1 {
+                font-size: clamp(32px, 9vw, 44px);
+                line-height: 1.15;
+            }
+
+            span {
+                font-size: clamp(14px, 4.2vw, 16px);
+                line-height: 1.45;
+            }
+        }
+    }
+
+    .feature {
+        padding: 80px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background-color: #F9F8F4;
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .list-items {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            gap: 24px;
+            width: 100%;
+            // 변경: feature 리스트 컨테이너가 가로로 꽉 차도록 보장
+            flex: 1 1 auto;
+
+            .feature-item {
+                position: relative;
+                flex: 1;
+                background-color: #fff;
+                padding: 24px;
+                border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 80px;
+
+                .tag {
+                    position: absolute;
+                    top: 24px;
+                    right: 24px;
+                    padding: 10px 16px;
+                    background-color: #F8F9FC;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                .item-title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1.3;
+                    letter-spacing: -0.01em;
+                }
+
+                .feature-description {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    li {
+                        font-size: 16px;
+                        font-weight: 300;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                        display: flex;
+                        gap: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+    // 변경: about.html 모바일(0~767px) 특징 카드 1열 스택
+    @media (max-width: 767px) {
+        .feature {
+            padding: 48px 20px;
+            gap: 16px;
+
+            .feature-title {
+                font-size: 18px;
+            }
+
+            .list-items {
+                flex-direction: column;
+                gap: 16px;
+                // 변경: 세로 스택에서 자식 카드가 가로로 stretch되도록
+                align-items: stretch;
+                width: 100%;
+
+                .feature-item {
+                    padding: 20px;
+                    gap: 36px;
+                    // 변경: 1열 카드가 컨테이너 폭을 fill
+                    width: 100%;
+
+                    .tag {
+                        top: 16px;
+                        right: 16px;
+                        padding: 8px 12px;
+                        font-size: 13px;
+                    }
+
+                    .item-title {
+                        font-size: 18px;
+                    }
+
+                    .feature-description {
+                        li {
+                            font-size: 14px;
+                            line-height: 1.35;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .process {
+        padding: 80px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background-color: #F9F8F4;
+
+        .process-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .phase {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .phase-item {
+                padding: 16px;
+                padding-bottom: 24px;
+                border-radius: 8px;
+                background-color: #fff;
+                display: flex;
+                justify-content: start;
+                align-items: start;
+                gap: 16px;
+
+                .phase-numbering {
+                    width: 32px;
+                    height: 32px;
+                    padding: 8px;
+                    background-color: #F8F9FC;
+                    border-radius: 8px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                #phase-highlight {
+                    background-color: #EA591A;
+                    color: #fff;
+                }
+
+                .phase-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: start;
+                    gap: 20px;
+                    padding-top: 7px;
+
+                    .phase-title {
+                        font-size: 18px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                    }
+
+                    .phase-description {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+
+                        li {
+                            font-size: 16px;
+                            font-weight: 300;
+                            line-height: 1;
+                            letter-spacing: -0.01em;
+                        }
+                    }
+                }
+            }
+
+            .phase-caption {
+                li {
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 1.4;
+                    letter-spacing: -0.01em;
+                    color: #90939B;
+                }
+            }
+        }
+    }
+
+    // 변경: about.html 모바일(0~767px) 공정 단계 간격/타이포 최적화
+    @media (max-width: 767px) {
+        .process {
+            padding: 48px 20px;
+            gap: 16px;
+
+            .process-title {
+                font-size: 18px;
+            }
+
+            .phase {
+                gap: 12px;
+
+                .phase-item {
+                    padding: 14px;
+                    padding-bottom: 18px;
+                    gap: 12px;
+
+                    .phase-content {
+                        gap: 12px;
+
+                        .phase-title {
+                            font-size: 16px;
+                        }
+
+                        .phase-description {
+                            li {
+                                font-size: 14px;
+                                line-height: 1.4;
+                            }
+                        }
+                    }
+                }
+
+                .phase-caption {
+                    li {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    // 변경: about-bottom 카드 섹션 스타일 추가
+    .about-bottom {
+        padding: 80px 150px;
+        background-color: #F9F8F4;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .about-bottom-head {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .about-bottom-container {
+            width: 100%;
+        }
+
+        .about-bottom-cards {
+            display: flex;
+            justify-content: start;
+            align-items: stretch;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .about-bottom-card {
+            position: relative;
+            flex: 1;
+            background-color: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-bottom-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        .about-bottom-caption {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 14px;
+            border-radius: 999px;
+            background-color: #EA591A;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .about-bottom-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 0;
+            padding-bottom: 80px;
+            list-style: none;
+
+            li {
+                font-size: 16px;
+                font-weight: 300;
+                line-height: 1.2;
+                letter-spacing: -0.01em;
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+
+                svg {
+                    flex: 0 0 auto;
+                    margin-top: 1px;
+                }
+            }
+        }
+
+        .about-bottom-btn {
+            margin-top: auto;
+            width: 100%;
+            height: 56px;
+            border-radius: 999px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            cursor: pointer;
+
+            &.is-disabled {
+                background-color: #EEF0F4;
+                color: #7A7E87;
+                cursor: not-allowed;
+            }
+
+            &.is-primary {
+                background-color: #EA591A;
+                color: #fff;
+            }
+        }
+
+        .about-bottom-card.is-builderland {
+            border: 2px solid #EA591A;
+        }
+
+        // 변경: 모바일 브레이크포인트를 767px로 통일
+        @media (max-width: 767px) {
+            padding: 48px 20px;
+
+            .about-bottom-cards {
+                flex-direction: column;
+            }
+
+            .about-bottom-card {
+                padding: 24px;
+            }
+        }
+    }
+}
+
+//reservation.html
+body {
+    .reservation-head {
+        margin-top: 80px;
+        padding: 80px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+
+        h1 {
+            font-size: 64px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .notice {
+            background-color: #F9F9F9;
+            padding: 24px;
+            border: none;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .title {
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .content {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .body {
+                    font-size: 18px;
+                    font-weight: 400;
+                    line-height: 1.4;
+                    letter-spacing: -0.02em;
+                }
+
+                .lounge {
+                    font-size: 18px;
+                    font-weight: 300;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                    color: #50545D;
+                }
+            }
+        }
+    }
+
+    .reservation-form {
+        padding: 80px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .reservation-form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .reservation-form-item-title {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 1;
+                letter-spacing: -0.01em;
+            }
+
+            .time-group {
+                display: flex;
+                justify-content: start;
+                align-items: flex-end;
+                gap: 10px;
+                margin-bottom: 40px;
+
+                .time-group-item {
+                    display: flex;
+                    flex: 1;
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: start;
+                    gap: 12px;
+
+                    label {
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                        letter-spacing: -0.02em;
+                        height: 100%;
+                    }
+
+                    button {
+                        background-color: #fff;
+                        border: 1px solid #E2E4E8;
+                        padding: 24px 24px;
+                        border-radius: 8px;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        font-size: 16px;
+                        font-weight: 300;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+
+                        // 기본 hover (선택/비활성 아닐 때만)
+                        &:hover:not(.is-active):not(:disabled) {
+                            background-color: #F9FAFB; // 아주 연한 회색
+                            cursor: pointer;
+                        }
+
+                        // 시간 버튼이 선택된 상태일 때 스타일을 위한 클래스
+                        &.is-active {
+                            border-color: #EA591A;
+                            background-color: #EA591A;
+                            color: #ffffff;
+                        }
+
+                        // 시간 버튼이 비활성화(disabled) 되었을 때 스타일
+                        &:disabled {
+                            color: #9CA3AF;
+                            cursor: not-allowed;
+                        }
+
+                        // 선택된 상태라도 비활성화가 우선 적용되도록 하는 조합 스타일
+                        &.is-active:disabled {
+                            background-color: #E5E7EB;
+                            border-color: #D1D5DB;
+                            color: #9CA3AF;
+                        }
+                    }
+                }
+            }
+
+            .reservation-form-item-content {
+                display: flex;
+                justify-content: start;
+                // 변경: 입력 영역이 가로로 꽉 차도록 stretch 적용
+                align-items: stretch;
+                gap: 10px;
+                // 변경: 컨테이너가 부모 폭을 fill
+                width: 100%;
+
+                .reservation-form-item-content-item {
+                    display: flex;
+                    flex: 1;
+                    flex-direction: column;
+                    gap: 16px;
+                    // 변경: 각 입력 블록이 가로로 꽉 차도록
+                    width: 100%;
+
+                    label {
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                        letter-spacing: -0.02em;
+                    }
+
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        padding: 24px;
+                        border-radius: 8px;
+                        border: 1px solid #E2E4E8;
+                        // 변경: input이 inline 성질로 줄어들지 않게 보강
+                        display: block;
+                        width: 100%;
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                    }
+
+                    .user-input::placeholder {
+                        color: #E2E4E8;
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                    }
+                }
+            }
+
+            .calendar-wrapper {
+                border: 1px solid #E2E4E8;
+                border-radius: 8px;
+                padding: 40px 0px;
+                margin-bottom: 16px;
+
+                .calendar-header {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 32px;
+                    gap: 16px;
+                    font-size: 18px;
+                    font-weight: 500;
+
+                    .nav-btn {
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        color: #d1d1d1; // SVG 스트로크 기본 색상
+                        padding: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .nav-btn:hover {
+                        color: #000;
+                        /* 오버시 SVG 스트로크 색상 변경 */
+                        transform: scale(1.1);
+                    }
+
+                    /* 비활성화(현재 달)일 때: hover 없음, 커서 기본 */
+                    .nav-btn:disabled {
+                        cursor: default;
+                        pointer-events: none;
+                    }
+
+                    /* SVG 아이콘 스타일 (크기 및 선 두께 변경 가능) */
+                    .nav-icon {
+                        width: 20px;
+                        height: 20px;
+                        stroke-width: 2px;
+                    }
+                }
+
+                .calendar-grid {
+                    display: grid;
+                    grid-template-columns: repeat(7, 1fr);
+                    grid-auto-rows: auto;
+                    row-gap: 24px;
+                    text-align: center;
+
+                    .weekday {
+                        font-size: 16px;
+                        font-weight: 500;
+                        margin-bottom: 8px;
+                    }
+
+                    .date-cell {
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        height: 44px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        user-select: none;
+                    }
+
+                    .date-number {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 8px;
+                        transition: background-color 0.2s, color 0.2s;
+                    }
+
+                    /* 지나간 날짜 스타일 */
+                    .date-cell.past {
+                        color: #cdcdcd;
+                        cursor: not-allowed;
+                        pointer-events: none;
+                    }
+
+                    /* 오늘 날짜 스타일 */
+                    .date-cell.today {
+                        font-weight: 600;
+                    }
+
+                    .today-label {
+                        position: absolute;
+                        bottom: -16px;
+                        font-size: 11px;
+                        font-weight: 500;
+                    }
+
+                    /* 마우스 오버(호버) 및 선택 가능 날짜 - date-number에서만 */
+                    .date-cell:not(.past):not(.selected) .date-number {
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #f0f0f0;
+                        }
+                    }
+
+                    /* 선택된 날짜 스타일 */
+                    .date-cell.selected .date-number {
+                        background-color: #EA591A;
+                        color: #fff;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+
+    // 변경: reservation.html 모바일(0~767px) 패딩/타이포/레이아웃 최적화
+    // 변경: 기본 스타일 선언 이후에 위치시켜 모바일 규칙이 덮어쓰도록 순서 정리
+    @media (max-width: 767px) {
+        .reservation-head {
+            margin-top: 64px;
+            padding: 96px 20px 16px;
+            gap: 20px;
+
+            h1 {
+                font-size: clamp(32px, 9vw, 44px);
+            }
+
+            .notice {
+                border-radius: 16px;
+                padding: 18px;
+                gap: 16px;
+
+                .title {
+                    font-size: 16px;
+                }
+
+                .content {
+                    .body {
+                        font-size: 14px;
+                        line-height: 1.5;
+                    }
+
+                    .lounge {
+                        font-size: 14px;
+                        line-height: 1.4;
+                    }
+                }
+            }
+        }
+
+        .reservation-form {
+            padding: 24px 20px 56px;
+            gap: 24px;
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .reservation-form-item {
+                gap: 16px;
+
+                .reservation-form-item-title {
+                    font-size: 16px;
+                    line-height: 1.4;
+                }
+
+                .calendar-wrapper {
+                    padding: 20px 0;
+
+                    .calendar-header {
+                        margin-bottom: 20px;
+                        gap: 12px;
+                        font-size: 16px;
+                    }
+
+                    .calendar-grid {
+                        row-gap: 12px;
+
+                        .weekday {
+                            font-size: 13px;
+                            margin-bottom: 6px;
+                        }
+
+                        .date-cell {
+                            height: 40px;
+                            font-size: 14px;
+                        }
+
+                        .date-number {
+                            width: 44px;
+                            height: 44px;
+                        }
+
+                        .today-label {
+                            bottom: -14px;
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                .time-group {
+                    margin-bottom: 24px;
+                    flex-direction: column;
+                    align-items: stretch;
+
+                    .time-group-item {
+                        width: 100%;
+                        gap: 10px;
+
+                        label {
+                            font-size: 14px;
+                        }
+
+                        button {
+                            padding: 18px 16px;
+                            font-size: 15px;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+
+                .reservation-form-item-content {
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .reservation-form-item-content-item {
+                        gap: 12px;
+
+                        label {
+                            font-size: 14px;
+                        }
+
+                        input {
+                            padding: 18px 16px;
+                            font-size: 15px;
+                        }
+
+                        .user-input::placeholder {
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//confirm.html
+body {
+    .confirm {
+        padding: 150px;
+        padding-bottom: 20px;
+        background-color: #F9F8F4;
+
+        .confirm-container {
+            width: 100%;
+            padding: 32px;
+            padding-bottom: 40px;
+            background-color: #fff;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            .confirm-image {
+                width: 100%;
+                height: 300px;
+                border-radius: 16px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            }
+
+            .confirm-content {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                h1 {
+                    font-size: 40px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    margin: 0;
+                }
+
+                dl {
+                    display: grid;
+                    grid-template-columns: 50px 1fr;
+                    gap: 8px;
+
+                    dt {
+                        color: #888;
+                    }
+
+                    dd {
+                        margin: 0;
+                    }
+                }
+            }
+
+            .confirm-lounge {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .title {
+                    font-size: 24px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                dl {
+                    display: grid;
+                    grid-template-columns: 50px 1fr;
+                    gap: 8px;
+
+                    dt {
+                        color: #888;
+                    }
+
+                    dd {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // 변경: confirm.html 모바일(0~767px) 패딩/타이포/정보 레이아웃 최적화
+    @media (max-width: 767px) {
+        .confirm {
+            // 변경: 고정 헤더를 고려해 상단 패딩 축소(모바일)
+            padding: 96px 20px 16px;
+
+            .confirm-container {
+                // 변경: 카드 내부 여백/라운딩/간격 축소
+                padding: 24px;
+                padding-bottom: 28px;
+                border-radius: 18px;
+                gap: 24px;
+
+                .confirm-image {
+                    // 변경: 모바일에서 이미지 높이 유연화(너무 큰 고정 높이 방지)
+                    height: clamp(180px, 48vw, 240px);
+                    border-radius: 14px;
+                }
+
+                .confirm-content {
+                    gap: 14px;
+
+                    h1 {
+                        // 변경: 모바일 타이포 스케일 다운
+                        font-size: clamp(26px, 7.5vw, 32px);
+                        line-height: 1.15;
+                        margin: 0;
+                    }
+
+                    // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
+                    dl {
+                        display: grid;
+                        // 변경: 라벨 폭을 확보해 줄바꿈/겹침 방지(필요 시 60~90px 조절)
+                        grid-template-columns: 72px 1fr;
+                        // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
+                        // 변경: dt/dd 간격 추가 축소
+                        column-gap: 0px;
+                        row-gap: 6px;
+
+                        dt {
+                            // 변경: 예약일/예약자/연락처/견적서 라벨-값 폰트 크기 통일
+                            font-size: 15px;
+                            line-height: 1.45;
+                            white-space: nowrap;
+                        }
+
+                        dd {
+                            margin: 0;
+                            font-size: 15px;
+                            line-height: 1.45;
+                            overflow-wrap: anywhere;
+                            // 변경: 그리드에서 긴 텍스트 오버플로우 방지 보강
+                            min-width: 0;
+                        }
+                    }
+                }
+
+                .confirm-lounge {
+                    gap: 12px;
+
+                    .title {
+                        // 변경: 모바일 타이포 스케일 다운
+                        font-size: 18px;
+                    }
+
+                    // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
+                    dl {
+                        display: grid;
+                        grid-template-columns: 72px 1fr;
+                        // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
+                        // 변경: dt/dd 간격 추가 축소
+                        column-gap: 0px;
+                        row-gap: 6px;
+
+                        dt {
+                            // 변경: 위치/주차 라벨-값 폰트 크기 통일
+                            font-size: 15px;
+                            line-height: 1.45;
+                            white-space: nowrap;
+                        }
+
+                        dd {
+                            margin: 0;
+                            font-size: 15px;
+                            line-height: 1.45;
+                            overflow-wrap: anywhere;
+                            min-width: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//action CTA
+body {
+    .action {
+        padding: 40px 150px;
+        padding-bottom: 160px;
+        background-color: #F9F8F4;
+
+        .action-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+            border-radius: 24px;
+            background-color: #fff;
+
+            .action-description {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1;
+                letter-spacing: -0.01em;
+            }
+
+            .action-cta {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                background-color: #000;
+                border: none;
+                padding: 16px 24px;
+                border-radius: 50px;
+                cursor: pointer;
+
+                span {
+                    color: #fff;
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    text-align: center;
+                }
+            }
+
+            // 변경: index 전용 CTA 색상 오버라이드
+            .action-cta--index {
+                background-color: #EA591A;
+            }
+        }
+    }
+
+    // 변경: 모바일(0~767px) CTA 섹션 세로 스택/패딩 축소
+    @media (max-width: 767px) {
+        .action {
+            padding: 32px 20px;
+            padding-bottom: 96px;
+
+            .action-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+                padding: 24px;
+            }
+
+            .action-description {
+                line-height: 1.4;
+                font-size: 16px;
+                // 변경: 모바일에서는 CTA 설명 문구 숨김 처리
+                display: none;
+            }
+
+            .action-cta {
+                width: 100%;
+            }
+        }
+    }
+
+    #action {
+        background-color: #fff;
+
+        .action-container {
+            background-color: #F9F9F9;
+        }
+    }
+
+    //footer
+    .footer {
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        padding: 80px 150px;
+        background-color: #0D0D0D;
+
+        .service-name {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+
+            .list-items {
+                flex: 1;
+                color: #fff;
+
+                .info-title {
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    padding-bottom: 24px;
+                }
+
+                .info-item {
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 1.7;
+                    letter-spacing: -0.01em;
+                }
+            }
+        }
+    }
+
+    // 변경: 모바일(0~767px) footer 정보 영역 스택/패딩 축소
+    @media (max-width: 767px) {
+        .footer {
+            gap: 40px;
+            padding: 64px 20px;
+
+            .service-name {
+                font-size: 20px;
+            }
+
+            .info {
+                flex-direction: column;
+                gap: 28px;
+
+                .list-items {
+                    .info-title {
+                        padding-bottom: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
