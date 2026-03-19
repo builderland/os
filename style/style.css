@@ -436,6 +436,169 @@ body .how-card__text {
     font-size: 26px;
   }
 }
+body .process-wrapper {
+  padding: 150px;
+  padding-bottom: 300px;
+  margin: 0 auto;
+  background-color: #F9F8F4;
+}
+body .process-wrapper .header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+body .process-wrapper .header-sub {
+  font-size: 14px;
+  font-weight: 500;
+  color: #777;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+}
+body .process-wrapper .header-main {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+  margin: 0;
+}
+body .process-wrapper .timeline-section {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  position: relative;
+}
+body .process-wrapper .pre-phase {
+  flex: 2.8;
+  display: flex;
+  flex-direction: column;
+}
+body .process-wrapper .post-phase {
+  flex: 7.2;
+  display: flex;
+  flex-direction: column;
+}
+body .process-wrapper .bracket-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+  margin-bottom: 25px;
+}
+body .process-wrapper .bracket-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e5e5e5;
+  z-index: 1;
+}
+body .process-wrapper .bracket-tick-left,
+body .process-wrapper .bracket-tick-right {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 16px;
+  transform: translateY(-50%);
+  background-color: #e5e5e5;
+  z-index: 1;
+}
+body .process-wrapper .bracket-tick-left {
+  left: 0;
+}
+body .process-wrapper .bracket-tick-right {
+  right: 0;
+}
+body .process-wrapper .bracket-text {
+  background-color: #F9F8F4;
+  padding: 0 16px;
+  z-index: 2;
+  color: #a0a0a0;
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+}
+body .process-wrapper .blocks-container {
+  display: flex;
+  gap: 0;
+  height: 64px;
+}
+body .process-wrapper .gray-block {
+  background-color: #8C939A;
+  border-radius: 40px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+body .process-wrapper .block-design {
+  flex: 0.9;
+}
+body .process-wrapper .block-match {
+  flex: 1.1;
+}
+body .process-wrapper .black-blocks {
+  background-color: #000;
+  border-radius: 40px;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+}
+body .process-wrapper .black-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+}
+body .process-wrapper .black-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: calc(100% + 24px);
+  width: 1px;
+  transform: translateX(50%);
+  background-image: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px), repeating-linear-gradient(to bottom, #777 0px, #777 4px, transparent 4px, transparent 8px);
+  background-size: 100% 64px, 100% 24px;
+  background-position: 0 0, 0 64px;
+  background-repeat: no-repeat;
+  z-index: 10;
+}
+body .process-wrapper .payments-container {
+  display: flex;
+  width: 100%;
+  padding-top: 0;
+}
+body .process-wrapper .payment-slot {
+  flex: 1;
+  position: relative;
+}
+body .process-wrapper .payment-marker {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+body .process-wrapper .payment-line {
+  width: 1px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+body .process-wrapper .payment-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
 body .corevalue {
   display: flex;
   justify-content: space-between;
@@ -454,6 +617,7 @@ body .corevalue .headline .eyebrow {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.12em;
+  color: #777;
   text-transform: uppercase;
 }
 body .corevalue .headline .title {
