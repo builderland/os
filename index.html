@@ -51,7 +51,9 @@
 
                 <!-- 카드 1 -->
                 <div class="problem-card">
-                    <div class="problem-card__thumb"></div>
+                    <div class="problem-card__thumb">
+                        <img src="assets/images/section_img.png" alt="image">
+                    </div>
 
                     <div class="problem-card__content">
                         <h3 class="problem-card__title">리스크 과중</h3>
@@ -71,11 +73,17 @@
                             소비자가 부담하는 하자보수충당부채 + α
                         </p>
 
+                        <!-- 변경: 태그 묶음을 한 블록으로 가운데 정렬하기 위한 내부 래퍼 -->
                         <div class="problem-card__tags">
-                            <span>리스크 대비 비용</span>
-                            <span>하자 대비 비용</span>
-                            <span>일정 지연 비용</span>
-                            <span>분쟁 대응 비용</span>
+                            <div class="problem-card__tags-inner">
+                                <span>리스크 대비 비용</span>
+                                <span>하자 대비 비용</span>
+                                <span>일정 지연 비용</span>
+                                <span>분쟁 대응 비용</span>
+                                <span>마케팅 비용</span>
+                                <span>직원 월급</span>
+                                <span>임대료</span>
+                            </div>
                         </div>
                     </div>
 
@@ -88,7 +96,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
 
             <!-- 하단 문구 -->
@@ -157,8 +164,12 @@
     <section class="process-wrapper">
         <div class="header">
             <div class="header-sub">PROCESS</div>
-            <h2 class="header-main">시공 업체에게 시공이 완료된<br>공정별로 결제</h2>
+            <h2 class="header-main">시공이 완료된 공정별로 <br> 시공 업체에 결제</h2>
         </div>
+
+        <!-- 변경: 모바일 전용 이미지로 프로세스 UI 대체 -->
+        <img class="process-mobile-image" src="assets/images/process_mobile.png"
+            alt="시공 공정별 결제 프로세스 모바일 버전">
 
         <div class="timeline-section">
 

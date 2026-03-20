@@ -39,7 +39,6 @@ body {
         right: 0;
         z-index: 100;
 
-
         .service-name {
             font-size: 16px;
             font-weight: 700;
@@ -260,8 +259,21 @@ body {
         flex-direction: column;
 
         &__thumb {
-            height: 320px;
+            height: 360px;
             background: #dcdcdc;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+
+            // 변경: thumb 내부 이미지가 부모 박스에 꽉 맞도록 처리
+            img {
+                // 변경: width 기준이 아니라 height 기준으로 맞춤
+                width: auto;
+                height: 100%;
+                object-fit: contain;
+                display: block;
+                margin: 0 auto;
+            }
         }
 
         &__content {
@@ -309,8 +321,19 @@ body {
             --tags-scale: 1;
             transform: scale(var(--tags-scale));
             transform-origin: center bottom;
+            // 변경: thumb--cost의 align-items:center 때문에 tags가 내용폭만 잡혀 margin/translate가 안 먹는 문제 방지 → 풀폭 사용
+            align-self: stretch;
+            // 변경: thumb 카드 가로폭 안에서 inner 블록을 margin으로 가운데 정렬
+            display: block;
 
-            span {
+            // 변경: 태그 덩어리 기준 박스 — thumb 카드 안 가로 중앙 (좁은 카드는 100%까지 축소)
+            &-inner {
+                position: relative;
+                height: 100%;
+                transform: translateY(12px);
+            }
+
+            &-inner span {
                 background: #f3f3f3;
                 padding: 12px 16px;
                 border-radius: 8px;
@@ -322,23 +345,31 @@ body {
                 transform: translate(-50%, -50%);
 
                 &:nth-child(1) {
-                    z-index: 4;
                     transform: translate(-50%, -50%) translate(-90px, -30px) rotate(-22deg);
                 }
 
                 &:nth-child(2) {
-                    z-index: 3;
                     transform: translate(-50%, -50%) translate(60px, -20px) rotate(11deg);
                 }
 
                 &:nth-child(3) {
-                    z-index: 2;
                     transform: translate(-50%, -50%) translate(-56px, 35px) rotate(-6deg);
                 }
 
                 &:nth-child(4) {
-                    z-index: 1;
                     transform: translate(-50%, -50%) translate(90px, 45px) rotate(4deg);
+                }
+
+                &:nth-child(5) {
+                    transform: translate(-50%, -50%) translate(-150px, -70px) rotate(-18deg);
+                }
+
+                &:nth-child(6) {
+                    transform: translate(-50%, -50%) translate(40px, -80px) rotate(11deg);
+                }
+
+                &:nth-child(7) {
+                    transform: translate(-50%, -50%) translate(-175px, 48px) rotate(3deg);
                 }
             }
         }
@@ -392,7 +423,6 @@ body {
             height: 120px;
         }
     }
-
 
     
     .how {
@@ -520,6 +550,13 @@ body {
         padding-bottom: 300px;
         margin: 0 auto;
         background-color: #F9F8F4;
+
+        // 변경: 모바일 전용 이미지(세로 정렬 UI 대체)
+        .process-mobile-image {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
 
         .header {
             text-align: center;
@@ -705,6 +742,177 @@ body {
             font-size: 16px;
             font-weight: 500;
             color: #444;
+        }
+    }
+
+    // 변경: index process 섹션 모바일(0~767px) 최적화(세로 스택/타이포/간격 축소)
+    @media (max-width: 767px) {
+        .process-wrapper {
+            // 변경: 모바일에서도 process-wrapper 전체는 유지(고정 헤더 고려한 패딩)
+            padding: 96px 20px 160px;
+            background-color: #F9F8F4;
+
+            // 변경: timeline-section만 숨김(모바일 전용 이미지로 대체)
+
+            .timeline-section {
+                display: none;
+            }
+
+            .process-mobile-image {
+                display: block;
+                // 변경: 모바일에서 이미지 폭을 제한해 전체 크기 축소
+                width: 100%;
+                // 변경: 요청(50% 축소)
+                max-width: 240px;
+                height: auto;
+                margin: 0 auto;
+            }
+
+            .header {
+                // 변경: 모바일에서 헤더 간격 축소
+                margin-bottom: 40px;
+
+                &-sub {
+                    // 변경: 모바일 타이포 스케일다운
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                }
+
+                &-main {
+                    // 변경: 모바일 메인 타이틀 축소
+                    font-size: 22px;
+                    line-height: 1.25;
+                }
+            }
+
+            .timeline-section {
+                // 변경: 모바일에서는 timeline-section 자체를 숨김(이미지로 대체)
+            }
+
+            .pre-phase,
+            .post-phase {
+                // 변경: 비율(flex) 제거 후 폭 전체 사용
+                flex: none;
+                width: 100%;
+            }
+
+            .bracket-container {
+                // 변경: 브라켓 라벨 높이/여백 축소
+                height: 32px;
+                margin-bottom: 18px;
+            }
+
+            .bracket-tick-left,
+            .bracket-tick-right {
+                // 변경: 틱 길이 축소
+                height: 12px;
+            }
+
+            .bracket-text {
+                // 변경: 브라켓 라벨 폰트 축소
+                font-size: 14px;
+                padding: 0 12px;
+            }
+
+            // 변경: 모바일(767px 이하)에서 이미지처럼 process를 세로 스택 + 가로 점선 형태로 재배치
+            .pre-phase {
+                .blocks-container {
+                    // 변경: 디자인 영역을 세로로 스택
+                    flex-direction: column;
+                    height: auto;
+                    gap: 18px;
+                }
+
+                .gray-block {
+                    // 변경: 원형에 가까운 썸네일처럼 표시
+                    width: 160px;
+                    height: 92px;
+                    border-radius: 999px;
+                    font-size: 14px;
+                }
+
+                .block-design,
+                .block-match {
+                    // 변경: 가로 레이아웃용 flex 값 제거
+                    flex: none;
+                }
+            }
+
+            .post-phase {
+                position: relative;
+
+                .blocks-container {
+                    // 변경: 공정 바를 세로로 스택
+                    height: auto;
+                }
+
+                .black-blocks {
+                    // 변경: 검은 공정 바를 세로 컬럼으로 전환
+                    flex-direction: column;
+                    height: auto;
+                }
+
+                .black-step {
+                    // 변경: 세로 스택에서 각 공정 높이 고정(결제 텍스트 오버레이 정렬용)
+                    flex: none;
+                    width: 100%;
+                    height: 64px;
+                    font-size: 14px;
+
+                    // 변경: 공정 사이 연결선을 가로 점선으로 전환
+                    &:not(:last-child)::after {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        bottom: 14px;
+                        width: 70%;
+                        height: 1px;
+                        transform: translateX(-50%);
+                        background-image:
+                            repeating-linear-gradient(to right, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px),
+                            repeating-linear-gradient(to right, #777 0px, #777 4px, transparent 4px, transparent 8px);
+                    }
+                }
+
+                .payments-container {
+                    // 변경: 결제 텍스트를 공정 높이에 맞춰 블록 위에 오버레이
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 50px; // bracket-container(32px) + margin-bottom(18px)
+                    padding-top: 0;
+                    width: 100%;
+                    flex-direction: column;
+                }
+
+                .payment-slot {
+                    // 변경: 공정 높이와 동일하게 맞춤
+                    flex: none;
+                    width: 100%;
+                    height: 64px;
+                }
+
+                .payment-marker {
+                    // 변경: 절대 위치 제거 후 슬롯 하단 정렬
+                    position: relative;
+                    right: auto;
+                    top: auto;
+                    transform: none;
+                    height: 100%;
+                    justify-content: flex-end;
+                    padding-bottom: 10px;
+                }
+
+                .payment-line {
+                    // 변경: 이미지 스타일과 동일하게 선은 숨김(텍스트만 표시)
+                    display: none;
+                }
+
+                .payment-text {
+                    // 변경: 모바일 결제 텍스트 폰트 축소
+                    font-size: 14px;
+                }
+            }
         }
     }
 
