@@ -612,7 +612,8 @@ body {
         .blocks-container {
             display: flex;
             gap: 0;
-            height: 64px;
+            // 변경: 공정 블록 높이 확장
+            height: 80px;
         }
 
         .gray-block {
@@ -623,7 +624,7 @@ body {
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .block-design {
@@ -648,7 +649,7 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 500;
             position: relative;
 
@@ -657,14 +658,16 @@ body {
                 position: absolute;
                 right: 0;
                 top: 0;
+                // 변경: 블록 높이 증가에 맞춰 하단 연결선도 함께 하향
                 height: calc(100% + 24px);
                 width: 1px;
                 transform: translateX(50%);
                 background-image:
                     repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px),
                     repeating-linear-gradient(to bottom, #777 0px, #777 4px, transparent 4px, transparent 8px);
-                background-size: 100% 64px, 100% 24px;
-                background-position: 0 0, 0 64px;
+                // 변경: 첫 구간(블록 내부) 높이를 80px로 동기화
+                background-size: 100% 80px, 100% 24px;
+                background-position: 0 0, 0 80px;
                 background-repeat: no-repeat;
                 z-index: 10;
             }
@@ -699,7 +702,7 @@ body {
         }
 
         .payment-text {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
             color: #444;
         }
