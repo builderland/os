@@ -1102,6 +1102,51 @@ body {
 
             #self-form-range,
             #self-form-optional {
+                // 변경: 공사 범위 하위 옵션은 기본 상태에서 숨김(부분공사 선택 시 JS로 표시)
+                .self-form-item-option {
+                    display: none;
+                }
+
+                // 변경: '공간 선택' 라벨을 self-form-select label과 동일 스타일로 통일
+                .range-option-label {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                    display: inline-block;
+                    margin: 10px 0;
+                }
+
+                // 변경: 공사 범위 상단 3개 카드(마감재만/전체공사/부분공사) 가로 정렬
+                .range-top-cards {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                // 변경: 상단 카드가 flex 슬롯 너비를 채우고, 내부 카드 콘텐츠가 가로 전체를 쓰도록 설정
+                .range-top-cards .card {
+                    flex: 1 1 0;
+                    min-width: 0;
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                // 변경: 전체공사/부분공사 카드는 체크 아이콘 없음 → 텍스트만 가운데 정렬
+                .range-top-cards .card-content {
+                    width: 100%;
+                    box-sizing: border-box;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .range-top-cards .card-content .text {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+
                 .option-grid {
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);

@@ -297,21 +297,21 @@ if (reserveButton) {
                     if (invoice_no && payload.space_type && payload.area_py && payload.grade) {
                         const { error: estimatesError } = await supabase
                             .from('estimates')
-                            .insert(
-                                [{
-                                    invoice_no,
-                                    space_type: payload.space_type,
-                                    area_py: payload.area_py,
-                                    grade: payload.grade,
-                                    scope: payload.scope || [],
-                                    extra_works: payload.extra_works || [],
-                                    basic_price: estimate.basic_price,
-                                    optional_price: estimate.optional_price,
-                                    indirect_price: estimate.indirect_price,
-                                    total_price: estimate.total_price,
-                                }],
-                                { returning: 'minimal' }
-                            );
+                            .insert({
+                                invoice_no,
+                                space_type: payload.space_type,
+                                area_py: payload.area_py,
+                                grade: payload.grade,
+                                scope: payload.scope || [],
+                                extra_works: payload.extra_works || [],
+                                bathroom_count: payload.bathroom_count || 1,
+                                basic_price: estimate.basic_price,
+                                optional_price: estimate.optional_price,
+                                indirect_price: estimate.indirect_price,
+                                total_price: estimate.total_price,
+                                min_price: estimate.min_price,
+                                max_price: estimate.max_price,
+                            });
 
                         if (estimatesError) {
                             console.error('셀프 견적 estimates 저장 오류:', estimatesError);

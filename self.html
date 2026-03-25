@@ -44,10 +44,10 @@
                 </div>
             </div>
             <div class="self-form-item">
-                <h2>마감재</h2>
+                <h2>마감재 등급</h2>
                 <div class="self-form-item-content">
                     <div class="self-form-select">
-                        <label for="finish-grade">등급</label>
+                        <!-- <label for="finish-grade">등급</label> -->
                         <select name="finish-grade" id="finish-grade">
                             <option value="">마감재 등급을 선택해주세요</option>
                             <option value="1">베이직</option>
@@ -59,19 +59,70 @@
             </div>
             <div class="self-form-item" id="self-form-range">
                 <h2>공사 범위</h2>
+                <!-- 변경: 공사 범위 상단 3개 카드를 가로 정렬하기 위한 래퍼 클래스 추가 -->
+                <div class="range-top-cards">
+                    <!-- 변경: 상단은 전체공사/부분공사 중 하나만 선택(라디오), value는 견적 매핑용으로 유지 -->
+                    <label class="card">
+                        <input type="radio" name="work_scope" value="full_work">
+                        <span class="card-content">
+                            <span class="text">전체공사</span>
+                        </span>
+                    </label>
+                    <label class="card">
+                        <input type="radio" name="work_scope" value="partial_work">
+                        <span class="card-content">
+                            <span class="text">부분공사</span>
+                        </span>
+                    </label>
+                </div>
                 <div class="self-form-item-option">
+                    <!-- 변경: '면적(평)' 라벨과 동일 스타일 적용을 위해 span을 label로 변경 -->
+                    <!-- 변경: 하위 항목은 체크박스로 복수 선택, 같은 카드 다시 클릭 시 해제(네이티브 토글) -->
+                    <label class="range-option-label">선택(1개 이상)</label>
                     <div class="option-grid">
 
                         <label class="card">
-                            <input type="checkbox" name="space[]" value="all">
+                            <input type="checkbox" name="scope_detail[]" value="wallpaper">
                             <span class="card-content">
-                                <span class="text">전체</span>
+                                <span class="text">도배</span>
                                 <span class="check-icon"></span>
                             </span>
                         </label>
 
                         <label class="card">
-                            <input type="checkbox" name="space[]" value="kitchen">
+                            <input type="checkbox" name="scope_detail[]" value="film">
+                            <span class="card-content">
+                                <span class="text">필름</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="scope_detail[]" value="tile">
+                            <span class="card-content">
+                                <span class="text">타일</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="scope_detail[]" value="floor">
+                            <span class="card-content">
+                                <span class="text">바닥</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="scope_detail[]" value="electric">
+                            <span class="card-content">
+                                <span class="text">전기</span>
+                                <span class="check-icon"></span>
+                            </span>
+                        </label>
+
+                        <label class="card">
+                            <input type="checkbox" name="scope_detail[]" value="kitchen_scope">
                             <span class="card-content">
                                 <span class="text">주방</span>
                                 <span class="check-icon"></span>
@@ -79,33 +130,9 @@
                         </label>
 
                         <label class="card">
-                            <input type="checkbox" name="space[]" value="bathroom">
+                            <input type="checkbox" name="scope_detail[]" value="bathroom_scope">
                             <span class="card-content">
                                 <span class="text">욕실</span>
-                                <span class="check-icon"></span>
-                            </span>
-                        </label>
-
-                        <label class="card">
-                            <input type="checkbox" name="space[]" value="living">
-                            <span class="card-content">
-                                <span class="text">거실</span>
-                                <span class="check-icon"></span>
-                            </span>
-                        </label>
-
-                        <label class="card">
-                            <input type="checkbox" name="space[]" value="room">
-                            <span class="card-content">
-                                <span class="text">침실</span>
-                                <span class="check-icon"></span>
-                            </span>
-                        </label>
-
-                        <label class="card">
-                            <input type="checkbox" name="space[]" value="entrance">
-                            <span class="card-content">
-                                <span class="text">현관</span>
                                 <span class="check-icon"></span>
                             </span>
                         </label>
@@ -217,10 +244,10 @@
     <section class="action">
         <div class="action-container">
             <span class="action-description">
-                예상 견적이 어떻게 나왔는지 확인해 보세요.
+                예상 견적의 공사 방식을 확인해보세요.
             </span>
             <button class="action-cta">
-                <span class="label">견적 비교</span>
+                <span class="label">공사 방식 확인</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
                         stroke-linejoin="round" />

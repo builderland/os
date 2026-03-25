@@ -10,21 +10,29 @@ const typeMap = { '1': '아파트', '2': '오피스텔', '3': '주택' };
 // 마감재 등급 매핑
 const gradeMap = { '1': '베이직', '2': '스탠다드', '3': '프리미엄' };
 
-// 공사 범위 체크박스 value → 한글 매핑
-const scopeMap = {
-    'all': '전체',
-    'kitchen': '주방',
-    'bathroom': '욕실',
-    'living': '거실',
-    'room': '침실',
-    'entrance': '현관'
+// 부분공사 scope_detail value → Edge Function scope 매핑
+const scopeDetailMap = {
+    'wallpaper':      ['도배'],
+    'film':           ['필름_문문틀', '필름_창호', '필름_몰딩', '필름_주방가구'],
+    'tile':           ['현관타일', '바닥타일'],
+    'floor':          ['바닥'],   // 등급에 따라 장판/강마루/원목마루 자동 결정
+    'electric':       ['전기'],
+    'kitchen_scope':  ['주방'],
+    'bathroom_scope': ['욕실'],
+};
+
+// 바닥재 등급 자동 매핑
+const floorGradeMap = {
+    '베이직':   '장판',
+    '스탠다드': '강마루',
+    '프리미엄': '원목마루',
 };
 
 // 선택 공사 체크박스 value → 한글 매핑
 const extraMap = {
-    'all': '발코니확장',
-    'kitchen': '창호',
-    'bathroom': '시스템에어컨'
+    'all':      '발코니확장',
+    'kitchen':  '창호',
+    'bathroom': '시스템에어컨',
 };
 
 // 인보이스 번호 생성: MMDD + XXXX(당일 순번) + RRR(랜덤 영숫자)
@@ -77,42 +85,39 @@ let globalInvoiceEl = null;
 let typeSelectEl = null;
 let sizeSelectEl = null;
 let gradeSelectEl = null;
-let rangeCheckboxes = null;
 let optionalCheckboxes = null;
 
 // 견적 카드 결과 업데이트
 function updateEstimateCard(data) {
-    // 변경: DOM 탐색 최소화를 위해 캐싱된 요소 사용
-    // 견적 금액 범위 표시
     if (estimateRangeEl) {
         estimateRangeEl.textContent = `${formatManwon(data.min_price)} ~ ${formatManwon(data.max_price)}`;
     }
 
-    // 세부 항목 테이블 업데이트
     if (estimateTableBody) {
+        // 간접공사비 = indirect_price + overhead(14%) 합산
+        const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
         estimateTableBody.innerHTML = `
             <tr>
                 <td>1</td>
+                <td>간접 공사비</td>
+                <td class="number">${formatManwon(indirectTotal * 0.9)}</td>
+                <td class="number">${formatManwon(indirectTotal * 1.1)}</td>
+            </tr>
+            <tr>
+                <td>2</td>
                 <td>기본 공사비</td>
                 <td class="number">${formatManwon(data.basic_price * 0.9)}</td>
                 <td class="number">${formatManwon(data.basic_price * 1.1)}</td>
             </tr>
             <tr>
-                <td>2</td>
+                <td>3</td>
                 <td>선택 공사비</td>
                 <td class="number">${formatManwon(data.optional_price * 0.9)}</td>
                 <td class="number">${formatManwon(data.optional_price * 1.1)}</td>
             </tr>
-            <tr>
-                <td>3</td>
-                <td>직접 공사비 외 비용</td>
-                <td class="number">${formatManwon(data.indirect_price * 0.9)}</td>
-                <td class="number">${formatManwon(data.indirect_price * 1.1)}</td>
-            </tr>
         `;
     }
 
-    // 합계 업데이트
     if (estimateTableFootRow) {
         estimateTableFootRow.innerHTML = `
             <td colspan="2">합계(만원)</td>
@@ -122,7 +127,7 @@ function updateEstimateCard(data) {
     }
 }
 
-// 버튼 로딩 상태 토글 (라벨은 '견적 비교' 기준으로 유지)
+// 버튼 로딩 상태 토글
 function setLoading(isLoading) {
     const btn = document.querySelector('.action-cta');
     if (!btn) return;
@@ -150,53 +155,65 @@ function debounce(fn, delay) {
     };
 }
 
-// 현재 폼 상태에서 payload 구성 (showAlert에 따라 경고 표시 여부 제어)
+// 현재 폼 상태에서 payload 구성
 function buildPayload(options = { showAlert: false }) {
     const { showAlert } = options;
 
-    // 변경: 자주 사용하는 요소는 DOMContentLoaded에서 캐싱된 전역 변수를 사용
     const invoiceEl = globalInvoiceEl;
-    const typeVal = typeSelectEl?.value;
-    const sizeVal = sizeSelectEl?.value;
-    const gradeVal = gradeSelectEl?.value;
+    const typeVal   = typeSelectEl?.value;
+    const sizeVal   = sizeSelectEl?.value;
+    const gradeVal  = gradeSelectEl?.value;
 
     if (!typeVal || !sizeVal || !gradeVal) {
-        if (showAlert) {
-            alert('공간 유형, 면적, 마감재 등급을 모두 선택해주세요.');
-        }
+        if (showAlert) alert('공간 유형, 면적, 마감재 등급을 모두 선택해주세요.');
         return null;
     }
 
-    // 변경: 면적은 선택한 평수(15~70)를 그대로 사용
     const areaPy = parseInt(sizeVal, 10);
     if (!Number.isFinite(areaPy)) {
-        if (showAlert) {
-            alert('면적을 다시 선택해주세요.');
-        }
+        if (showAlert) alert('면적을 다시 선택해주세요.');
         return null;
     }
 
-    // 공사 범위 체크박스 수집 (#self-form-range 안)
-    // 변경: 매번 DOM을 다시 탐색하지 않고, 캐싱된 체크박스 목록에서 checked 상태만 확인
-    const scope = [];
-    if (rangeCheckboxes) {
-        for (const cb of rangeCheckboxes) {
-            if (cb.checked) {
-                const mapped = scopeMap[cb.value];
-                if (mapped) scope.push(mapped);
-            }
-        }
-    }
+    const grade = gradeMap[gradeVal];
 
-    if (scope.length === 0) {
-        if (showAlert) {
-            alert('공사 범위를 1개 이상 선택해주세요.');
-        }
+    // ── 공사 범위 수집 ───────────────────────────────────────
+    const rangeRoot = document.getElementById('self-form-range');
+    if (!rangeRoot) return null;
+
+    // 전체 / 부분공사 라디오
+    const topScopeRadio = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
+    if (!topScopeRadio) {
+        if (showAlert) alert('공사 범위(전체/부분)를 선택해주세요.');
         return null;
     }
 
-    // 선택 공사 체크박스 수집 (#self-form-optional 안)
-    // 변경: 선택 공사도 캐싱된 체크박스 목록을 순회하며 수집
+    const construction_type = topScopeRadio.value === 'full_work' ? '전체' : '부분';
+    let scope = [];
+
+    if (construction_type === '부분') {
+        // 체크된 scope_detail 수집 후 Edge Function scope로 변환
+        const checkedDetails = Array.from(
+            rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]:checked')
+        ).map(cb => cb.value);
+
+        if (checkedDetails.length === 0) {
+            if (showAlert) alert('공사 항목을 1개 이상 선택해주세요.');
+            return null;
+        }
+
+        checkedDetails.forEach(val => {
+            (scopeDetailMap[val] || []).forEach(s => {
+                // 바닥재는 등급에 따라 자동 선택
+                scope.push(s === '바닥' ? floorGradeMap[grade] : s);
+            });
+        });
+
+        // 중복 제거
+        scope = [...new Set(scope)];
+    }
+
+    // ── 선택공사 수집 ────────────────────────────────────────
     const extra_works = [];
     if (optionalCheckboxes) {
         for (const cb of optionalCheckboxes) {
@@ -207,17 +224,19 @@ function buildPayload(options = { showAlert: false }) {
         }
     }
 
-    // 욕실 개수: scope에 욕실이 있으면 1로 고정 (추후 욕실 개수 선택 UI 추가 가능)
-    const bathroom_count = scope.includes('욕실') ? 1 : 0;
+    // 욕실 개수
+    const hasBathroom    = construction_type === '전체' || scope.includes('욕실');
+    const bathroom_count = hasBathroom ? 1 : 0;
 
     return {
-        invoice_no: invoiceEl ? invoiceEl.textContent : '',
-        space_type: typeMap[typeVal],
-        area_py: areaPy,
-        grade: gradeMap[gradeVal],
+        invoice_no:        invoiceEl ? invoiceEl.textContent : '',
+        space_type:        typeMap[typeVal],
+        area_py:           areaPy,
+        grade,
+        construction_type,
         scope,
         extra_works,
-        bathroom_count
+        bathroom_count,
     };
 }
 
@@ -226,42 +245,32 @@ async function calculateAndRender(payload, options = { useButtonLoading: false }
     const { useButtonLoading } = options;
     const currentRequestId = ++latestRequestId;
 
-    if (useButtonLoading) {
-        setLoading(true);
-    }
+    if (useButtonLoading) setLoading(true);
 
     try {
         const res = await fetch(EDGE_FUNCTION_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                'Content-Type':  'application/json',
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         });
 
         const data = await res.json();
 
-        if (!res.ok) {
-            throw new Error(data.error || '견적 계산 중 오류가 발생했습니다.');
-        }
+        if (!res.ok) throw new Error(data.error || '견적 계산 중 오류가 발생했습니다.');
 
-        // 최신 요청이 아닌 경우 렌더링/상태 갱신 생략
-        if (currentRequestId !== latestRequestId) {
-            return null;
-        }
+        if (currentRequestId !== latestRequestId) return null;
 
         updateEstimateCard(data);
 
-        // 마지막 payload/estimate 상태 저장
-        lastPayload = payload;
+        lastPayload  = payload;
         lastEstimate = data;
 
         return data;
     } finally {
-        if (useButtonLoading && currentRequestId === latestRequestId) {
-            setLoading(false);
-        }
+        if (useButtonLoading && currentRequestId === latestRequestId) setLoading(false);
     }
 }
 
@@ -272,35 +281,33 @@ function saveEstimateToSessionAndNavigate() {
         return;
     }
 
-    const payloadToSave = lastPayload;
-    const estimateToSave = lastEstimate;
-
     const estimateSummary = {
-        basic_price: estimateToSave.basic_price,
-        optional_price: estimateToSave.optional_price,
-        indirect_price: estimateToSave.indirect_price,
-        total_price: estimateToSave.total_price,
-        min_price: estimateToSave.min_price,
-        max_price: estimateToSave.max_price,
-        items: estimateToSave.items || []
+        basic_price:    lastEstimate.basic_price,
+        optional_price: lastEstimate.optional_price,
+        indirect_price: lastEstimate.indirect_price,
+        total_price:    lastEstimate.total_price,
+        min_price:      lastEstimate.min_price,
+        max_price:      lastEstimate.max_price,
+        items:          lastEstimate.items || [],
     };
 
     const payloadSummary = {
-        space_type: payloadToSave.space_type,
-        area_py: payloadToSave.area_py,
-        grade: payloadToSave.grade,
-        scope: payloadToSave.scope,
-        extra_works: payloadToSave.extra_works,
-        bathroom_count: payloadToSave.bathroom_count
+        space_type:        lastPayload.space_type,
+        area_py:           lastPayload.area_py,
+        grade:             lastPayload.grade,
+        construction_type: lastPayload.construction_type,
+        scope:             lastPayload.scope,
+        extra_works:       lastPayload.extra_works,
+        bathroom_count:    lastPayload.bathroom_count,
     };
 
     try {
         sessionStorage.setItem(
             'builderland_estimate_latest',
             JSON.stringify({
-                invoice_no: payloadToSave.invoice_no,
-                payload: payloadSummary,
-                estimate: estimateSummary
+                invoice_no: lastPayload.invoice_no,
+                payload:    payloadSummary,
+                estimate:   estimateSummary,
             })
         );
     } catch (e) {
@@ -311,122 +318,92 @@ function saveEstimateToSessionAndNavigate() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 변경: 여러 곳에서 사용하는 DOM 요소를 한 번만 조회 후 전역 변수에 캐싱
-    globalInvoiceEl = document.querySelector('.estimate-card__invoice');
-    const actionButton = document.querySelector('.action-cta');
-    estimateRangeEl = document.querySelector('.estimate-card__range');
-    estimateTableBody = document.querySelector('.estimate-table tbody');
-    estimateTableFootRow = document.querySelector('.estimate-table tfoot tr');
-    typeSelectEl = document.getElementById('type');
-    sizeSelectEl = document.getElementById('size');
-    gradeSelectEl = document.getElementById('finish-grade');
-    rangeCheckboxes = document.querySelectorAll('#self-form-range input[type="checkbox"]');
-    optionalCheckboxes = document.querySelectorAll('#self-form-optional input[type="checkbox"]');
+    // DOM 요소 캐싱
+    globalInvoiceEl       = document.querySelector('.estimate-card__invoice');
+    const actionButton    = document.querySelector('.action-cta');
+    estimateRangeEl       = document.querySelector('.estimate-card__range');
+    estimateTableBody     = document.querySelector('.estimate-table tbody');
+    estimateTableFootRow  = document.querySelector('.estimate-table tfoot tr');
+    typeSelectEl          = document.getElementById('type');
+    sizeSelectEl          = document.getElementById('size');
+    gradeSelectEl         = document.getElementById('finish-grade');
+    optionalCheckboxes    = document.querySelectorAll('#self-form-optional input[type="checkbox"]');
 
     if (!globalInvoiceEl) return;
 
-    // 변경: 면적 옵션을 15~70평으로 동적 생성 (self.html에는 placeholder만 유지)
-    const sizeSelect = sizeSelectEl;
-    if (sizeSelect && sizeSelect.tagName === 'SELECT') {
-        sizeSelect.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
-        for (let p = 15; p <= 70; p += 1) {
+    // 면적 옵션 동적 생성 (15~70평)
+    if (sizeSelectEl && sizeSelectEl.tagName === 'SELECT') {
+        sizeSelectEl.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
+        for (let p = 15; p <= 70; p++) {
             const opt = document.createElement('option');
-            opt.value = String(p);
+            opt.value       = String(p);
             opt.textContent = `${p}`;
-            sizeSelect.appendChild(opt);
+            sizeSelectEl.appendChild(opt);
         }
     }
 
-    // 인보이스 번호 생성 및 표시
-    const invoiceNumber = generateInvoiceNumber();
-    globalInvoiceEl.textContent = invoiceNumber;
+    // 인보이스 번호 생성
+    globalInvoiceEl.textContent = generateInvoiceNumber();
 
     // 유효기간 표시
     const validEl = document.querySelector('.estimate-card__valid');
-    if (validEl) {
-        validEl.textContent = `${getValidUntilDate()} 까지 유효`;
-    }
+    if (validEl) validEl.textContent = `${getValidUntilDate()} 까지 유효`;
 
     if (!actionButton) return;
 
-    // 변경: 선택 값 변경 시 자동 계산 디바운스 설정
-    // 변경: 네트워크 요청 빈도를 줄이기 위해 디바운스 시간을 조금 늘려서 성능 최적화
+    // 자동 계산 디바운스
     const autoCalc = debounce(async () => {
         const payload = buildPayload({ showAlert: false });
         if (!payload) return;
         await calculateAndRender(payload, { useButtonLoading: false });
     }, 800);
 
-    const selects = [
-        typeSelectEl,
-        sizeSelectEl,
-        gradeSelectEl
-    ].filter(Boolean);
-
-    selects.forEach((el) => {
+    // select 변경 시 자동 계산
+    [typeSelectEl, sizeSelectEl, gradeSelectEl].filter(Boolean).forEach(el => {
         el.addEventListener('change', autoCalc);
     });
 
-    // 변경: 선택 공사 체크박스 변경 시 자동 계산
-    if (optionalCheckboxes && optionalCheckboxes.length > 0) {
-        [...optionalCheckboxes].forEach((cb) => {
-            cb.addEventListener('change', autoCalc);
-        });
+    // 선택공사 체크박스 변경 시 자동 계산
+    if (optionalCheckboxes?.length > 0) {
+        [...optionalCheckboxes].forEach(cb => cb.addEventListener('change', autoCalc));
     }
 
-    // 변경: 공사 범위 '전체' 체크박스와 개별 항목 동기화 로직 추가
-    if (rangeCheckboxes && rangeCheckboxes.length > 0) {
-        const rangeArray = Array.from(rangeCheckboxes);
-        const allCheckbox = rangeArray.find((cb) => cb.value === 'all');
-        const otherCheckboxes = rangeArray.filter((cb) => cb !== allCheckbox);
+    // 공사 범위 라디오/체크박스 연동
+    const rangeRoot = document.getElementById('self-form-range');
+    if (rangeRoot) {
+        const topScopeRadios    = rangeRoot.querySelectorAll('.range-top-cards input[type="radio"]');
+        const detailOptionWrap  = rangeRoot.querySelector('.self-form-item-option');
+        const detailOptionChecks = rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]');
 
-        if (allCheckbox) {
-            // '전체' 선택 시 나머지 항목 일괄 선택/해제
-            allCheckbox.addEventListener('change', () => {
-                const shouldCheck = allCheckbox.checked;
-                otherCheckboxes.forEach((cb) => {
-                    cb.checked = shouldCheck;
-                });
-                // 전체 선택/해제 후 자동 계산
-                autoCalc();
-            });
+        const toggleDetailOptionByTopScope = () => {
+            const selected = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
+            if (!detailOptionWrap) return;
 
-            // 개별 항목 선택/해제에 따라 '전체' 상태 자동 갱신
-            otherCheckboxes.forEach((cb) => {
-                cb.addEventListener('change', () => {
-                    if (!cb.checked) {
-                        allCheckbox.checked = false;
-                        autoCalc();
-                        return;
-                    }
+            if (selected?.value === 'partial_work') {
+                detailOptionWrap.style.display = '';
+            } else {
+                detailOptionWrap.style.display = 'none';
+                detailOptionChecks.forEach(cb => { cb.checked = false; });
+            }
+            autoCalc();
+        };
 
-                    const allChecked = otherCheckboxes.every((other) => other.checked);
-                    if (allChecked && !allCheckbox.checked) {
-                        allCheckbox.checked = true;
-                    }
+        topScopeRadios.forEach(r => r.addEventListener('change', toggleDetailOptionByTopScope));
+        detailOptionChecks.forEach(cb => cb.addEventListener('change', autoCalc));
 
-                    // 개별 항목 변경 후에도 자동 계산
-                    autoCalc();
-                });
-            });
-        }
+        // 초기 상태 동기화
+        toggleDetailOptionByTopScope();
     }
 
-    // 변경: 버튼 클릭 시 계산은 다시 하지 않고, 현재 계산된 데이터를 세션에 저장 후 페이지 이동
+    // 버튼 클릭: 세션 저장 후 이동
     actionButton.addEventListener('click', async () => {
-        // 아직 자동 계산으로 생성된 견적이 없다면 저장 불가
         if (!lastPayload || !lastEstimate) {
             alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
             return;
         }
 
-        // localStorage에 인보이스 번호 저장 (기존 confirm 페이지 호환 유지)
         localStorage.setItem('builderland_invoice_latest', globalInvoiceEl.textContent);
-
-        // 결과 카드로 스크롤
         document.querySelector('.estimate-card')?.scrollIntoView({ behavior: 'smooth' });
-
-        // 변경: estimates 테이블에는 쓰지 않고, 세션에만 저장 후 about.html로 이동
         saveEstimateToSessionAndNavigate();
     });
 });
