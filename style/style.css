@@ -305,25 +305,25 @@ body .problem-card__tags-inner span {
   transform: translate(-50%, -50%);
 }
 body .problem-card__tags-inner span:nth-child(1) {
-  transform: translate(-50%, -50%) translate(-90px, -30px) rotate(-22deg);
+  transform: translate(-50%, -50%) translate(-50px, -30px) rotate(-22deg);
 }
 body .problem-card__tags-inner span:nth-child(2) {
-  transform: translate(-50%, -50%) translate(60px, -20px) rotate(11deg);
+  transform: translate(-50%, -50%) translate(100px, -20px) rotate(11deg);
 }
 body .problem-card__tags-inner span:nth-child(3) {
-  transform: translate(-50%, -50%) translate(-56px, 35px) rotate(-6deg);
+  transform: translate(-50%, -50%) translate(-16px, 35px) rotate(-6deg);
 }
 body .problem-card__tags-inner span:nth-child(4) {
-  transform: translate(-50%, -50%) translate(90px, 45px) rotate(4deg);
+  transform: translate(-50%, -50%) translate(130px, 45px) rotate(4deg);
 }
 body .problem-card__tags-inner span:nth-child(5) {
-  transform: translate(-50%, -50%) translate(-150px, -70px) rotate(-18deg);
+  transform: translate(-50%, -50%) translate(-110px, -70px) rotate(-18deg);
 }
 body .problem-card__tags-inner span:nth-child(6) {
-  transform: translate(-50%, -50%) translate(40px, -80px) rotate(11deg);
+  transform: translate(-50%, -50%) translate(80px, -80px) rotate(11deg);
 }
 body .problem-card__tags-inner span:nth-child(7) {
-  transform: translate(-50%, -50%) translate(-175px, 48px) rotate(3deg);
+  transform: translate(-50%, -50%) translate(-135px, 48px) rotate(3deg);
 }
 body {
   /* 반응형 */
@@ -867,6 +867,13 @@ body section.self-form .self-form-items .self-form-item h2 {
   letter-spacing: -0.03em;
   margin: 0;
 }
+body section.self-form .self-form-items .self-form-item h2 .required-mark {
+  color: #EA591A;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 0px;
+  vertical-align: top;
+}
 body section.self-form .self-form-items .self-form-item .self-form-item-content {
   display: flex;
   flex-direction: column;
@@ -897,6 +904,84 @@ body section.self-form .self-form-items .self-form-item .self-form-item-content 
   letter-spacing: -0.01em;
   background-color: #fff;
   color: #50545D;
+}
+body section.self-form .self-form-items #self-form-range .option-grid,
+body section.self-form .self-form-items #self-form-optional .option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+body section.self-form .self-form-items #self-form-range,
+body section.self-form .self-form-items #self-form-optional {
+  /* 카드 기본 */
+}
+body section.self-form .self-form-items #self-form-range .card,
+body section.self-form .self-form-items #self-form-optional .card {
+  cursor: pointer;
+}
+body section.self-form .self-form-items #self-form-range .card input,
+body section.self-form .self-form-items #self-form-optional .card input {
+  display: none;
+}
+body section.self-form .self-form-items #self-form-range .card-content,
+body section.self-form .self-form-items #self-form-optional .card-content {
+  border: 1px solid #E2E4E8;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+body section.self-form .self-form-items #self-form-range,
+body section.self-form .self-form-items #self-form-optional {
+  /* 텍스트 */
+}
+body section.self-form .self-form-items #self-form-range .text,
+body section.self-form .self-form-items #self-form-optional .text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+body section.self-form .self-form-items #self-form-range,
+body section.self-form .self-form-items #self-form-optional {
+  /* 체크 네모 */
+}
+body section.self-form .self-form-items #self-form-range .check-icon,
+body section.self-form .self-form-items #self-form-optional .check-icon {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #E2E4E8;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section.self-form .self-form-items #self-form-range,
+body section.self-form .self-form-items #self-form-optional {
+  /* 선택되었을 때 */
+}
+body section.self-form .self-form-items #self-form-range .card input:checked + .card-content,
+body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content {
+  background: #f05a1a;
+  color: white;
+}
+body section.self-form .self-form-items #self-form-range,
+body section.self-form .self-form-items #self-form-optional {
+  /* 선택 시 체크 아이콘 스타일 */
+}
+body section.self-form .self-form-items #self-form-range .card input:checked + .card-content .check-icon,
+body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content .check-icon {
+  background: white;
+  border-color: white;
+}
+body section.self-form .self-form-items #self-form-range .card input:checked + .card-content .check-icon::after,
+body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content .check-icon::after {
+  content: "✓";
+  color: #f05a1a;
+  font-weight: 400;
 }
 body section.self-form .self-form-items #self-form-range .self-form-item-option {
   display: none;
@@ -931,64 +1016,6 @@ body section.self-form .self-form-items #self-form-range .range-top-cards .card-
   display: block;
   width: 100%;
   text-align: center;
-}
-body section.self-form .self-form-items #self-form-range .option-grid,
-body section.self-form .self-form-items #self-form-optional .option-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-body section.self-form .self-form-items #self-form-range .card,
-body section.self-form .self-form-items #self-form-optional .card {
-  cursor: pointer;
-}
-body section.self-form .self-form-items #self-form-range .card input,
-body section.self-form .self-form-items #self-form-optional .card input {
-  display: none;
-}
-body section.self-form .self-form-items #self-form-range .card-content,
-body section.self-form .self-form-items #self-form-optional .card-content {
-  border: 1px solid #E2E4E8;
-  border-radius: 8px;
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.2s ease;
-  background: #fff;
-}
-body section.self-form .self-form-items #self-form-range .text,
-body section.self-form .self-form-items #self-form-optional .text {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-body section.self-form .self-form-items #self-form-range .check-icon,
-body section.self-form .self-form-items #self-form-optional .check-icon {
-  width: 24px;
-  height: 24px;
-  border: 1px solid #E2E4E8;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-body section.self-form .self-form-items #self-form-range .card input:checked + .card-content,
-body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content {
-  background: #f05a1a;
-  color: white;
-}
-body section.self-form .self-form-items #self-form-range .card input:checked + .card-content .check-icon,
-body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content .check-icon {
-  background: white;
-  border-color: white;
-}
-body section.self-form .self-form-items #self-form-range .card input:checked + .card-content .check-icon::after,
-body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content .check-icon::after {
-  content: "✓";
-  color: #f05a1a;
-  font-weight: 400;
 }
 body section.self-form .estimate-card {
   display: flex;

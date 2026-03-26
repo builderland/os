@@ -344,32 +344,33 @@ body {
                 bottom: 20%;
                 transform: translate(-50%, -50%);
 
+                // 변경: 모든 항목을 오른쪽으로 40px 이동
                 &:nth-child(1) {
-                    transform: translate(-50%, -50%) translate(-90px, -30px) rotate(-22deg);
+                    transform: translate(-50%, -50%) translate(-50px, -30px) rotate(-22deg);
                 }
 
                 &:nth-child(2) {
-                    transform: translate(-50%, -50%) translate(60px, -20px) rotate(11deg);
+                    transform: translate(-50%, -50%) translate(100px, -20px) rotate(11deg);
                 }
 
                 &:nth-child(3) {
-                    transform: translate(-50%, -50%) translate(-56px, 35px) rotate(-6deg);
+                    transform: translate(-50%, -50%) translate(-16px, 35px) rotate(-6deg);
                 }
 
                 &:nth-child(4) {
-                    transform: translate(-50%, -50%) translate(90px, 45px) rotate(4deg);
+                    transform: translate(-50%, -50%) translate(130px, 45px) rotate(4deg);
                 }
 
                 &:nth-child(5) {
-                    transform: translate(-50%, -50%) translate(-150px, -70px) rotate(-18deg);
+                    transform: translate(-50%, -50%) translate(-110px, -70px) rotate(-18deg);
                 }
 
                 &:nth-child(6) {
-                    transform: translate(-50%, -50%) translate(40px, -80px) rotate(11deg);
+                    transform: translate(-50%, -50%) translate(80px, -80px) rotate(11deg);
                 }
 
                 &:nth-child(7) {
-                    transform: translate(-50%, -50%) translate(-175px, 48px) rotate(3deg);
+                    transform: translate(-50%, -50%) translate(-135px, 48px) rotate(3deg);
                 }
             }
         }
@@ -1063,6 +1064,19 @@ body {
                     line-height: 1;
                     letter-spacing: -0.03em;
                     margin: 0;
+
+                    // 변경: 필수 선택 항목 표시(*) 스타일 추가
+                    .required-mark {
+                        // 변경: 필수 표시 색상을 요청값(#EA591A)으로 변경
+                        color: #EA591A;
+                        font-weight: 600;
+                        // 변경: 필수 표시 크기 축소
+                        font-size: 16px;
+                        // 변경: 타이틀과 필수 표시(*) 간격 축소
+                        margin-left: 0px;
+                        // 변경: 필수 표시를 타이틀 상단 기준으로 정렬
+                        vertical-align: top;
+                    }
                 }
 
                 .self-form-item-content {

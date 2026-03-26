@@ -35,14 +35,15 @@
                 <input type="hidden" id="date" name="date">
                 <div class="calendar-wrapper">
                     <div class="calendar-header">
-                        <button class="nav-btn" id="prev-month">
+                        <!-- 변경: 폼 안 button 기본값이 submit이라 달 이동 시 제출·required 검증이 뜨지 않도록 type 지정 -->
+                        <button type="button" class="nav-btn" id="prev-month">
                             <svg class="nav-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 26L10 16L20 6" stroke="currentColor" stroke-linecap="square"
                                     stroke-linejoin="bevel" />
                             </svg>
                         </button>
                         <div class="year-month" id="current-year-month">2026-02</div>
-                        <button class="nav-btn" id="next-month">
+                        <button type="button" class="nav-btn" id="next-month">
                             <svg class="nav-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 26L22 16L12 6" stroke="currentColor" stroke-linecap="square"
                                     stroke-linejoin="bevel" />
