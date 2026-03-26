@@ -653,6 +653,9 @@ body .process-wrapper .payment-text {
     font-size: 22px;
     line-height: 1.25;
   }
+  body .process-wrapper .timeline-section {
+    display: none;
+  }
   body .process-wrapper .pre-phase,
   body .process-wrapper .post-phase {
     flex: none;
@@ -895,8 +898,10 @@ body section.self-form .self-form-items .self-form-item .self-form-item-content 
   background-color: #fff;
   color: #50545D;
 }
-body section.self-form .self-form-items #self-form-range .range-option-label,
-body section.self-form .self-form-items #self-form-optional .range-option-label {
+body section.self-form .self-form-items #self-form-range .self-form-item-option {
+  display: none;
+}
+body section.self-form .self-form-items #self-form-range .range-option-label {
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
@@ -904,30 +909,25 @@ body section.self-form .self-form-items #self-form-optional .range-option-label 
   display: inline-block;
   margin: 10px 0;
 }
-body section.self-form .self-form-items #self-form-range .range-top-cards,
-body section.self-form .self-form-items #self-form-optional .range-top-cards {
+body section.self-form .self-form-items #self-form-range .range-top-cards {
   display: flex;
   gap: 10px;
 }
-body section.self-form .self-form-items #self-form-range .range-top-cards .card,
-body section.self-form .self-form-items #self-form-optional .range-top-cards .card {
+body section.self-form .self-form-items #self-form-range .range-top-cards .card {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-/* 변경: SCSS와 동기화 — 상단 카드 텍스트 가운데 정렬(일반 .card-content space-between 덮어씀) */
-body section.self-form .self-form-items #self-form-range .range-top-cards .card-content,
-body section.self-form .self-form-items #self-form-optional .range-top-cards .card-content {
+body section.self-form .self-form-items #self-form-range .range-top-cards .card-content {
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-body section.self-form .self-form-items #self-form-range .range-top-cards .card-content .text,
-body section.self-form .self-form-items #self-form-optional .range-top-cards .card-content .text {
+body section.self-form .self-form-items #self-form-range .range-top-cards .card-content .text {
   display: block;
   width: 100%;
   text-align: center;
@@ -937,10 +937,6 @@ body section.self-form .self-form-items #self-form-optional .option-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-}
-body section.self-form .self-form-items #self-form-range,
-body section.self-form .self-form-items #self-form-optional {
-  /* 카드 기본 */
 }
 body section.self-form .self-form-items #self-form-range .card,
 body section.self-form .self-form-items #self-form-optional .card {
@@ -961,20 +957,12 @@ body section.self-form .self-form-items #self-form-optional .card-content {
   transition: all 0.2s ease;
   background: #fff;
 }
-body section.self-form .self-form-items #self-form-range,
-body section.self-form .self-form-items #self-form-optional {
-  /* 텍스트 */
-}
 body section.self-form .self-form-items #self-form-range .text,
 body section.self-form .self-form-items #self-form-optional .text {
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.02em;
-}
-body section.self-form .self-form-items #self-form-range,
-body section.self-form .self-form-items #self-form-optional {
-  /* 체크 네모 */
 }
 body section.self-form .self-form-items #self-form-range .check-icon,
 body section.self-form .self-form-items #self-form-optional .check-icon {
@@ -986,18 +974,10 @@ body section.self-form .self-form-items #self-form-optional .check-icon {
   align-items: center;
   justify-content: center;
 }
-body section.self-form .self-form-items #self-form-range,
-body section.self-form .self-form-items #self-form-optional {
-  /* 선택되었을 때 */
-}
 body section.self-form .self-form-items #self-form-range .card input:checked + .card-content,
 body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content {
   background: #f05a1a;
   color: white;
-}
-body section.self-form .self-form-items #self-form-range,
-body section.self-form .self-form-items #self-form-optional {
-  /* 선택 시 체크 아이콘 스타일 */
 }
 body section.self-form .self-form-items #self-form-range .card input:checked + .card-content .check-icon,
 body section.self-form .self-form-items #self-form-optional .card input:checked + .card-content .check-icon {
@@ -1181,7 +1161,51 @@ body section.self-form .estimate-card__notice p {
     white-space: nowrap;
   }
 }
+body .self-loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-content: center;
+  place-items: center;
+  background: rgba(249, 248, 244, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  pointer-events: none;
+  padding: 24px;
+}
+body .self-loading-overlay.is-visible {
+  display: flex;
+  pointer-events: auto;
+}
+body .self-loading-overlay__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+body .self-loading-overlay__text {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+body .self-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 4px solid rgba(240, 90, 26, 0.18);
+  border-top-color: #f05a1a;
+  animation: selfSpin 0.9s linear infinite;
+}
 
+@keyframes selfSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 body .about-head {
   padding: 150px;
   padding-bottom: 20px;

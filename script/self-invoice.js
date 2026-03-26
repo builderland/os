@@ -120,10 +120,21 @@ function updateEstimateCard(data) {
     }
 
     if (estimateTableFootRow) {
+        // 변경: 합계는 "화면에 표시되는 만원 단위(반올림) 항목 합"과 정확히 일치하도록 프론트에서 재계산
+        const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
+        const minSumManwon =
+            Math.round((data.basic_price * 0.9) / 10000) +
+            Math.round((data.optional_price * 0.9) / 10000) +
+            Math.round((indirectTotal * 0.9) / 10000);
+        const maxSumManwon =
+            Math.round((data.basic_price * 1.1) / 10000) +
+            Math.round((data.optional_price * 1.1) / 10000) +
+            Math.round((indirectTotal * 1.1) / 10000);
+
         estimateTableFootRow.innerHTML = `
             <td colspan="2">합계(만원)</td>
-            <td class="number">${formatManwon(data.min_price)}</td>
-            <td class="number">${formatManwon(data.max_price)}</td>
+            <td class="number">${manwonFormatter.format(minSumManwon)}</td>
+            <td class="number">${manwonFormatter.format(maxSumManwon)}</td>
         `;
     }
 }
@@ -391,7 +402,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!detailOptionWrap) return;
 
             if (selected?.value === 'partial_work') {
-                detailOptionWrap.style.display = '';
+                // 변경: CSS에서 option 영역이 기본 display:none 이므로 부분공사 선택 시 강제로 노출
+                detailOptionWrap.style.display = 'block';
             } else {
                 detailOptionWrap.style.display = 'none';
                 detailOptionChecks.forEach(cb => { cb.checked = false; });
