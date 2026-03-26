@@ -9,6 +9,49 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
+    <!-- self.html: 스피너 로딩 오버레이(인라인 포함: style.css에 scss 반영이 즉시 안 될 수 있음) -->
+    <style>
+        .self-loading-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(249, 248, 244, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            pointer-events: none;
+            padding: 24px;
+        }
+        .self-loading-overlay.is-visible {
+            display: flex;
+            pointer-events: auto;
+        }
+        .self-loading-overlay__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .self-loading-overlay__text {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #111;
+        }
+        .self-spinner {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 4px solid rgba(240, 90, 26, 0.18);
+            border-top-color: #f05a1a;
+            animation: selfSpin 0.9s linear infinite;
+        }
+        @keyframes selfSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 
 <body>
@@ -279,6 +322,13 @@
             </ul>
         </div>
     </section>
+    <!-- self.html: 견적 계산 중(Edge Function 호출) UX 오버레이 -->
+    <div class="self-loading-overlay" aria-hidden="true" aria-label="계산 중">
+        <div class="self-loading-overlay__content" role="status" aria-live="polite">
+            <div class="self-spinner" aria-hidden="true"></div>
+            <div class="self-loading-overlay__text">계산 중...</div>
+        </div>
+    </div>
     <!-- 셀프 견적 페이지 인보이스 번호 자동 생성 및 저장을 위한 스크립트 (모듈 로드로 변경) -->
     <script type="module" src="script/self-invoice.js"></script>
 </body>

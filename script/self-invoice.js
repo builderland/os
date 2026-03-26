@@ -86,6 +86,7 @@ let typeSelectEl = null;
 let sizeSelectEl = null;
 let gradeSelectEl = null;
 let optionalCheckboxes = null;
+let overlayEl = null;
 
 // 견적 카드 결과 업데이트
 function updateEstimateCard(data) {
@@ -139,6 +140,13 @@ function setLoading(isLoading) {
         btn.disabled = false;
         if (label) label.textContent = '견적 비교';
     }
+}
+
+// self.html: 화면 중앙 로딩 오버레이 토글
+function setOverlayLoading(isLoading) {
+    if (!overlayEl) return;
+    overlayEl.classList.toggle('is-visible', isLoading);
+    overlayEl.setAttribute('aria-hidden', String(!isLoading));
 }
 
 // 변경: 자동 계산/저장을 위한 상태 및 유틸 함수 추가
@@ -241,11 +249,12 @@ function buildPayload(options = { showAlert: false }) {
 }
 
 // Edge Function 호출 + 카드 렌더 + 상태 갱신
-async function calculateAndRender(payload, options = { useButtonLoading: false }) {
-    const { useButtonLoading } = options;
+async function calculateAndRender(payload, options = { useButtonLoading: false, useOverlayLoading: false }) {
+    const { useButtonLoading, useOverlayLoading } = options;
     const currentRequestId = ++latestRequestId;
 
     if (useButtonLoading) setLoading(true);
+    if (useOverlayLoading) setOverlayLoading(true);
 
     try {
         const res = await fetch(EDGE_FUNCTION_URL, {
@@ -271,6 +280,7 @@ async function calculateAndRender(payload, options = { useButtonLoading: false }
         return data;
     } finally {
         if (useButtonLoading && currentRequestId === latestRequestId) setLoading(false);
+        if (useOverlayLoading && currentRequestId === latestRequestId) setOverlayLoading(false);
     }
 }
 
@@ -328,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sizeSelectEl          = document.getElementById('size');
     gradeSelectEl         = document.getElementById('finish-grade');
     optionalCheckboxes    = document.querySelectorAll('#self-form-optional input[type="checkbox"]');
+    overlayEl             = document.querySelector('.self-loading-overlay');
 
     if (!globalInvoiceEl) return;
 
@@ -355,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const autoCalc = debounce(async () => {
         const payload = buildPayload({ showAlert: false });
         if (!payload) return;
-        await calculateAndRender(payload, { useButtonLoading: false });
+        await calculateAndRender(payload, { useButtonLoading: false, useOverlayLoading: true });
     }, 800);
 
     // select 변경 시 자동 계산
