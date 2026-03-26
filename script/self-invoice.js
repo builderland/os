@@ -95,26 +95,26 @@ function updateEstimateCard(data) {
     }
 
     if (estimateTableBody) {
-        // 간접공사비 = indirect_price + overhead(14%) 합산
+        // 직접 공사비 외 비용 = indirect_price + overhead(14%) 합산
         const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
         estimateTableBody.innerHTML = `
             <tr>
                 <td>1</td>
-                <td>간접 공사비</td>
-                <td class="number">${formatManwon(indirectTotal * 0.9)}</td>
-                <td class="number">${formatManwon(indirectTotal * 1.1)}</td>
-            </tr>
-            <tr>
-                <td>2</td>
                 <td>기본 공사비</td>
                 <td class="number">${formatManwon(data.basic_price * 0.9)}</td>
                 <td class="number">${formatManwon(data.basic_price * 1.1)}</td>
             </tr>
             <tr>
-                <td>3</td>
+                <td>2</td>
                 <td>선택 공사비</td>
                 <td class="number">${formatManwon(data.optional_price * 0.9)}</td>
                 <td class="number">${formatManwon(data.optional_price * 1.1)}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>직접 공사비 외 비용</td>
+                <td class="number">${formatManwon(indirectTotal * 0.9)}</td>
+                <td class="number">${formatManwon(indirectTotal * 1.1)}</td>
             </tr>
         `;
     }
