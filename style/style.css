@@ -838,8 +838,7 @@ body .self-head span {
   letter-spacing: -0.01em;
 }
 body section.self-form {
-  padding: 80px 150px;
-  padding-top: 20px;
+  padding: 20px 150px;
   display: flex;
   justify-content: space-between;
   gap: 24px;
@@ -1269,7 +1268,7 @@ body .about-head span {
   }
 }
 body .feature {
-  padding: 80px 150px;
+  padding: 40px 150px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1364,7 +1363,7 @@ body .feature .list-items .feature-item .feature-description li {
   }
 }
 body .process {
-  padding: 80px 150px;
+  padding: 40px 150px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1468,7 +1467,8 @@ body .process .phase .phase-caption li {
   }
 }
 body .about-bottom {
-  padding: 80px 150px;
+  padding: 40px 150px;
+  padding-bottom: 80px;
   background-color: #F9F8F4;
   display: flex;
   flex-direction: column;

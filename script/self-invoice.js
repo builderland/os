@@ -223,8 +223,7 @@ function buildPayload(options = { showAlert: false }) {
 
         checkedDetails.forEach(val => {
             (scopeDetailMap[val] || []).forEach(s => {
-                // 바닥재는 등급에 따라 자동 선택
-                scope.push(s === '바닥' ? floorGradeMap[grade] : s);
+                scope.push(s);  // 바닥 그대로 전달, 등급은 Edge Function에서 DB 조회로 처리
             });
         });
 
@@ -423,6 +422,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!lastPayload || !lastEstimate) {
             alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
             return;
+        }
+
+        // 변경: 부분공사 선택 시 하위 항목은 2개 이상 선택해야 다음 페이지로 이동
+        if (lastPayload.construction_type === '부분') {
+            const checkedDetailCount = document.querySelectorAll(
+                '#self-form-range .option-grid input[type="checkbox"]:checked'
+            ).length;
+
+            if (checkedDetailCount < 2) {
+                alert('부분 공사는 하위 항목을 2개 이상 선택해주세요.');
+                return;
+            }
         }
 
         localStorage.setItem('builderland_invoice_latest', globalInvoiceEl.textContent);

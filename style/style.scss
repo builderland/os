@@ -1036,8 +1036,7 @@ body {
     }
 
     section.self-form {
-        padding: 80px 150px;
-        padding-top: 20px;
+        padding: 20px 150px;
         display: flex;
         justify-content: space-between;
         gap: 24px;
@@ -1540,7 +1539,7 @@ body {
     }
 
     .feature {
-        padding: 80px 150px;
+        padding: 40px 150px;
         display: flex;
         flex-direction: column;
         gap: 24px;
@@ -1656,7 +1655,7 @@ body {
     }
 
     .process {
-        padding: 80px 150px;
+        padding: 40px 150px;
         display: flex;
         flex-direction: column;
         gap: 24px;
@@ -1787,7 +1786,8 @@ body {
 
     // 변경: about-bottom 카드 섹션 스타일 추가
     .about-bottom {
-        padding: 80px 150px;
+        padding: 40px 150px;
+        padding-bottom: 80px;
         background-color: #F9F8F4;
         display: flex;
         flex-direction: column;
