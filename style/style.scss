@@ -476,6 +476,12 @@ body {
         min-height: 220px;
         display: flex;
         flex-direction: column;
+        // justify-content: space-between;
+
+        p{
+            margin: 0;
+            padding-top: 8px;
+        }
 
         &__badge {
             display: inline-block;

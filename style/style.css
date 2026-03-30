@@ -405,6 +405,10 @@ body .how-card {
   display: flex;
   flex-direction: column;
 }
+body .how-card p {
+  margin: 0;
+  padding-top: 8px;
+}
 body .how-card__badge {
   display: inline-block;
   background: #f05a14;
