@@ -2800,15 +2800,23 @@ body {
     .action {
         padding: 40px 150px;
         padding-bottom: 160px;
-        background-color: #f3f3f3;
+        background-color: #F9F8F4;
+
+        // 변경: 메인(index)에서만 action 부모 배경색 오버라이드
+        &--index {
+            background-color: #f3f3f3;
+
+            // 변경: 메인에서만 action-container 가로 폭을 pricing-container와 동일하게 조정
+            .action-container {
+                max-width: 1160px;
+            }
+        }
 
         .action-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            // 변경: pricing-container와 동일한 가로 기준으로 폭 정렬
             width: 100%;
-            max-width: 1160px;
             margin: 0 auto;
             padding: 40px;
             border-radius: 24px;
@@ -2846,6 +2854,7 @@ body {
             .action-cta--index {
                 background-color: #EA591A;
             }
+
         }
     }
 
