@@ -931,7 +931,8 @@ body {
     .pricing {
         background-color: #f3f3f3;
         color: #111;
-        padding: 60px 20px;
+        // 변경: 좌우 패딩을 150px로 늘리고 전체 레이아웃 폭도 함께 확장
+        padding: 80px 150px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -965,7 +966,8 @@ body {
 
         .pricing-container {
             display: flex;
-            max-width: 900px;
+            // 변경: 좌우 패딩 증가분만큼 pricing 컨테이너 최대 폭 확장
+            max-width: 1160px;
             width: 100%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             background: #fff;
@@ -979,10 +981,12 @@ body {
         }
 
         .left-col {
+            flex: 3;
             background-color: #ffffff;
         }
 
         .right-col {
+            flex: 2;
             background-color: #000000;
             color: #ffffff;
         }
@@ -1020,25 +1024,29 @@ body {
 
         .table-header {
             display: flex;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             margin-bottom: 15px;
         }
 
         .left-col .table-header {
-            justify-content: space-between;
+            // 변경: 왼쪽 표 헤더를 grid로 정렬해 공정-금액 간격 직접 제어
+            display: grid;
+            grid-template-columns: 30% minmax(0, 1fr) auto;
+            column-gap: 12px;
+            align-items: center;
         }
 
         .left-col .table-header span:nth-child(1) {
-            width: 30%;
+            width: auto;
         }
 
         .left-col .table-header span:nth-child(2) {
-            width: 40%;
+            width: auto;
         }
 
         .left-col .table-header span:nth-child(3) {
-            width: 30%;
+            width: auto;
             text-align: right;
         }
 
@@ -1062,14 +1070,22 @@ body {
             margin-bottom: 12px;
         }
 
+        .left-col .cost-row {
+            // 변경: 공정-금액 사이 간격이 실제로 줄어들도록 grid 레이아웃 적용
+            display: grid;
+            grid-template-columns: 30% minmax(0, 1fr) auto;
+            column-gap: 12px;
+            align-items: center;
+        }
+
         .left-col .cost-row .category {
-            width: 30%;
+            width: auto;
             font-weight: 600;
             color: #444;
         }
 
         .left-col .cost-row .process {
-            width: 40%;
+            width: auto;
             color: #333;
             // 변경: 전역 `.process` 스타일이 pricing 내부에도 영향 주는 것 방지
             padding: 0;
@@ -1081,7 +1097,7 @@ body {
         }
 
         .left-col .cost-row .amount {
-            width: 30%;
+            width: auto;
             text-align: right;
             font-weight: 700;
             color: #111;
@@ -2784,12 +2800,16 @@ body {
     .action {
         padding: 40px 150px;
         padding-bottom: 160px;
-        background-color: #F9F8F4;
+        background-color: #f3f3f3;
 
         .action-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            // 변경: pricing-container와 동일한 가로 기준으로 폭 정렬
+            width: 100%;
+            max-width: 1160px;
+            margin: 0 auto;
             padding: 40px;
             border-radius: 24px;
             background-color: #fff;

@@ -752,7 +752,7 @@ body .process-wrapper .payment-text {
 body .pricing {
   background-color: #f3f3f3;
   color: #111;
-  padding: 60px 20px;
+  padding: 80px 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -781,7 +781,7 @@ body .pricing .pricing-header h1 {
 }
 body .pricing .pricing-container {
   display: flex;
-  max-width: 900px;
+  max-width: 1160px;
   width: 100%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   background: #fff;
@@ -793,9 +793,11 @@ body .pricing .column {
   flex-direction: column;
 }
 body .pricing .left-col {
+  flex: 3;
   background-color: #ffffff;
 }
 body .pricing .right-col {
+  flex: 2;
   background-color: #000000;
   color: #ffffff;
 }
@@ -827,21 +829,25 @@ body .pricing .right-col .divider {
 }
 body .pricing .table-header {
   display: flex;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   margin-bottom: 15px;
 }
 body .pricing .left-col .table-header {
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 30% minmax(0, 1fr) auto;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+  align-items: center;
 }
 body .pricing .left-col .table-header span:nth-child(1) {
-  width: 30%;
+  width: auto;
 }
 body .pricing .left-col .table-header span:nth-child(2) {
-  width: 40%;
+  width: auto;
 }
 body .pricing .left-col .table-header span:nth-child(3) {
-  width: 30%;
+  width: auto;
   text-align: right;
 }
 body .pricing .right-col .table-header {
@@ -860,13 +866,20 @@ body .pricing .cost-row {
   font-size: 12px;
   margin-bottom: 12px;
 }
+body .pricing .left-col .cost-row {
+  display: grid;
+  grid-template-columns: 30% minmax(0, 1fr) auto;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+  align-items: center;
+}
 body .pricing .left-col .cost-row .category {
-  width: 30%;
+  width: auto;
   font-weight: 600;
   color: #444;
 }
 body .pricing .left-col .cost-row .process {
-  width: 40%;
+  width: auto;
   color: #333;
   padding: 0;
   margin: 0;
@@ -876,7 +889,7 @@ body .pricing .left-col .cost-row .process {
   flex: none;
 }
 body .pricing .left-col .cost-row .amount {
-  width: 30%;
+  width: auto;
   text-align: right;
   font-weight: 700;
   color: #111;
@@ -2302,12 +2315,15 @@ body .confirm .confirm-container .confirm-lounge dl dd {
 body .action {
   padding: 40px 150px;
   padding-bottom: 160px;
-  background-color: #F9F8F4;
+  background-color: #f3f3f3;
 }
 body .action .action-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
   padding: 40px;
   border-radius: 24px;
   background-color: #fff;
