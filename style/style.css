@@ -1377,9 +1377,6 @@ body section.self-form .estimate-card__notice {
 body section.self-form .estimate-card__notice p {
   margin: 0 0 6px 0;
 }
-body section.self-form .self-mobile-total-bar {
-  display: none;
-}
 @media (max-width: 767px) {
   body .self-head {
     padding: 96px 20px 16px;
@@ -2537,6 +2534,10 @@ body .footer .info .list-items .info-item {
   body .footer .info .list-items .info-title {
     padding-bottom: 14px;
   }
+}
+
+.self-mobile-total-bar {
+  display: none;
 }
 
 @media (max-width: 767px) {

@@ -179,6 +179,18 @@ function debounce(fn, delay) {
     };
 }
 
+// 변경 내용 주석: 공사 범위 저장 시 화면에서 실제로 선택한 항목만 배열로 수집
+function getSelectedScopeItems(rangeRoot, constructionType) {
+    if (constructionType === '전체') {
+        return ['전체공사'];
+    }
+
+    return Array.from(
+        rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]:checked')
+    ).map(cb => cb.closest('.card')?.querySelector('.text')?.textContent?.trim())
+        .filter(Boolean);
+}
+
 // 현재 폼 상태에서 payload 구성
 function buildPayload(options = { showAlert: false }) {
     const { showAlert } = options;
@@ -214,6 +226,8 @@ function buildPayload(options = { showAlert: false }) {
 
     const construction_type = topScopeRadio.value === 'full_work' ? '전체' : '부분';
     let scope = [];
+    // 변경 내용 주석: Supabase 저장용 scope는 사용자가 실제 선택한 항목명만 유지
+    let selected_scope_items = getSelectedScopeItems(rangeRoot, construction_type);
 
     if (construction_type === '부분') {
         // 체크된 scope_detail 수집 후 Edge Function scope로 변환
@@ -234,6 +248,7 @@ function buildPayload(options = { showAlert: false }) {
 
         // 중복 제거
         scope = [...new Set(scope)];
+        selected_scope_items = [...new Set(selected_scope_items)];
     }
 
     // ── 선택공사 수집 ────────────────────────────────────────
@@ -258,6 +273,7 @@ function buildPayload(options = { showAlert: false }) {
         grade,
         construction_type,
         scope,
+        selected_scope_items,
         extra_works,
         bathroom_count,
     };
@@ -321,7 +337,8 @@ function saveEstimateToSessionAndNavigate() {
         area_py:           lastPayload.area_py,
         grade:             lastPayload.grade,
         construction_type: lastPayload.construction_type,
-        scope:             lastPayload.scope,
+        // 변경 내용 주석: 예약 시 estimates.scope에는 실제 선택 항목 배열만 저장
+        scope:             lastPayload.selected_scope_items || [],
         extra_works:       lastPayload.extra_works,
         bathroom_count:    lastPayload.bathroom_count,
     };

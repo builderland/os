@@ -1674,10 +1674,6 @@ body {
             }
         }
 
-        // 변경: 모바일 전용 하단 고정 견적 바는 기본(데스크톱)에서 숨김
-        .self-mobile-total-bar {
-            display: none;
-        }
     }
 
     // 변경: self.html 모바일(0~767px) 1열 스택/패딩 축소/타이포 조정
@@ -3088,6 +3084,11 @@ body {
             }
         }
     }
+}
+
+// 변경: 모바일 전용 하단 고정 견적 바는 기본(데스크톱)에서 숨김
+.self-mobile-total-bar {
+    display: none;
 }
 
 // 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
