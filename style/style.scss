@@ -1698,7 +1698,6 @@ body {
 
         section.self-form {
             padding: 24px 20px 56px;
-            padding-bottom: 184px;
             flex-direction: column;
             gap: 16px;
 
@@ -2995,9 +2994,6 @@ body {
             padding: 32px 20px;
             padding-bottom: 96px;
 
-            // 변경: 모바일에서는 하단 고정 바 CTA를 사용하므로 기존 액션 섹션 숨김
-            display: none;
-
             .action-container {
                 flex-direction: column;
                 align-items: stretch;
@@ -3074,12 +3070,7 @@ body {
     @media (max-width: 767px) {
         .footer {
             gap: 40px;
-            padding: 64px 20px;
-
-            // 변경: self.html 에서만 하단 고정 바 높이만큼 푸터 하단 여백 추가
-            .self-page & {
-                padding-bottom: calc(140px + env(safe-area-inset-bottom));
-            }
+            padding: 40px 20px;
 
             .service-name {
                 font-size: 20px;
@@ -3096,5 +3087,17 @@ body {
                 }
             }
         }
+    }
+}
+
+// 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
+@media (max-width: 767px) {
+    body.self-page .footer {
+        padding-bottom: calc(160px + env(safe-area-inset-bottom));
+    }
+
+    // 변경: self.html 에서만 모바일 하단 고정 바 CTA를 사용하므로 기존 action 섹션 숨김
+    body.self-page .action {
+        display: none;
     }
 }

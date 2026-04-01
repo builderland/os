@@ -1394,7 +1394,6 @@ body section.self-form .self-mobile-total-bar {
   }
   body section.self-form {
     padding: 24px 20px 56px;
-    padding-bottom: 184px;
     flex-direction: column;
     gap: 16px;
   }
@@ -2464,7 +2463,6 @@ body .action .action-container .action-cta--index {
   body .action {
     padding: 32px 20px;
     padding-bottom: 96px;
-    display: none;
   }
   body .action .action-container {
     flex-direction: column;
@@ -2527,10 +2525,7 @@ body .footer .info .list-items .info-item {
 @media (max-width: 767px) {
   body .footer {
     gap: 40px;
-    padding: 64px 20px;
-  }
-  .self-page body .footer {
-    padding-bottom: calc(140px + env(safe-area-inset-bottom));
+    padding: 40px 20px;
   }
   body .footer .service-name {
     font-size: 20px;
@@ -2541,5 +2536,14 @@ body .footer .info .list-items .info-item {
   }
   body .footer .info .list-items .info-title {
     padding-bottom: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.self-page .footer {
+    padding-bottom: calc(160px + env(safe-area-inset-bottom));
+  }
+  body.self-page .action {
+    display: none;
   }
 }/*# sourceMappingURL=style.css.map */
