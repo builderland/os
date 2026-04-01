@@ -354,8 +354,9 @@ body {
     grid-template-columns: 1fr;
   }
   body .problem__bottom {
-    font-size: clamp(36px, 10vw, 64px);
+    font-size: clamp(24px, 8.6vw, 64px);
     margin-top: 160px;
+    white-space: nowrap;
   }
   body .problem-card__tags {
     --tags-scale: 0.78;
@@ -982,6 +983,28 @@ body .pricing .pricing-info-container .pricing-info-content {
   letter-spacing: -0.01em;
   color: #777;
 }
+@media (max-width: 767px) {
+  body .pricing {
+    padding: 64px 20px;
+  }
+  body .pricing .pricing-header {
+    margin-bottom: 32px;
+  }
+  body .pricing .pricing-header h1 {
+    font-size: 26px;
+  }
+  body .pricing .column {
+    padding: 24px;
+  }
+  body .pricing .col-header {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+  body .pricing .pricing-info-container {
+    margin-top: 32px;
+    padding-left: 0;
+  }
+}
 body .corevalue {
   display: flex;
   justify-content: space-between;
@@ -1526,7 +1549,7 @@ body .about-head span {
     gap: 12px;
   }
   body .about-head h1 {
-    font-size: clamp(32px, 9vw, 44px);
+    font-size: clamp(28px, 8vw, 40px);
     line-height: 1.15;
   }
   body .about-head span {
@@ -2137,10 +2160,11 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
 @media (max-width: 767px) {
   body .reservation-head {
     margin-top: 64px;
-    padding: 96px 20px 16px;
+    padding: 40px 20px 16px;
     gap: 20px;
   }
   body .reservation-head h1 {
+    margin: 0;
     font-size: clamp(32px, 9vw, 44px);
   }
   body .reservation-head .notice {
@@ -2164,6 +2188,7 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
     gap: 24px;
   }
   body .reservation-form h2 {
+    margin: 0;
     font-size: 20px;
   }
   body .reservation-form .reservation-form-item {
@@ -2204,10 +2229,17 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
     margin-bottom: 24px;
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
   }
   body .reservation-form .reservation-form-item .time-group .time-group-item {
     width: 100%;
     gap: 10px;
+  }
+  body .reservation-form .reservation-form-item .time-group .time-group-item:nth-child(2) {
+    margin-top: 20px;
+  }
+  body .reservation-form .reservation-form-item .time-group .time-group-item:nth-child(3) {
+    margin-top: 4px;
   }
   body .reservation-form .reservation-form-item .time-group .time-group-item label {
     font-size: 14px;
@@ -2495,7 +2527,10 @@ body .footer .info .list-items .info-item {
 @media (max-width: 767px) {
   body .footer {
     gap: 40px;
-    padding: 64px 20px calc(140px + env(safe-area-inset-bottom));
+    padding: 64px 20px;
+  }
+  .self-page body .footer {
+    padding-bottom: calc(140px + env(safe-area-inset-bottom));
   }
   body .footer .service-name {
     font-size: 20px;

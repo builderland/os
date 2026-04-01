@@ -414,10 +414,12 @@ body {
             }
 
             &__bottom {
-                // 변경: 모바일에서 너무 작게 보이지 않도록 clamp로 스케일링
-                font-size: clamp(36px, 10vw, 64px);
+                // 변경: 모바일 가로폭에 따라 한 줄 유지가 가능하도록 텍스트 크기 유동 조정
+                font-size: clamp(24px, 8.6vw, 64px);
                 // 변경: 모바일에서 과도한 여백(600px) 축소
                 margin-top: 160px;
+                // 변경: 모바일에서도 문구가 한 줄로 유지되도록 줄바꿈 방지
+                white-space: nowrap;
             }
         }
 
@@ -1212,6 +1214,35 @@ body {
         }
     }
 
+    // 변경: 모바일에서 pricing 섹션 좌우 여백과 내부 패딩을 다른 섹션 기준(20px)으로 축소
+    @media (max-width: 767px) {
+        .pricing {
+            padding: 64px 20px;
+
+            .pricing-header {
+                margin-bottom: 32px;
+
+                h1 {
+                    font-size: 26px;
+                }
+            }
+
+            .column {
+                padding: 24px;
+            }
+
+            .col-header {
+                font-size: 24px;
+                margin-bottom: 32px;
+            }
+
+            .pricing-info-container {
+                margin-top: 32px;
+                padding-left: 0;
+            }
+        }
+    }
+
     .corevalue {
         display: flex;
         justify-content: space-between;
@@ -1859,7 +1890,8 @@ body {
             gap: 12px;
 
             h1 {
-                font-size: clamp(32px, 9vw, 44px);
+                // 변경: 모바일 about 헤드라인 크기를 한 단계 축소
+                font-size: clamp(28px, 8vw, 40px);
                 line-height: 1.15;
             }
 
@@ -2571,10 +2603,11 @@ body {
     @media (max-width: 767px) {
         .reservation-head {
             margin-top: 64px;
-            padding: 96px 20px 16px;
+            padding: 40px 20px 16px;
             gap: 20px;
 
             h1 {
+                margin: 0;
                 font-size: clamp(32px, 9vw, 44px);
             }
 
@@ -2606,6 +2639,7 @@ body {
             gap: 24px;
 
             h2 {
+                margin: 0;
                 font-size: 20px;
             }
 
@@ -2655,10 +2689,21 @@ body {
                     margin-bottom: 24px;
                     flex-direction: column;
                     align-items: stretch;
+                    gap: 0;
 
                     .time-group-item {
                         width: 100%;
                         gap: 10px;
+
+                        // 변경: 모바일에서 오전 다음 간격은 조금 더 넓힘
+                        &:nth-child(2) {
+                            margin-top: 20px;
+                        }
+
+                        // 변경: 모바일에서 2:00와 4:00 사이는 조금 더 좁힘
+                        &:nth-child(3) {
+                            margin-top: 4px;
+                        }
 
                         label {
                             font-size: 14px;
@@ -3029,8 +3074,12 @@ body {
     @media (max-width: 767px) {
         .footer {
             gap: 40px;
-            // 변경: 모바일에서 하단 고정 바 높이만큼 푸터 하단 여백 추가
-            padding: 64px 20px calc(140px + env(safe-area-inset-bottom));
+            padding: 64px 20px;
+
+            // 변경: self.html 에서만 하단 고정 바 높이만큼 푸터 하단 여백 추가
+            .self-page & {
+                padding-bottom: calc(140px + env(safe-area-inset-bottom));
+            }
 
             .service-name {
                 font-size: 20px;
