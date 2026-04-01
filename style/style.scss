@@ -45,7 +45,10 @@ body {
             line-height: 1;
             letter-spacing: -0.01em;
             text-transform: uppercase;
-            color: #000;
+            // 변경: 헤더 service-name을 항상 흰색으로 고정
+            color: #fff;
+            // 변경: 헤더 service-name을 링크로 사용해도 기본 밑줄이 보이지 않도록 설정
+            text-decoration: none;
         }
 
         button {

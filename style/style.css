@@ -43,7 +43,8 @@ body header .service-name {
   line-height: 1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #000;
+  color: #fff;
+  text-decoration: none;
 }
 body header button {
   background-color: #000;
