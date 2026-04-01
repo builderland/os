@@ -81,6 +81,7 @@ function formatManwon(won) {
 let estimateRangeEl = null;
 let estimateTableBody = null;
 let estimateTableFootRow = null;
+let mobileEstimateRangeEl = null;
 let globalInvoiceEl = null;
 let typeSelectEl = null;
 let sizeSelectEl = null;
@@ -90,8 +91,14 @@ let overlayEl = null;
 
 // 견적 카드 결과 업데이트
 function updateEstimateCard(data) {
+    const formattedRange = `${formatManwon(data.min_price)} ~ ${formatManwon(data.max_price)}`;
+
     if (estimateRangeEl) {
-        estimateRangeEl.textContent = `${formatManwon(data.min_price)} ~ ${formatManwon(data.max_price)}`;
+        estimateRangeEl.textContent = formattedRange;
+    }
+
+    if (mobileEstimateRangeEl) {
+        mobileEstimateRangeEl.textContent = formattedRange;
     }
 
     if (estimateTableBody) {
@@ -141,16 +148,14 @@ function updateEstimateCard(data) {
 
 // 버튼 로딩 상태 토글
 function setLoading(isLoading) {
-    const btn = document.querySelector('.action-cta');
-    if (!btn) return;
-    const label = btn.querySelector('.label');
-    if (isLoading) {
-        btn.disabled = true;
-        if (label) label.textContent = '계산 중...';
-    } else {
-        btn.disabled = false;
-        if (label) label.textContent = '견적 비교';
-    }
+    const buttons = document.querySelectorAll('.action-cta');
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        const label = btn.querySelector('.label');
+        btn.disabled = isLoading;
+        if (label) label.textContent = isLoading ? '계산 중...' : '공사 방식 확인';
+    });
 }
 
 // self.html: 화면 중앙 로딩 오버레이 토글
@@ -340,8 +345,9 @@ function saveEstimateToSessionAndNavigate() {
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 캐싱
     globalInvoiceEl       = document.querySelector('.estimate-card__invoice');
-    const actionButton    = document.querySelector('.action-cta');
+    const actionButtons   = document.querySelectorAll('.action-cta');
     estimateRangeEl       = document.querySelector('.estimate-card__range');
+    mobileEstimateRangeEl = document.querySelector('.self-mobile-total-bar__range');
     estimateTableBody     = document.querySelector('.estimate-table tbody');
     estimateTableFootRow  = document.querySelector('.estimate-table tfoot tr');
     typeSelectEl          = document.getElementById('type');
@@ -370,7 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const validEl = document.querySelector('.estimate-card__valid');
     if (validEl) validEl.textContent = `${getValidUntilDate()} 까지 유효`;
 
-    if (!actionButton) return;
+    // 변경: 모바일 하단 고정 바 금액도 기본값과 동일하게 초기화
+    if (mobileEstimateRangeEl) mobileEstimateRangeEl.textContent = '0';
+
+    if (!actionButtons.length) return;
 
     // 자동 계산 디바운스
     const autoCalc = debounce(async () => {
@@ -417,8 +426,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleDetailOptionByTopScope();
     }
 
-    // 버튼 클릭: 세션 저장 후 이동
-    actionButton.addEventListener('click', async () => {
+    // 변경: 데스크톱/모바일 CTA 버튼이 동일한 검증 및 이동 로직을 공유
+    const handleActionButtonClick = async () => {
         if (!lastPayload || !lastEstimate) {
             alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
             return;
@@ -439,5 +448,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('builderland_invoice_latest', globalInvoiceEl.textContent);
         document.querySelector('.estimate-card')?.scrollIntoView({ behavior: 'smooth' });
         saveEstimateToSessionAndNavigate();
+    };
+
+    actionButtons.forEach(button => {
+        button.addEventListener('click', handleActionButtonClick);
     });
 });

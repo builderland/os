@@ -43,7 +43,7 @@ body header .service-name {
   line-height: 1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
 body header button {
@@ -1354,6 +1354,9 @@ body section.self-form .estimate-card__notice {
 body section.self-form .estimate-card__notice p {
   margin: 0 0 6px 0;
 }
+body section.self-form .self-mobile-total-bar {
+  display: none;
+}
 @media (max-width: 767px) {
   body .self-head {
     padding: 96px 20px 16px;
@@ -1368,6 +1371,7 @@ body section.self-form .estimate-card__notice p {
   }
   body section.self-form {
     padding: 24px 20px 56px;
+    padding-bottom: 184px;
     flex-direction: column;
     gap: 16px;
   }
@@ -1394,35 +1398,60 @@ body section.self-form .estimate-card__notice p {
     font-size: 14px;
   }
   body section.self-form .estimate-card {
-    padding: 24px;
+    display: none;
   }
-  body section.self-form .estimate-card__title {
-    font-size: 18px;
-    margin-bottom: 28px;
+  body .self-mobile-total-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
+    background-color: #fff;
+    border-top: 1px solid #E2E4E8;
+    box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
   }
-  body section.self-form .estimate-card__meta {
+  body .self-mobile-total-bar__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  body .self-mobile-total-bar__label {
     font-size: 12px;
-    margin-bottom: 24px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: #767B86;
   }
-  body section.self-form .estimate-card__price {
-    margin-bottom: 40px;
-  }
-  body section.self-form .estimate-card__price .estimate-card__label {
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-  body section.self-form .estimate-card__price .estimate-card__range {
-    font-size: clamp(28px, 9vw, 40px);
-  }
-  body section.self-form .estimate-card .estimate-table-scroll {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  body section.self-form .estimate-card .estimate-table {
-    width: 100%;
-    min-width: 520px;
+  body .self-mobile-total-bar__range {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #111;
     white-space: nowrap;
+  }
+  body .self-mobile-total-bar__cta {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+    background-color: #EA591A;
+    border: none;
+    border-radius: 50px;
+  }
+  body .self-mobile-total-bar__cta .label {
+    color: #fff;
+    font-size: 14px;
+  }
+  body .self-mobile-total-bar__cta svg {
+    display: block;
   }
 }
 body .self-loading-overlay {
@@ -2403,6 +2432,7 @@ body .action .action-container .action-cta--index {
   body .action {
     padding: 32px 20px;
     padding-bottom: 96px;
+    display: none;
   }
   body .action .action-container {
     flex-direction: column;
@@ -2465,7 +2495,7 @@ body .footer .info .list-items .info-item {
 @media (max-width: 767px) {
   body .footer {
     gap: 40px;
-    padding: 64px 20px;
+    padding: 64px 20px calc(140px + env(safe-area-inset-bottom));
   }
   body .footer .service-name {
     font-size: 20px;

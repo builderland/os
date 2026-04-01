@@ -46,7 +46,7 @@ body {
             letter-spacing: -0.01em;
             text-transform: uppercase;
             // 변경: 헤더 service-name을 항상 흰색으로 고정
-            color: #fff;
+            color: #000;
             // 변경: 헤더 service-name을 링크로 사용해도 기본 밑줄이 보이지 않도록 설정
             text-decoration: none;
         }
@@ -428,7 +428,7 @@ body {
         }
     }
 
-    
+
     .how {
         background: #f3f3f3;
         padding: 80px 150px;
@@ -481,7 +481,7 @@ body {
         flex-direction: column;
         // justify-content: space-between;
 
-        p{
+        p {
             margin: 0;
             padding-top: 8px;
         }
@@ -928,7 +928,7 @@ body {
         }
     }
 
-        
+
 
     // 변경: pricing 섹션 추가
     .pricing {
@@ -1201,7 +1201,7 @@ body {
                 line-height: 1;
                 letter-spacing: -0.01em;
             }
-            
+
             .pricing-info-content {
                 font-size: 14px;
                 font-weight: 400;
@@ -1476,6 +1476,7 @@ body {
             }
 
             #self-form-range {
+
                 // 변경: 공사 범위 하위 옵션은 기본 상태에서 숨김(부분공사 선택 시 JS로 표시)
                 .self-form-item-option {
                     display: none;
@@ -1641,6 +1642,11 @@ body {
                 }
             }
         }
+
+        // 변경: 모바일 전용 하단 고정 견적 바는 기본(데스크톱)에서 숨김
+        .self-mobile-total-bar {
+            display: none;
+        }
     }
 
     // 변경: self.html 모바일(0~767px) 1열 스택/패딩 축소/타이포 조정
@@ -1661,6 +1667,7 @@ body {
 
         section.self-form {
             padding: 24px 20px 56px;
+            padding-bottom: 184px;
             flex-direction: column;
             gap: 16px;
 
@@ -1695,46 +1702,76 @@ body {
             }
 
             .estimate-card {
-                padding: 24px;
+                // 변경: 모바일에서는 기존 estimate-card 전체를 숨기고 하단 고정 바로 대체
+                display: none;
+            }
+        }
 
-                &__title {
-                    font-size: 18px;
-                    margin-bottom: 28px;
+        // 변경: 모바일에서는 하단 고정 바에 총 견적 금액과 CTA를 함께 노출
+        .self-mobile-total-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
+            background-color: #fff;
+            border-top: 1px solid #E2E4E8;
+            box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
+
+            &__summary {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                min-width: 0;
+            }
+
+            &__label {
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                color: #767B86;
+            }
+
+            &__range {
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                color: #111;
+                white-space: nowrap;
+            }
+
+            &__cta {
+                flex: 0 0 auto;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                // min-width: 156px;
+                padding: 16px 20px;
+                background-color: #EA591A;
+                border: none;
+                border-radius: 50px;
+
+                // 변경: 모바일 하단 고정 바 버튼 텍스트 색상을 흰색으로 지정
+                .label {
+                    color: #fff;
+                    font-size: 14px;
                 }
 
-                &__meta {
-                    font-size: 12px;
-                    margin-bottom: 24px;
-                }
-
-                &__price {
-                    margin-bottom: 40px;
-
-                    .estimate-card__label {
-                        font-size: 14px;
-                        margin-bottom: 16px;
-                    }
-
-                    .estimate-card__range {
-                        font-size: clamp(28px, 9vw, 40px);
-                    }
-                }
-
-                // 변경: 모바일에서 표는 래퍼를 100% fill로 두고 가로 스크롤로 확인(레이아웃 유지)
-                .estimate-table-scroll {
-                    width: 100%;
-                    overflow-x: auto;
-                    -webkit-overflow-scrolling: touch;
-                }
-
-                .estimate-table {
-                    width: 100%;
-                    min-width: 520px;
-                    white-space: nowrap;
+                // 변경: 모바일 하단 고정 바 버튼의 텍스트와 화살표 아이콘을 수직 가운데 정렬
+                svg {
+                    display: block;
                 }
             }
         }
     }
+
     // self.html: 견적 계산 중 오버레이/스피너
     .self-loading-overlay {
         position: fixed;
@@ -1782,6 +1819,7 @@ body {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -2912,6 +2950,9 @@ body {
             padding: 32px 20px;
             padding-bottom: 96px;
 
+            // 변경: 모바일에서는 하단 고정 바 CTA를 사용하므로 기존 액션 섹션 숨김
+            display: none;
+
             .action-container {
                 flex-direction: column;
                 align-items: stretch;
@@ -2988,7 +3029,8 @@ body {
     @media (max-width: 767px) {
         .footer {
             gap: 40px;
-            padding: 64px 20px;
+            // 변경: 모바일에서 하단 고정 바 높이만큼 푸터 하단 여백 추가
+            padding: 64px 20px calc(140px + env(safe-area-inset-bottom));
 
             .service-name {
                 font-size: 20px;
