@@ -2027,16 +2027,17 @@ body .about-bottom .about-bottom-card.is-builderland {
 
 body .reservation-head {
   margin-top: 80px;
-  padding: 80px 150px;
+  padding: 40px 150px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 24px;
 }
 body .reservation-head h1 {
   font-size: 64px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
+  margin: 0;
 }
 body .reservation-head .notice {
   background-color: #F9F9F9;
@@ -2072,7 +2073,8 @@ body .reservation-head .notice .content .lounge {
   color: #50545D;
 }
 body .reservation-form {
-  padding: 80px 150px;
+  padding: 40px 150px;
+  padding-bottom: 8px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -2082,6 +2084,7 @@ body .reservation-form h2 {
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
+  margin: 0;
 }
 body .reservation-form .reservation-form-item {
   display: flex;
