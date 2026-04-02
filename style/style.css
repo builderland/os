@@ -785,6 +785,7 @@ body .pricing .pricing-container {
   display: flex;
   max-width: 1160px;
   width: 100%;
+  position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   background: #fff;
 }
@@ -923,6 +924,30 @@ body .pricing .total-row {
   padding-top: 15px;
   align-items: center;
 }
+body .pricing .total-row .amount-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+}
+body .pricing .total-row .amount-wrapper .discount-sticker {
+  position: absolute;
+  top: 60%;
+  left: 56%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  z-index: 2;
+  background-color: #ea4326;
+  color: #fff;
+  padding: 30px 60px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+  box-shadow: 0 8px 24px rgba(234, 67, 38, 0.35);
+}
 body .pricing .total-divider {
   height: 2px;
   background-color: #111;
@@ -990,19 +1015,138 @@ body .pricing .pricing-info-container .pricing-info-content {
   body .pricing .pricing-header {
     margin-bottom: 32px;
   }
+  body .pricing .pricing-header p {
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
   body .pricing .pricing-header h1 {
     font-size: 26px;
+    line-height: 1.35;
+  }
+  body .pricing .pricing-container {
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
   }
   body .pricing .column {
-    padding: 24px;
+    padding: 16px 12px;
+    box-sizing: border-box;
+  }
+  body .pricing .left-col,
+  body .pricing .right-col {
+    width: auto;
+  }
+  body .pricing .right-col {
+    margin-top: 0;
+    border-top: 0;
   }
   body .pricing .col-header {
-    font-size: 24px;
-    margin-bottom: 32px;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  body .pricing .details-section {
+    font-size: 8px;
+    margin-bottom: 12px;
+    height: auto;
+    min-height: 36px;
+  }
+  body .pricing .divider,
+  body .pricing .section-divider,
+  body .pricing .total-divider {
+    margin-bottom: 12px;
+  }
+  body .pricing .table-header {
+    font-size: 9px;
+    margin-bottom: 10px;
+  }
+  body .pricing .left-col .table-header,
+  body .pricing .left-col .cost-row {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    -moz-column-gap: 6px;
+         column-gap: 6px;
+  }
+  body .pricing .right-col .table-header {
+    gap: 8px;
+  }
+  body .pricing .cost-row {
+    font-size: 9px;
+    margin-bottom: 8px;
+  }
+  body .pricing .left-col .cost-row,
+  body .pricing .right-col .cost-row {
+    align-items: start;
+  }
+  body .pricing .left-col .cost-row .category,
+  body .pricing .left-col .cost-row .process,
+  body .pricing .right-col .cost-row .process {
+    min-width: 0;
+    line-height: 1.4;
+    word-break: keep-all;
+  }
+  body .pricing .right-col .cost-row {
+    gap: 8px;
+    justify-content: space-between;
+  }
+  body .pricing .right-col .cost-row .process {
+    width: auto;
+    flex: 1;
+  }
+  body .pricing .right-col .cost-row .amount {
+    width: auto;
+    flex-shrink: 0;
+  }
+  body .pricing .cost-group {
+    margin-bottom: 12px;
+  }
+  body .pricing .total-row {
+    align-items: center;
+    gap: 8px;
+    padding-top: 6px;
+  }
+  body .pricing .left-col .total-row .label,
+  body .pricing .right-col .total-row .label {
+    font-size: 12px;
+  }
+  body .pricing .left-col .total-row .amount,
+  body .pricing .right-col .total-row .amount {
+    font-size: 14px;
+  }
+  body .pricing .total-row .amount-wrapper {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  body .pricing .total-row .amount-wrapper .discount-sticker {
+    position: absolute;
+    top: 58%;
+    left: 56%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    padding: 10px 18px;
+    font-size: 22px;
+    gap: 2px;
+    box-shadow: 0 6px 16px rgba(234, 67, 38, 0.25);
+  }
+  body .pricing .total-row .amount-wrapper .discount-sticker .discount-caption {
+    font-size: 10px;
+    white-space: nowrap;
   }
   body .pricing .pricing-info-container {
-    margin-top: 32px;
+    margin-top: 24px;
     padding-left: 0;
+    gap: 20px;
+  }
+  body .pricing .pricing-info-list {
+    padding-bottom: 20px;
+  }
+  body .pricing .pricing-info-list:first-child {
+    padding-top: 20px;
+  }
+  body .pricing .pricing-info-title {
+    font-size: 15px;
+  }
+  body .pricing .pricing-info-content {
+    font-size: 13px;
+    line-height: 1.6;
   }
 }
 body .corevalue {

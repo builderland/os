@@ -38,6 +38,7 @@ body {
         left: 0;
         right: 0;
         z-index: 100;
+        // height: 69px;
 
         .service-name {
             font-size: 16px;
@@ -52,6 +53,8 @@ body {
         }
 
         button {
+            // 변경: 모든 페이지 헤더의 '자주 묻는 질문' 버튼 숨김
+            // display: none;
             background-color: #000;
             color: #fff;
             border: none;
@@ -974,6 +977,8 @@ body {
             // 변경: 좌우 패딩 증가분만큼 pricing 컨테이너 최대 폭 확장
             max-width: 1160px;
             width: 100%;
+            // 변경: discount-sticker를 pricing-container 상단 중앙 기준으로 배치
+            position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             background: #fff;
         }
@@ -1138,282 +1143,1493 @@ body {
             font-weight: 700;
             padding-top: 15px;
             align-items: center;
-        }
 
-        .total-divider {
-            height: 2px;
-            background-color: #111;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
+            .amount-wrapper {
+                display: inline-flex;
+                align-items: center;
+                gap: 15px;
 
-        .right-col .total-divider {
-            background-color: #fff;
-        }
-
-        .left-col .total-row .amount,
-        .right-col .total-row .amount {
-            color: #ea4326;
-            font-size: 20px;
-        }
-
-        .left-col .total-row .label,
-        .right-col .total-row .label {
-            color: #ea4326;
-        }
-
-        @media screen and (max-width: 768px) {
-            .pricing-container {
-                flex-direction: column;
-            }
-        }
-
-        .pricing-info-container {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            align-items: start;
-            // 변경: left-col 내부 콘텐츠 시작선과 맞추기 위해 동일한 기준 폭/좌측 여백 적용
-            width: 100%;
-            max-width: 1160px;
-            padding-left: 8px;
-            box-sizing: border-box;
-            margin-top: 60px;
-
-            .pricing-info-list {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                // 변경: 하단 stroke가 상단 pricing 영역 가로 폭 기준으로 끝까지 채워지도록 리스트 폭 확장
-                width: 100%;
-                padding-bottom: 24px;
-                border-bottom: solid 1px #D9D9D9;
-                box-sizing: border-box;
-
-                &:first-child {
-                    // 변경: 첫 번째 안내 항목 상단에도 동일한 stroke 추가
-                    padding-top: 24px;
-                    border-top: solid 1px #D9D9D9;
+                .discount-sticker {
+                    // 변경: 할인 배지를 오른쪽으로 이동시키고 크기를 크게 확장
+                    position: absolute;
+                    top: 60%;
+                    left: 56%;
+                    transform: translate(-50%, -50%) rotate(-8deg);
+                    z-index: 2;
+                    background-color: #ea4326;
+                    color: #fff;
+                    padding: 30px 60px;
+                    border-radius: 999px;
+                    // 변경: 할인 배지를 한 줄 텍스트 배지 형태로 유지
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 64px;
+                    font-weight: 700;
+                    white-space: nowrap;
+                    letter-spacing: -0.5px;
+                    box-shadow: 0 8px 24px rgba(234, 67, 38, 0.35);
                 }
             }
-
-            .pricing-info-title {
-                font-size: 16px;
-                font-weight: 600;
-                line-height: 1;
-                letter-spacing: -0.01em;
-            }
-
-            .pricing-info-content {
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 1.5;
-                letter-spacing: -0.01em;
-                color: #777;
-            }
         }
-    }
 
-    // 변경: 모바일에서 pricing 섹션 좌우 여백과 내부 패딩을 다른 섹션 기준(20px)으로 축소
-    @media (max-width: 767px) {
-        .pricing {
-            padding: 64px 20px;
+            .total-divider {
+                height: 2px;
+                background-color: #111;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
 
-            .pricing-header {
-                margin-bottom: 32px;
+            .right-col .total-divider {
+                background-color: #fff;
+            }
 
-                h1 {
-                    font-size: 26px;
+            .left-col .total-row .amount,
+            .right-col .total-row .amount {
+                color: #ea4326;
+                font-size: 20px;
+            }
+
+            .left-col .total-row .label,
+            .right-col .total-row .label {
+                color: #ea4326;
+            }
+
+            @media screen and (max-width: 768px) {
+                .pricing-container {
+                    flex-direction: column;
                 }
-            }
-
-            .column {
-                padding: 24px;
-            }
-
-            .col-header {
-                font-size: 24px;
-                margin-bottom: 32px;
             }
 
             .pricing-info-container {
-                margin-top: 32px;
-                padding-left: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                align-items: start;
+                // 변경: left-col 내부 콘텐츠 시작선과 맞추기 위해 동일한 기준 폭/좌측 여백 적용
+                width: 100%;
+                max-width: 1160px;
+                padding-left: 8px;
+                box-sizing: border-box;
+                margin-top: 60px;
+
+                .pricing-info-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    // 변경: 하단 stroke가 상단 pricing 영역 가로 폭 기준으로 끝까지 채워지도록 리스트 폭 확장
+                    width: 100%;
+                    padding-bottom: 24px;
+                    border-bottom: solid 1px #D9D9D9;
+                    box-sizing: border-box;
+
+                    &:first-child {
+                        // 변경: 첫 번째 안내 항목 상단에도 동일한 stroke 추가
+                        padding-top: 24px;
+                        border-top: solid 1px #D9D9D9;
+                    }
+                }
+
+                .pricing-info-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                .pricing-info-content {
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    letter-spacing: -0.01em;
+                    color: #777;
+                }
+            }
+        }
+
+        // 변경: 모바일에서 pricing 섹션 좌우 여백과 내부 패딩을 다른 섹션 기준(20px)으로 축소
+        @media (max-width: 767px) {
+            .pricing {
+                padding: 64px 20px;
+
+                .pricing-header {
+                    margin-bottom: 32px;
+
+                    p {
+                        margin-bottom: 12px;
+                        font-size: 12px;
+                    }
+
+                    h1 {
+                        font-size: 26px;
+                        line-height: 1.35;
+                    }
+                }
+
+                .pricing-container {
+                    // 변경: 모바일에서 좌우 컬럼이 위아래로 쌓이지 않고 2열을 유지하도록 조정
+                    flex-direction: row;
+                    align-items: stretch;
+                    overflow: hidden;
+                }
+
+                .column {
+                    // 변경: 모바일에서 2열 유지가 가능하도록 내부 여백 축소
+                    padding: 16px 12px;
+                    box-sizing: border-box;
+                }
+
+                .left-col,
+                .right-col {
+                    // 변경: 모바일에서도 두 컬럼이 한 줄 안에서 비율 유지
+                    width: auto;
+                }
+
+                .right-col {
+                    // 변경: 모바일에서 세로 스택 경계선 제거
+                    margin-top: 0;
+                    border-top: 0;
+                }
+
+                .col-header {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                .details-section {
+                    // 변경: 모바일에서 상세 정보 높이와 간격을 축소
+                    font-size: 8px;
+                    margin-bottom: 12px;
+                    height: auto;
+                    min-height: 36px;
+                }
+
+                .divider,
+                .section-divider,
+                .total-divider {
+                    margin-bottom: 12px;
+                }
+
+                .table-header {
+                    font-size: 9px;
+                    margin-bottom: 10px;
+                }
+
+                .left-col .table-header,
+                .left-col .cost-row {
+                    // 변경: 모바일 2열 유지에 맞춰 왼쪽 표 그리드 폭 추가 축소
+                    grid-template-columns: 44px minmax(0, 1fr) auto;
+                    column-gap: 6px;
+                }
+
+                .right-col .table-header {
+                    gap: 8px;
+                }
+
+                .cost-row {
+                    font-size: 9px;
+                    margin-bottom: 8px;
+                }
+
+                .left-col .cost-row,
+                .right-col .cost-row {
+                    align-items: start;
+                }
+
+                .left-col .cost-row .category,
+                .left-col .cost-row .process,
+                .right-col .cost-row .process {
+                    // 변경: 모바일에서 긴 공정명이 자연스럽게 줄바꿈되도록 설정
+                    min-width: 0;
+                    line-height: 1.4;
+                    word-break: keep-all;
+                }
+
+                .right-col .cost-row {
+                    gap: 8px;
+                    justify-content: space-between;
+                }
+
+                .right-col .cost-row .process {
+                    width: auto;
+                    flex: 1;
+                }
+
+                .right-col .cost-row .amount {
+                    width: auto;
+                    flex-shrink: 0;
+                }
+
+                .cost-group {
+                    margin-bottom: 12px;
+                }
+
+                .total-row {
+                    // 변경: 모바일 2열 유지에 맞춰 총 금액 영역 간격 축소
+                    align-items: center;
+                    gap: 8px;
+                    padding-top: 6px;
+                }
+
+                .left-col .total-row .label,
+                .right-col .total-row .label {
+                    font-size: 12px;
+                }
+
+                .left-col .total-row .amount,
+                .right-col .total-row .amount {
+                    font-size: 14px;
+                }
+
+                .total-row .amount-wrapper {
+                    // 변경: 모바일 2열 유지에 맞춰 숫자와 배지 묶음 폭 축소
+                    flex-direction: column;
+                    align-items: flex-end;
+                    gap: 6px;
+                }
+
+                .total-row .amount-wrapper .discount-sticker {
+                    // 변경: 모바일에서도 PC와 같은 absolute 배치를 유지하되 크기만 축소
+                    position: absolute;
+                    top: 58%;
+                    left: 56%;
+                    transform: translate(-50%, -50%) rotate(-8deg);
+                    padding: 10px 18px;
+                    font-size: 22px;
+                    gap: 2px;
+                    box-shadow: 0 6px 16px rgba(234, 67, 38, 0.25);
+                }
+
+                .total-row .amount-wrapper .discount-sticker .discount-caption {
+                    // 변경: 모바일에서 배지 보조 문구만 함께 축소
+                    font-size: 10px;
+                    white-space: nowrap;
+                }
+
+                .pricing-info-container {
+                    margin-top: 24px;
+                    padding-left: 0;
+                    gap: 20px;
+                }
+
+                .pricing-info-list {
+                    padding-bottom: 20px;
+
+                    &:first-child {
+                        padding-top: 20px;
+                    }
+                }
+
+                .pricing-info-title {
+                    font-size: 15px;
+                }
+
+                .pricing-info-content {
+                    font-size: 13px;
+                    line-height: 1.6;
+                }
+            }
+        }
+
+        .corevalue {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            padding: 80px 150px;
+            background-color: #555445;
+
+            .headline {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #fff;
+
+                .eyebrow {
+                    // 변경: HOW IT WORKS eyebrow 스타일로 통일
+                    font-size: 14px;
+                    font-weight: 500;
+                    letter-spacing: 0.12em;
+                    color: #777;
+                    text-transform: uppercase;
+                }
+
+                .title {
+                    font-size: 32px;
+                    font-weight: 600;
+                    line-height: 1.3;
+                    letter-spacing: -0.01em;
+                }
+            }
+
+            .content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 64px;
+
+                .list-items {
+                    padding-bottom: 16px;
+                    border-bottom: solid 1px #777;
+
+                    .title {
+                        font-size: 24px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                        color: #fff;
+                        padding-bottom: 10px;
+                    }
+
+                    .body {
+                        font-size: 18px;
+                        font-weight: 300;
+                        line-height: 1.5;
+                        letter-spacing: -0.01em;
+                        color: #eee;
+                    }
+                }
+            }
+        }
+
+        // 변경: 모바일(0~767px) corevalue 2컬럼 → 1컬럼 스택
+        @media (max-width: 767px) {
+            .corevalue {
+                flex-direction: column;
+                gap: 40px;
+                padding: 64px 20px;
+
+                .headline {
+                    .title {
+                        font-size: 26px;
+                    }
+                }
+
+                .content {
+                    gap: 40px;
+
+                    .list-items {
+                        .title {
+                            font-size: 18px;
+                        }
+
+                        .body {
+                            font-size: 15px;
+                        }
+                    }
+                }
             }
         }
     }
 
-    .corevalue {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        padding: 80px 150px;
-        background-color: #555445;
-
-        .headline {
-            flex: 1;
+    //self.html
+    body {
+        .self-head {
+            padding: 150px;
+            padding-bottom: 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            color: #fff;
+            background-color: #F9F8F4;
 
-            .eyebrow {
-                // 변경: HOW IT WORKS eyebrow 스타일로 통일
-                font-size: 14px;
-                font-weight: 500;
-                letter-spacing: 0.12em;
-                color: #777;
-                text-transform: uppercase;
+            h1 {
+                font-size: 64px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                margin: 0;
             }
 
-            .title {
-                font-size: 32px;
-                font-weight: 600;
+            span {
+                font-size: 24px;
+                font-weight: 300;
                 line-height: 1.3;
                 letter-spacing: -0.01em;
             }
         }
 
-        .content {
-            flex: 1;
+        section.self-form {
+            padding: 20px 150px;
             display: flex;
-            flex-direction: column;
-            gap: 64px;
+            justify-content: space-between;
+            gap: 24px;
+            background-color: #F9F8F4;
+            width: 100%;
 
-            .list-items {
-                padding-bottom: 16px;
-                border-bottom: solid 1px #777;
-
-                .title {
-                    font-size: 24px;
-                    font-weight: 600;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                    color: #fff;
-                    padding-bottom: 10px;
-                }
-
-                .body {
-                    font-size: 18px;
-                    font-weight: 300;
-                    line-height: 1.5;
-                    letter-spacing: -0.01em;
-                    color: #eee;
-                }
-            }
-        }
-    }
-
-    // 변경: 모바일(0~767px) corevalue 2컬럼 → 1컬럼 스택
-    @media (max-width: 767px) {
-        .corevalue {
-            flex-direction: column;
-            gap: 40px;
-            padding: 64px 20px;
-
-            .headline {
-                .title {
-                    font-size: 26px;
-                }
-            }
-
-            .content {
-                gap: 40px;
-
-                .list-items {
-                    .title {
-                        font-size: 18px;
-                    }
-
-                    .body {
-                        font-size: 15px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-//self.html
-body {
-    .self-head {
-        padding: 150px;
-        padding-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        background-color: #F9F8F4;
-
-        h1 {
-            font-size: 64px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin: 0;
-        }
-
-        span {
-            font-size: 24px;
-            font-weight: 300;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-        }
-    }
-
-    section.self-form {
-        padding: 20px 150px;
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-        background-color: #F9F8F4;
-        width: 100%;
-
-        .self-form-items {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            gap: 56px;
-            border-radius: 24px;
-            padding: 40px;
-            background-color: #fff;
-
-            .self-form-item {
+            .self-form-items {
                 display: flex;
+                flex: 1;
                 flex-direction: column;
-                gap: 16px;
+                gap: 56px;
+                border-radius: 24px;
+                padding: 40px;
+                background-color: #fff;
 
-                h2 {
+                .self-form-item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    h2 {
+                        font-size: 24px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.03em;
+                        margin: 0;
+
+                        // 변경: 필수 선택 항목 표시(*) 스타일 추가
+                        .required-mark {
+                            // 변경: 필수 표시 색상을 요청값(#EA591A)으로 변경
+                            color: #EA591A;
+                            font-weight: 600;
+                            // 변경: 필수 표시 크기 축소
+                            font-size: 16px;
+                            // 변경: 타이틀과 필수 표시(*) 간격 축소
+                            margin-left: 0px;
+                            // 변경: 필수 표시를 타이틀 상단 기준으로 정렬
+                            vertical-align: top;
+                        }
+                    }
+
+                    .self-form-item-content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 24px;
+
+                        .self-form-select {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: start;
+                            align-items: start;
+                            gap: 10px;
+
+                            label {
+                                font-size: 16px;
+                                font-weight: 400;
+                                line-height: 1;
+                                letter-spacing: -0.02em;
+                            }
+
+                            select {
+                                width: 100%;
+                                padding: 16px;
+                                padding-right: 24px;
+                                border-radius: 8px;
+                                border: 1px solid #E2E4E8;
+                                font-size: 16px;
+                                font-weight: 400;
+                                line-height: 1;
+                                letter-spacing: -0.01em;
+                                background-color: #fff;
+                                color: #50545D;
+                            }
+                        }
+                    }
+                }
+
+                // 변경: 공사 범위 하위 옵션·선택 공사 카드 UI 동일 적용
+                #self-form-range,
+                #self-form-optional {
+                    .option-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                    }
+
+                    /* 카드 기본 */
+                    .card {
+                        cursor: pointer;
+                    }
+
+                    .card input {
+                        display: none;
+                    }
+
+                    .card-content {
+                        border: 1px solid #E2E4E8;
+                        border-radius: 8px;
+                        padding: 16px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        transition: all 0.2s ease;
+                        background: #fff;
+                    }
+
+                    /* 텍스트 */
+                    .text {
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                        letter-spacing: -0.02em;
+                    }
+
+                    /* 체크 네모 */
+                    .check-icon {
+                        width: 24px;
+                        height: 24px;
+                        border: 1px solid #E2E4E8;
+                        border-radius: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    /* 선택되었을 때 */
+                    .card input:checked+.card-content {
+                        background: #f05a1a;
+                        color: white;
+                    }
+
+                    /* 선택 시 체크 아이콘 스타일 */
+                    .card input:checked+.card-content .check-icon {
+                        background: white;
+                        border-color: white;
+                    }
+
+                    .card input:checked+.card-content .check-icon::after {
+                        content: "✓";
+                        color: #f05a1a;
+                        font-weight: 400;
+                    }
+                }
+
+                #self-form-range {
+
+                    // 변경: 공사 범위 하위 옵션은 기본 상태에서 숨김(부분공사 선택 시 JS로 표시)
+                    .self-form-item-option {
+                        display: none;
+                    }
+
+                    // 변경: '공간 선택' 라벨을 self-form-select label과 동일 스타일로 통일
+                    .range-option-label {
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 1;
+                        letter-spacing: -0.02em;
+                        display: inline-block;
+                        margin: 10px 0;
+                    }
+
+                    // 변경: 공사 범위 상단 3개 카드(마감재만/전체공사/부분공사) 가로 정렬
+                    .range-top-cards {
+                        display: flex;
+                        gap: 10px;
+                    }
+
+                    // 변경: 상단 카드가 flex 슬롯 너비를 채우고, 내부 카드 콘텐츠가 가로 전체를 쓰도록 설정
+                    .range-top-cards .card {
+                        flex: 1 1 0;
+                        min-width: 0;
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                    }
+
+                    // 변경: 전체공사/부분공사 카드는 체크 아이콘 없음 → 텍스트만 가운데 정렬
+                    .range-top-cards .card-content {
+                        width: 100%;
+                        box-sizing: border-box;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                    }
+
+                    .range-top-cards .card-content .text {
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .estimate-card {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                border-radius: 24px;
+                padding: 40px;
+                background-color: #fff;
+
+                &__title {
                     font-size: 24px;
                     font-weight: 600;
                     line-height: 1;
                     letter-spacing: -0.03em;
-                    margin: 0;
+                    margin-bottom: 56px;
+                }
 
-                    // 변경: 필수 선택 항목 표시(*) 스타일 추가
-                    .required-mark {
-                        // 변경: 필수 표시 색상을 요청값(#EA591A)으로 변경
-                        color: #EA591A;
-                        font-weight: 600;
-                        // 변경: 필수 표시 크기 축소
+                &__meta {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #E2E4E8;
+                    margin-bottom: 40px;
+                    color: #90939B;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                &__price {
+                    margin-bottom: 80px;
+
+                    .estimate-card__label {
                         font-size: 16px;
-                        // 변경: 타이틀과 필수 표시(*) 간격 축소
-                        margin-left: 0px;
-                        // 변경: 필수 표시를 타이틀 상단 기준으로 정렬
-                        vertical-align: top;
+                        letter-spacing: -0.03em;
+                        margin-bottom: 32px;
+                        font-weight: 600;
+                        line-height: 1;
+                    }
+
+                    .estimate-card__range {
+                        font-size: 48px;
+                        font-weight: 600;
+                        text-align: right;
+                        letter-spacing: -0.03em;
+                        line-height: 1;
                     }
                 }
 
-                .self-form-item-content {
+                &__subtitle {
+                    font-size: 16px;
+                    letter-spacing: -0.03em;
+                    margin-bottom: 16px;
+                    font-weight: 600;
+                    line-height: 1;
+                }
+
+                .estimate-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    border-top: 1px solid #000;
+                    border-bottom: 1px solid #000;
+                    margin-bottom: 32px;
+
+                    th,
+                    td {
+                        padding: 18px 10px;
+                        font-size: 14px;
+                        border-bottom: 1px solid #e5e5e5;
+                    }
+
+                    th {
+                        text-align: left;
+                        font-weight: 600;
+                        color: #666;
+                    }
+
+                    thead th:nth-child(3),
+                    thead th:nth-child(4) {
+                        text-align: right;
+                    }
+
+                    td {
+                        color: #111;
+                    }
+
+                    .number {
+                        text-align: right;
+                        font-weight: 500;
+                    }
+
+                    tfoot {
+                        td {
+                            font-weight: 700;
+                            border-top: 1px solid #000;
+                            border-bottom: none;
+                            padding-top: 22px;
+                            padding-bottom: 22px;
+                            font-size: 14px;
+                        }
+                    }
+
+                    tbody tr:last-child td {
+                        border-bottom: none;
+                    }
+                }
+
+                &__notice {
+                    font-size: 12px;
+                    color: #9a9a9a;
+                    line-height: 1.3;
+
+                    p {
+                        margin: 0 0 6px 0;
+                    }
+                }
+            }
+
+        }
+
+        // 변경: self.html 모바일(0~767px) 1열 스택/패딩 축소/타이포 조정
+        @media (max-width: 767px) {
+            .self-head {
+                padding: 96px 20px 16px;
+                gap: 12px;
+
+                h1 {
+                    font-size: clamp(32px, 9vw, 44px);
+                }
+
+                span {
+                    font-size: clamp(14px, 4.2vw, 16px);
+                    line-height: 1.45;
+                }
+            }
+
+            section.self-form {
+                padding: 24px 20px 56px;
+                flex-direction: column;
+                gap: 16px;
+
+                .self-form-items {
+                    padding: 24px;
+                    gap: 32px;
+
+                    .self-form-item {
+                        h2 {
+                            font-size: 18px;
+                        }
+
+                        .self-form-item-content {
+                            gap: 16px;
+                        }
+                    }
+
+                    #self-form-range,
+                    #self-form-optional {
+                        .option-grid {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+
+                        .card-content {
+                            padding: 14px;
+                        }
+
+                        .text {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .estimate-card {
+                    // 변경: 모바일에서는 기존 estimate-card 전체를 숨기고 하단 고정 바로 대체
+                    display: none;
+                }
+            }
+
+            // 변경: 모바일에서는 하단 고정 바에 총 견적 금액과 CTA를 함께 노출
+            .self-mobile-total-bar {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                display: flex;
+                align-items: start;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
+                background-color: #fff;
+                border-top: 1px solid #E2E4E8;
+                box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
+
+                &__summary {
                     display: flex;
                     flex-direction: column;
-                    gap: 24px;
+                    gap: 6px;
+                    min-width: 0;
+                }
 
-                    .self-form-select {
+                &__label {
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                    color: #767B86;
+                }
+
+                &__range {
+                    font-size: 22px;
+                    font-weight: 700;
+                    line-height: 1;
+                    letter-spacing: -0.03em;
+                    color: #111;
+                    white-space: nowrap;
+                }
+
+                &__cta {
+                    flex: 0 0 auto;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    // min-width: 156px;
+                    padding: 16px 20px;
+                    background-color: #EA591A;
+                    border: none;
+                    border-radius: 50px;
+
+                    // 변경: 모바일 하단 고정 바 버튼 텍스트 색상을 흰색으로 지정
+                    .label {
+                        color: #fff;
+                        font-size: 14px;
+                    }
+
+                    // 변경: 모바일 하단 고정 바 버튼의 텍스트와 화살표 아이콘을 수직 가운데 정렬
+                    svg {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        // self.html: 견적 계산 중 오버레이/스피너
+        .self-loading-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            place-content: center;
+            place-items: center;
+            background: rgba(249, 248, 244, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            pointer-events: none;
+            padding: 24px;
+
+            &.is-visible {
+                display: flex;
+                pointer-events: auto;
+            }
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            &__text {
+                font-size: 16px;
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: #111;
+            }
+        }
+
+        .self-spinner {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 4px solid rgba(240, 90, 26, 0.18);
+            border-top-color: #f05a1a;
+            animation: selfSpin 0.9s linear infinite;
+        }
+    }
+
+    @keyframes selfSpin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    //about.html
+    body {
+        .about-head {
+            padding: 150px;
+            padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: #F9F8F4;
+
+
+            h1 {
+                font-size: 64px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                margin: 0;
+            }
+
+            span {
+                font-size: 24px;
+                font-weight: 300;
+                line-height: 1.3;
+                letter-spacing: -0.01em;
+            }
+        }
+
+        // 변경: about.html 모바일(0~767px) 패딩/타이포 최적화
+        @media (max-width: 767px) {
+            .about-head {
+                padding: 96px 20px 16px;
+                gap: 12px;
+
+                h1 {
+                    // 변경: 모바일 about 헤드라인 크기를 한 단계 축소
+                    font-size: clamp(28px, 8vw, 40px);
+                    line-height: 1.15;
+                }
+
+                span {
+                    font-size: clamp(14px, 4.2vw, 16px);
+                    line-height: 1.45;
+                }
+            }
+        }
+
+        .feature {
+            padding: 40px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            background-color: #F9F8F4;
+
+            .feature-title {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .list-items {
+                display: flex;
+                justify-content: start;
+                align-items: start;
+                gap: 24px;
+                width: 100%;
+                // 변경: feature 리스트 컨테이너가 가로로 꽉 차도록 보장
+                flex: 1 1 auto;
+
+                .feature-item {
+                    position: relative;
+                    flex: 1;
+                    background-color: #fff;
+                    padding: 24px;
+                    border-radius: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 80px;
+
+                    .tag {
+                        position: absolute;
+                        top: 24px;
+                        right: 24px;
+                        padding: 10px 16px;
+                        background-color: #F8F9FC;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                    }
+
+                    .item-title {
+                        font-size: 20px;
+                        font-weight: 600;
+                        line-height: 1.3;
+                        letter-spacing: -0.01em;
+                    }
+
+                    .feature-description {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        li {
+                            font-size: 16px;
+                            font-weight: 300;
+                            line-height: 1;
+                            letter-spacing: -0.01em;
+                            display: flex;
+                            gap: 8px;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 변경: about.html 모바일(0~767px) 특징 카드 1열 스택
+        @media (max-width: 767px) {
+            .feature {
+                padding: 48px 20px;
+                gap: 16px;
+
+                .feature-title {
+                    font-size: 18px;
+                }
+
+                .list-items {
+                    flex-direction: column;
+                    gap: 16px;
+                    // 변경: 세로 스택에서 자식 카드가 가로로 stretch되도록
+                    align-items: stretch;
+                    width: 100%;
+
+                    .feature-item {
+                        padding: 20px;
+                        gap: 36px;
+                        // 변경: 1열 카드가 컨테이너 폭을 fill
+                        width: 100%;
+
+                        .tag {
+                            top: 16px;
+                            right: 16px;
+                            padding: 8px 12px;
+                            font-size: 13px;
+                        }
+
+                        .item-title {
+                            font-size: 18px;
+                        }
+
+                        .feature-description {
+                            li {
+                                font-size: 14px;
+                                line-height: 1.35;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .process {
+            padding: 40px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            background-color: #F9F8F4;
+
+            .process-title {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .phase {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .phase-item {
+                    padding: 16px;
+                    padding-bottom: 24px;
+                    border-radius: 8px;
+                    background-color: #fff;
+                    display: flex;
+                    justify-content: start;
+                    align-items: start;
+                    gap: 16px;
+
+                    .phase-numbering {
+                        width: 32px;
+                        height: 32px;
+                        padding: 8px;
+                        background-color: #F8F9FC;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    #phase-highlight {
+                        background-color: #EA591A;
+                        color: #fff;
+                    }
+
+                    .phase-content {
                         display: flex;
                         flex-direction: column;
                         justify-content: start;
                         align-items: start;
-                        gap: 10px;
+                        gap: 20px;
+                        padding-top: 7px;
+
+                        .phase-title {
+                            font-size: 18px;
+                            font-weight: 600;
+                            line-height: 1;
+                            letter-spacing: -0.01em;
+                        }
+
+                        .phase-description {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+
+                            li {
+                                font-size: 16px;
+                                font-weight: 300;
+                                line-height: 1;
+                                letter-spacing: -0.01em;
+                            }
+                        }
+                    }
+                }
+
+                .phase-caption {
+                    li {
+                        font-size: 14px;
+                        font-weight: 300;
+                        line-height: 1.4;
+                        letter-spacing: -0.01em;
+                        color: #90939B;
+                    }
+                }
+            }
+        }
+
+        // 변경: about.html 모바일(0~767px) 공정 단계 간격/타이포 최적화
+        @media (max-width: 767px) {
+            .process {
+                padding: 48px 20px;
+                gap: 16px;
+
+                .process-title {
+                    font-size: 18px;
+                }
+
+                .phase {
+                    gap: 12px;
+
+                    .phase-item {
+                        padding: 14px;
+                        padding-bottom: 18px;
+                        gap: 12px;
+
+                        .phase-content {
+                            gap: 12px;
+
+                            .phase-title {
+                                font-size: 16px;
+                            }
+
+                            .phase-description {
+                                li {
+                                    font-size: 14px;
+                                    line-height: 1.4;
+                                }
+                            }
+                        }
+                    }
+
+                    .phase-caption {
+                        li {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 변경: about-bottom 카드 섹션 스타일 추가
+        .about-bottom {
+            padding: 40px 150px;
+            padding-bottom: 80px;
+            background-color: #F9F8F4;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .about-bottom-head {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1.1;
+                letter-spacing: -0.03em;
+            }
+
+            .about-bottom-container {
+                width: 100%;
+            }
+
+            .about-bottom-cards {
+                display: flex;
+                justify-content: start;
+                align-items: stretch;
+                gap: 24px;
+                width: 100%;
+            }
+
+            .about-bottom-card {
+                position: relative;
+                flex: 1;
+                background-color: #fff;
+                border-radius: 24px;
+                padding: 32px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .about-bottom-title {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1.1;
+                letter-spacing: -0.03em;
+                margin: 0;
+            }
+
+            .about-bottom-caption {
+                position: absolute;
+                top: -14px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 8px 14px;
+                border-radius: 999px;
+                background-color: #EA591A;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                white-space: nowrap;
+            }
+
+            .about-bottom-list {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin: 0;
+                padding-bottom: 80px;
+                list-style: none;
+
+                li {
+                    font-size: 16px;
+                    font-weight: 300;
+                    line-height: 1.2;
+                    letter-spacing: -0.01em;
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 10px;
+
+                    svg {
+                        flex: 0 0 auto;
+                        margin-top: 1px;
+                    }
+                }
+            }
+
+            .about-bottom-btn {
+                margin-top: auto;
+                width: 100%;
+                height: 56px;
+                border-radius: 999px;
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                font-size: 16px;
+                font-weight: 500;
+                letter-spacing: -0.01em;
+                text-decoration: none;
+                cursor: pointer;
+
+                &.is-disabled {
+                    background-color: #EEF0F4;
+                    color: #7A7E87;
+                    cursor: not-allowed;
+                }
+
+                &.is-primary {
+                    background-color: #EA591A;
+                    color: #fff;
+                }
+            }
+
+            .about-bottom-card.is-builderland {
+                border: 2px solid #EA591A;
+            }
+
+            // 변경: 모바일 브레이크포인트를 767px로 통일
+            @media (max-width: 767px) {
+                padding: 48px 20px;
+
+                .about-bottom-cards {
+                    flex-direction: column;
+                }
+
+                .about-bottom-card {
+                    padding: 24px;
+                }
+            }
+        }
+    }
+
+    //reservation.html
+    body {
+        .reservation-head {
+            margin-top: 80px;
+            padding: 80px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+
+            h1 {
+                font-size: 64px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .notice {
+                background-color: #F9F9F9;
+                padding: 24px;
+                border: none;
+                border-radius: 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+
+                .title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1;
+                    letter-spacing: -0.03em;
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .body {
+                        font-size: 18px;
+                        font-weight: 400;
+                        line-height: 1.4;
+                        letter-spacing: -0.02em;
+                    }
+
+                    .lounge {
+                        font-size: 18px;
+                        font-weight: 300;
+                        line-height: 1;
+                        letter-spacing: -0.02em;
+                        color: #50545D;
+                    }
+                }
+            }
+        }
+
+        .reservation-form {
+            padding: 80px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            h2 {
+                font-size: 32px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .reservation-form-item {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+
+                .reservation-form-item-title {
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                .time-group {
+                    display: flex;
+                    justify-content: start;
+                    align-items: flex-end;
+                    gap: 10px;
+                    margin-bottom: 40px;
+
+                    .time-group-item {
+                        display: flex;
+                        flex: 1;
+                        flex-direction: column;
+                        justify-content: start;
+                        align-items: start;
+                        gap: 12px;
+
+                        label {
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 1;
+                            letter-spacing: -0.02em;
+                            height: 100%;
+                        }
+
+                        button {
+                            background-color: #fff;
+                            border: 1px solid #E2E4E8;
+                            padding: 24px 24px;
+                            border-radius: 8px;
+                            width: 100%;
+                            height: 100%;
+                            text-align: center;
+                            // 변경: iOS Safari UA 스타일로 버튼 텍스트가 파랗게 보이는 현상 방지
+                            color: #111827;
+                            -webkit-text-fill-color: currentColor;
+                            font-size: 16px;
+                            font-weight: 300;
+                            line-height: 1;
+                            letter-spacing: -0.01em;
+
+                            // 기본 hover (선택/비활성 아닐 때만)
+                            &:hover:not(.is-active):not(:disabled) {
+                                background-color: #F9FAFB; // 아주 연한 회색
+                                cursor: pointer;
+                            }
+
+                            // 시간 버튼이 선택된 상태일 때 스타일을 위한 클래스
+                            &.is-active {
+                                border-color: #EA591A;
+                                background-color: #EA591A;
+                                color: #ffffff;
+                            }
+
+                            // 시간 버튼이 비활성화(disabled) 되었을 때 스타일
+                            &:disabled {
+                                color: #9CA3AF;
+                                cursor: not-allowed;
+                            }
+
+                            // 선택된 상태라도 비활성화가 우선 적용되도록 하는 조합 스타일
+                            &.is-active:disabled {
+                                background-color: #E5E7EB;
+                                border-color: #D1D5DB;
+                                color: #9CA3AF;
+                            }
+                        }
+                    }
+                }
+
+                .reservation-form-item-content {
+                    display: flex;
+                    justify-content: start;
+                    // 변경: 입력 영역이 가로로 꽉 차도록 stretch 적용
+                    align-items: stretch;
+                    gap: 10px;
+                    // 변경: 컨테이너가 부모 폭을 fill
+                    width: 100%;
+
+                    .reservation-form-item-content-item {
+                        display: flex;
+                        flex: 1;
+                        flex-direction: column;
+                        gap: 16px;
+                        // 변경: 각 입력 블록이 가로로 꽉 차도록
+                        width: 100%;
 
                         label {
                             font-size: 16px;
@@ -1422,1683 +2638,655 @@ body {
                             letter-spacing: -0.02em;
                         }
 
-                        select {
+                        input {
                             width: 100%;
-                            padding: 16px;
-                            padding-right: 24px;
+                            height: 100%;
+                            padding: 24px;
                             border-radius: 8px;
                             border: 1px solid #E2E4E8;
+                            // 변경: input이 inline 성질로 줄어들지 않게 보강
+                            display: block;
+                            width: 100%;
                             font-size: 16px;
                             font-weight: 400;
                             line-height: 1;
-                            letter-spacing: -0.01em;
-                            background-color: #fff;
-                            color: #50545D;
                         }
-                    }
-                }
-            }
 
-            // 변경: 공사 범위 하위 옵션·선택 공사 카드 UI 동일 적용
-            #self-form-range,
-            #self-form-optional {
-                .option-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 10px;
-                }
-
-                /* 카드 기본 */
-                .card {
-                    cursor: pointer;
-                }
-
-                .card input {
-                    display: none;
-                }
-
-                .card-content {
-                    border: 1px solid #E2E4E8;
-                    border-radius: 8px;
-                    padding: 16px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    transition: all 0.2s ease;
-                    background: #fff;
-                }
-
-                /* 텍스트 */
-                .text {
-                    font-size: 16px;
-                    font-weight: 400;
-                    line-height: 1;
-                    letter-spacing: -0.02em;
-                }
-
-                /* 체크 네모 */
-                .check-icon {
-                    width: 24px;
-                    height: 24px;
-                    border: 1px solid #E2E4E8;
-                    border-radius: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                /* 선택되었을 때 */
-                .card input:checked+.card-content {
-                    background: #f05a1a;
-                    color: white;
-                }
-
-                /* 선택 시 체크 아이콘 스타일 */
-                .card input:checked+.card-content .check-icon {
-                    background: white;
-                    border-color: white;
-                }
-
-                .card input:checked+.card-content .check-icon::after {
-                    content: "✓";
-                    color: #f05a1a;
-                    font-weight: 400;
-                }
-            }
-
-            #self-form-range {
-
-                // 변경: 공사 범위 하위 옵션은 기본 상태에서 숨김(부분공사 선택 시 JS로 표시)
-                .self-form-item-option {
-                    display: none;
-                }
-
-                // 변경: '공간 선택' 라벨을 self-form-select label과 동일 스타일로 통일
-                .range-option-label {
-                    font-size: 16px;
-                    font-weight: 400;
-                    line-height: 1;
-                    letter-spacing: -0.02em;
-                    display: inline-block;
-                    margin: 10px 0;
-                }
-
-                // 변경: 공사 범위 상단 3개 카드(마감재만/전체공사/부분공사) 가로 정렬
-                .range-top-cards {
-                    display: flex;
-                    gap: 10px;
-                }
-
-                // 변경: 상단 카드가 flex 슬롯 너비를 채우고, 내부 카드 콘텐츠가 가로 전체를 쓰도록 설정
-                .range-top-cards .card {
-                    flex: 1 1 0;
-                    min-width: 0;
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                }
-
-                // 변경: 전체공사/부분공사 카드는 체크 아이콘 없음 → 텍스트만 가운데 정렬
-                .range-top-cards .card-content {
-                    width: 100%;
-                    box-sizing: border-box;
-                    justify-content: center;
-                    align-items: center;
-                    text-align: center;
-                }
-
-                .range-top-cards .card-content .text {
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                }
-            }
-        }
-
-        .estimate-card {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            border-radius: 24px;
-            padding: 40px;
-            background-color: #fff;
-
-            &__title {
-                font-size: 24px;
-                font-weight: 600;
-                line-height: 1;
-                letter-spacing: -0.03em;
-                margin-bottom: 56px;
-            }
-
-            &__meta {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-bottom: 10px;
-                border-bottom: 1px solid #E2E4E8;
-                margin-bottom: 40px;
-                color: #90939B;
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 1;
-                letter-spacing: -0.01em;
-            }
-
-            &__price {
-                margin-bottom: 80px;
-
-                .estimate-card__label {
-                    font-size: 16px;
-                    letter-spacing: -0.03em;
-                    margin-bottom: 32px;
-                    font-weight: 600;
-                    line-height: 1;
-                }
-
-                .estimate-card__range {
-                    font-size: 48px;
-                    font-weight: 600;
-                    text-align: right;
-                    letter-spacing: -0.03em;
-                    line-height: 1;
-                }
-            }
-
-            &__subtitle {
-                font-size: 16px;
-                letter-spacing: -0.03em;
-                margin-bottom: 16px;
-                font-weight: 600;
-                line-height: 1;
-            }
-
-            .estimate-table {
-                width: 100%;
-                border-collapse: collapse;
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
-                margin-bottom: 32px;
-
-                th,
-                td {
-                    padding: 18px 10px;
-                    font-size: 14px;
-                    border-bottom: 1px solid #e5e5e5;
-                }
-
-                th {
-                    text-align: left;
-                    font-weight: 600;
-                    color: #666;
-                }
-
-                thead th:nth-child(3),
-                thead th:nth-child(4) {
-                    text-align: right;
-                }
-
-                td {
-                    color: #111;
-                }
-
-                .number {
-                    text-align: right;
-                    font-weight: 500;
-                }
-
-                tfoot {
-                    td {
-                        font-weight: 700;
-                        border-top: 1px solid #000;
-                        border-bottom: none;
-                        padding-top: 22px;
-                        padding-bottom: 22px;
-                        font-size: 14px;
-                    }
-                }
-
-                tbody tr:last-child td {
-                    border-bottom: none;
-                }
-            }
-
-            &__notice {
-                font-size: 12px;
-                color: #9a9a9a;
-                line-height: 1.3;
-
-                p {
-                    margin: 0 0 6px 0;
-                }
-            }
-        }
-
-    }
-
-    // 변경: self.html 모바일(0~767px) 1열 스택/패딩 축소/타이포 조정
-    @media (max-width: 767px) {
-        .self-head {
-            padding: 96px 20px 16px;
-            gap: 12px;
-
-            h1 {
-                font-size: clamp(32px, 9vw, 44px);
-            }
-
-            span {
-                font-size: clamp(14px, 4.2vw, 16px);
-                line-height: 1.45;
-            }
-        }
-
-        section.self-form {
-            padding: 24px 20px 56px;
-            flex-direction: column;
-            gap: 16px;
-
-            .self-form-items {
-                padding: 24px;
-                gap: 32px;
-
-                .self-form-item {
-                    h2 {
-                        font-size: 18px;
-                    }
-
-                    .self-form-item-content {
-                        gap: 16px;
-                    }
-                }
-
-                #self-form-range,
-                #self-form-optional {
-                    .option-grid {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-
-                    .card-content {
-                        padding: 14px;
-                    }
-
-                    .text {
-                        font-size: 14px;
-                    }
-                }
-            }
-
-            .estimate-card {
-                // 변경: 모바일에서는 기존 estimate-card 전체를 숨기고 하단 고정 바로 대체
-                display: none;
-            }
-        }
-
-        // 변경: 모바일에서는 하단 고정 바에 총 견적 금액과 CTA를 함께 노출
-        .self-mobile-total-bar {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: start;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
-            background-color: #fff;
-            border-top: 1px solid #E2E4E8;
-            box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
-
-            &__summary {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                min-width: 0;
-            }
-
-            &__label {
-                font-size: 12px;
-                font-weight: 500;
-                line-height: 1;
-                letter-spacing: -0.01em;
-                color: #767B86;
-            }
-
-            &__range {
-                font-size: 22px;
-                font-weight: 700;
-                line-height: 1;
-                letter-spacing: -0.03em;
-                color: #111;
-                white-space: nowrap;
-            }
-
-            &__cta {
-                flex: 0 0 auto;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                // min-width: 156px;
-                padding: 16px 20px;
-                background-color: #EA591A;
-                border: none;
-                border-radius: 50px;
-
-                // 변경: 모바일 하단 고정 바 버튼 텍스트 색상을 흰색으로 지정
-                .label {
-                    color: #fff;
-                    font-size: 14px;
-                }
-
-                // 변경: 모바일 하단 고정 바 버튼의 텍스트와 화살표 아이콘을 수직 가운데 정렬
-                svg {
-                    display: block;
-                }
-            }
-        }
-    }
-
-    // self.html: 견적 계산 중 오버레이/스피너
-    .self-loading-overlay {
-        position: fixed;
-        inset: 0;
-        display: none;
-        place-content: center;
-        place-items: center;
-        background: rgba(249, 248, 244, 0.7);
-        backdrop-filter: blur(4px);
-        z-index: 9999;
-        pointer-events: none;
-        padding: 24px;
-
-        &.is-visible {
-            display: flex;
-            pointer-events: auto;
-        }
-
-        &__content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        &__text {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #111;
-        }
-    }
-
-    .self-spinner {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 4px solid rgba(240, 90, 26, 0.18);
-        border-top-color: #f05a1a;
-        animation: selfSpin 0.9s linear infinite;
-    }
-}
-
-@keyframes selfSpin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-//about.html
-body {
-    .about-head {
-        padding: 150px;
-        padding-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        background-color: #F9F8F4;
-
-
-        h1 {
-            font-size: 64px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin: 0;
-        }
-
-        span {
-            font-size: 24px;
-            font-weight: 300;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-        }
-    }
-
-    // 변경: about.html 모바일(0~767px) 패딩/타이포 최적화
-    @media (max-width: 767px) {
-        .about-head {
-            padding: 96px 20px 16px;
-            gap: 12px;
-
-            h1 {
-                // 변경: 모바일 about 헤드라인 크기를 한 단계 축소
-                font-size: clamp(28px, 8vw, 40px);
-                line-height: 1.15;
-            }
-
-            span {
-                font-size: clamp(14px, 4.2vw, 16px);
-                line-height: 1.45;
-            }
-        }
-    }
-
-    .feature {
-        padding: 40px 150px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        background-color: #F9F8F4;
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .list-items {
-            display: flex;
-            justify-content: start;
-            align-items: start;
-            gap: 24px;
-            width: 100%;
-            // 변경: feature 리스트 컨테이너가 가로로 꽉 차도록 보장
-            flex: 1 1 auto;
-
-            .feature-item {
-                position: relative;
-                flex: 1;
-                background-color: #fff;
-                padding: 24px;
-                border-radius: 16px;
-                display: flex;
-                flex-direction: column;
-                gap: 80px;
-
-                .tag {
-                    position: absolute;
-                    top: 24px;
-                    right: 24px;
-                    padding: 10px 16px;
-                    background-color: #F8F9FC;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    font-weight: 500;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                }
-
-                .item-title {
-                    font-size: 20px;
-                    font-weight: 600;
-                    line-height: 1.3;
-                    letter-spacing: -0.01em;
-                }
-
-                .feature-description {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-
-                    li {
-                        font-size: 16px;
-                        font-weight: 300;
-                        line-height: 1;
-                        letter-spacing: -0.01em;
-                        display: flex;
-                        gap: 8px;
-                    }
-                }
-            }
-        }
-    }
-
-    // 변경: about.html 모바일(0~767px) 특징 카드 1열 스택
-    @media (max-width: 767px) {
-        .feature {
-            padding: 48px 20px;
-            gap: 16px;
-
-            .feature-title {
-                font-size: 18px;
-            }
-
-            .list-items {
-                flex-direction: column;
-                gap: 16px;
-                // 변경: 세로 스택에서 자식 카드가 가로로 stretch되도록
-                align-items: stretch;
-                width: 100%;
-
-                .feature-item {
-                    padding: 20px;
-                    gap: 36px;
-                    // 변경: 1열 카드가 컨테이너 폭을 fill
-                    width: 100%;
-
-                    .tag {
-                        top: 16px;
-                        right: 16px;
-                        padding: 8px 12px;
-                        font-size: 13px;
-                    }
-
-                    .item-title {
-                        font-size: 18px;
-                    }
-
-                    .feature-description {
-                        li {
-                            font-size: 14px;
-                            line-height: 1.35;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .process {
-        padding: 40px 150px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        background-color: #F9F8F4;
-
-        .process-title {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .phase {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-
-            .phase-item {
-                padding: 16px;
-                padding-bottom: 24px;
-                border-radius: 8px;
-                background-color: #fff;
-                display: flex;
-                justify-content: start;
-                align-items: start;
-                gap: 16px;
-
-                .phase-numbering {
-                    width: 32px;
-                    height: 32px;
-                    padding: 8px;
-                    background-color: #F8F9FC;
-                    border-radius: 8px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                #phase-highlight {
-                    background-color: #EA591A;
-                    color: #fff;
-                }
-
-                .phase-content {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: start;
-                    align-items: start;
-                    gap: 20px;
-                    padding-top: 7px;
-
-                    .phase-title {
-                        font-size: 18px;
-                        font-weight: 600;
-                        line-height: 1;
-                        letter-spacing: -0.01em;
-                    }
-
-                    .phase-description {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 8px;
-
-                        li {
+                        .user-input::placeholder {
+                            color: #E2E4E8;
                             font-size: 16px;
-                            font-weight: 300;
+                            font-weight: 400;
                             line-height: 1;
-                            letter-spacing: -0.01em;
+                        }
+                    }
+                }
+
+                .calendar-wrapper {
+                    border: 1px solid #E2E4E8;
+                    border-radius: 8px;
+                    padding: 40px 0px;
+                    margin-bottom: 16px;
+
+                    .calendar-header {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 32px;
+                        gap: 16px;
+                        font-size: 18px;
+                        font-weight: 500;
+
+                        .nav-btn {
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            color: #d1d1d1; // SVG 스트로크 기본 색상
+                            padding: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .nav-btn:hover {
+                            color: #000;
+                            /* 오버시 SVG 스트로크 색상 변경 */
+                            transform: scale(1.1);
+                        }
+
+                        /* 비활성화(현재 달)일 때: hover 없음, 커서 기본 */
+                        .nav-btn:disabled {
+                            cursor: default;
+                            pointer-events: none;
+                        }
+
+                        /* SVG 아이콘 스타일 (크기 및 선 두께 변경 가능) */
+                        .nav-icon {
+                            width: 20px;
+                            height: 20px;
+                            stroke-width: 2px;
+                        }
+                    }
+
+                    .calendar-grid {
+                        display: grid;
+                        grid-template-columns: repeat(7, 1fr);
+                        grid-auto-rows: auto;
+                        row-gap: 24px;
+                        text-align: center;
+
+                        .weekday {
+                            font-size: 16px;
+                            font-weight: 500;
+                            margin-bottom: 8px;
+                        }
+
+                        .date-cell {
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            height: 44px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            user-select: none;
+                        }
+
+                        .date-number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 8px;
+                            transition: background-color 0.2s, color 0.2s;
+                        }
+
+                        /* 지나간 날짜 스타일 */
+                        .date-cell.past {
+                            color: #cdcdcd;
+                            cursor: not-allowed;
+                            pointer-events: none;
+                        }
+
+                        /* 오늘 날짜 스타일 */
+                        .date-cell.today {
+                            font-weight: 600;
+                        }
+
+                        .today-label {
+                            position: absolute;
+                            bottom: -16px;
+                            font-size: 11px;
+                            font-weight: 500;
+                        }
+
+                        /* 마우스 오버(호버) 및 선택 가능 날짜 - date-number에서만 */
+                        .date-cell:not(.past):not(.selected) .date-number {
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: #f0f0f0;
+                            }
+                        }
+
+                        /* 선택된 날짜 스타일 */
+                        .date-cell.selected .date-number {
+                            background-color: #EA591A;
+                            color: #fff;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 변경: reservation.html 모바일(0~767px) 패딩/타이포/레이아웃 최적화
+        // 변경: 기본 스타일 선언 이후에 위치시켜 모바일 규칙이 덮어쓰도록 순서 정리
+        @media (max-width: 767px) {
+            .reservation-head {
+                margin-top: 64px;
+                padding: 40px 20px 16px;
+                gap: 20px;
+
+                h1 {
+                    margin: 0;
+                    font-size: clamp(32px, 9vw, 44px);
+                }
+
+                .notice {
+                    border-radius: 16px;
+                    padding: 18px;
+                    gap: 16px;
+
+                    .title {
+                        font-size: 16px;
+                    }
+
+                    .content {
+                        .body {
+                            font-size: 14px;
+                            line-height: 1.5;
+                        }
+
+                        .lounge {
+                            font-size: 14px;
+                            line-height: 1.4;
                         }
                     }
                 }
             }
 
-            .phase-caption {
-                li {
-                    font-size: 14px;
-                    font-weight: 300;
-                    line-height: 1.4;
-                    letter-spacing: -0.01em;
-                    color: #90939B;
+            .reservation-form {
+                padding: 24px 20px 56px;
+                gap: 24px;
+
+                h2 {
+                    margin: 0;
+                    font-size: 20px;
                 }
-            }
-        }
-    }
 
-    // 변경: about.html 모바일(0~767px) 공정 단계 간격/타이포 최적화
-    @media (max-width: 767px) {
-        .process {
-            padding: 48px 20px;
-            gap: 16px;
+                .reservation-form-item {
+                    gap: 16px;
 
-            .process-title {
-                font-size: 18px;
-            }
+                    .reservation-form-item-title {
+                        font-size: 16px;
+                        line-height: 1.4;
+                    }
 
-            .phase {
-                gap: 12px;
+                    .calendar-wrapper {
+                        padding: 20px 0;
 
-                .phase-item {
-                    padding: 14px;
-                    padding-bottom: 18px;
-                    gap: 12px;
-
-                    .phase-content {
-                        gap: 12px;
-
-                        .phase-title {
+                        .calendar-header {
+                            margin-bottom: 20px;
+                            gap: 12px;
                             font-size: 16px;
                         }
 
-                        .phase-description {
-                            li {
+                        .calendar-grid {
+                            row-gap: 12px;
+
+                            .weekday {
+                                font-size: 13px;
+                                margin-bottom: 6px;
+                            }
+
+                            .date-cell {
+                                height: 40px;
                                 font-size: 14px;
-                                line-height: 1.4;
+                            }
+
+                            .date-number {
+                                width: 44px;
+                                height: 44px;
+                            }
+
+                            .today-label {
+                                bottom: -14px;
+                                font-size: 10px;
+                            }
+                        }
+                    }
+
+                    .time-group {
+                        margin-bottom: 24px;
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 0;
+
+                        .time-group-item {
+                            width: 100%;
+                            gap: 10px;
+
+                            // 변경: 모바일에서 오전 다음 간격은 조금 더 넓힘
+                            &:nth-child(2) {
+                                margin-top: 20px;
+                            }
+
+                            // 변경: 모바일에서 2:00와 4:00 사이는 조금 더 좁힘
+                            &:nth-child(3) {
+                                margin-top: 4px;
+                            }
+
+                            label {
+                                font-size: 14px;
+                            }
+
+                            button {
+                                padding: 18px 16px;
+                                font-size: 15px;
+                                border-radius: 10px;
+                            }
+                        }
+                    }
+
+                    .reservation-form-item-content {
+                        flex-direction: column;
+                        gap: 16px;
+
+                        .reservation-form-item-content-item {
+                            gap: 12px;
+
+                            label {
+                                font-size: 14px;
+                            }
+
+                            input {
+                                padding: 18px 16px;
+                                font-size: 15px;
+                            }
+
+                            .user-input::placeholder {
+                                font-size: 15px;
                             }
                         }
                     }
                 }
-
-                .phase-caption {
-                    li {
-                        font-size: 12px;
-                    }
-                }
             }
         }
     }
 
-    // 변경: about-bottom 카드 섹션 스타일 추가
-    .about-bottom {
-        padding: 40px 150px;
-        padding-bottom: 80px;
-        background-color: #F9F8F4;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-
-        .about-bottom-head {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-        }
-
-        .about-bottom-container {
-            width: 100%;
-        }
-
-        .about-bottom-cards {
-            display: flex;
-            justify-content: start;
-            align-items: stretch;
-            gap: 24px;
-            width: 100%;
-        }
-
-        .about-bottom-card {
-            position: relative;
-            flex: 1;
-            background-color: #fff;
-            border-radius: 24px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .about-bottom-title {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin: 0;
-        }
-
-        .about-bottom-caption {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 8px 14px;
-            border-radius: 999px;
-            background-color: #EA591A;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 1;
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-        }
-
-        .about-bottom-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin: 0;
-            padding-bottom: 80px;
-            list-style: none;
-
-            li {
-                font-size: 16px;
-                font-weight: 300;
-                line-height: 1.2;
-                letter-spacing: -0.01em;
-                display: flex;
-                align-items: flex-start;
-                gap: 10px;
-
-                svg {
-                    flex: 0 0 auto;
-                    margin-top: 1px;
-                }
-            }
-        }
-
-        .about-bottom-btn {
-            margin-top: auto;
-            width: 100%;
-            height: 56px;
-            border-radius: 999px;
-            border: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            text-decoration: none;
-            cursor: pointer;
-
-            &.is-disabled {
-                background-color: #EEF0F4;
-                color: #7A7E87;
-                cursor: not-allowed;
-            }
-
-            &.is-primary {
-                background-color: #EA591A;
-                color: #fff;
-            }
-        }
-
-        .about-bottom-card.is-builderland {
-            border: 2px solid #EA591A;
-        }
-
-        // 변경: 모바일 브레이크포인트를 767px로 통일
-        @media (max-width: 767px) {
-            padding: 48px 20px;
-
-            .about-bottom-cards {
-                flex-direction: column;
-            }
-
-            .about-bottom-card {
-                padding: 24px;
-            }
-        }
-    }
-}
-
-//reservation.html
-body {
-    .reservation-head {
-        margin-top: 80px;
-        padding: 80px 150px;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-
-
-        h1 {
-            font-size: 64px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .notice {
-            background-color: #F9F9F9;
-            padding: 24px;
-            border: none;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-
-            .title {
-                font-size: 20px;
-                font-weight: 600;
-                line-height: 1;
-                letter-spacing: -0.03em;
-            }
-
-            .content {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-
-                .body {
-                    font-size: 18px;
-                    font-weight: 400;
-                    line-height: 1.4;
-                    letter-spacing: -0.02em;
-                }
-
-                .lounge {
-                    font-size: 18px;
-                    font-weight: 300;
-                    line-height: 1;
-                    letter-spacing: -0.02em;
-                    color: #50545D;
-                }
-            }
-        }
-    }
-
-    .reservation-form {
-        padding: 80px 150px;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-
-        h2 {
-            font-size: 32px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .reservation-form-item {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-
-            .reservation-form-item-title {
-                font-size: 20px;
-                font-weight: 400;
-                line-height: 1;
-                letter-spacing: -0.01em;
-            }
-
-            .time-group {
-                display: flex;
-                justify-content: start;
-                align-items: flex-end;
-                gap: 10px;
-                margin-bottom: 40px;
-
-                .time-group-item {
-                    display: flex;
-                    flex: 1;
-                    flex-direction: column;
-                    justify-content: start;
-                    align-items: start;
-                    gap: 12px;
-
-                    label {
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 1;
-                        letter-spacing: -0.02em;
-                        height: 100%;
-                    }
-
-                    button {
-                        background-color: #fff;
-                        border: 1px solid #E2E4E8;
-                        padding: 24px 24px;
-                        border-radius: 8px;
-                        width: 100%;
-                        height: 100%;
-                        text-align: center;
-                        // 변경: iOS Safari UA 스타일로 버튼 텍스트가 파랗게 보이는 현상 방지
-                        color: #111827;
-                        -webkit-text-fill-color: currentColor;
-                        font-size: 16px;
-                        font-weight: 300;
-                        line-height: 1;
-                        letter-spacing: -0.01em;
-
-                        // 기본 hover (선택/비활성 아닐 때만)
-                        &:hover:not(.is-active):not(:disabled) {
-                            background-color: #F9FAFB; // 아주 연한 회색
-                            cursor: pointer;
-                        }
-
-                        // 시간 버튼이 선택된 상태일 때 스타일을 위한 클래스
-                        &.is-active {
-                            border-color: #EA591A;
-                            background-color: #EA591A;
-                            color: #ffffff;
-                        }
-
-                        // 시간 버튼이 비활성화(disabled) 되었을 때 스타일
-                        &:disabled {
-                            color: #9CA3AF;
-                            cursor: not-allowed;
-                        }
-
-                        // 선택된 상태라도 비활성화가 우선 적용되도록 하는 조합 스타일
-                        &.is-active:disabled {
-                            background-color: #E5E7EB;
-                            border-color: #D1D5DB;
-                            color: #9CA3AF;
-                        }
-                    }
-                }
-            }
-
-            .reservation-form-item-content {
-                display: flex;
-                justify-content: start;
-                // 변경: 입력 영역이 가로로 꽉 차도록 stretch 적용
-                align-items: stretch;
-                gap: 10px;
-                // 변경: 컨테이너가 부모 폭을 fill
-                width: 100%;
-
-                .reservation-form-item-content-item {
-                    display: flex;
-                    flex: 1;
-                    flex-direction: column;
-                    gap: 16px;
-                    // 변경: 각 입력 블록이 가로로 꽉 차도록
-                    width: 100%;
-
-                    label {
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 1;
-                        letter-spacing: -0.02em;
-                    }
-
-                    input {
-                        width: 100%;
-                        height: 100%;
-                        padding: 24px;
-                        border-radius: 8px;
-                        border: 1px solid #E2E4E8;
-                        // 변경: input이 inline 성질로 줄어들지 않게 보강
-                        display: block;
-                        width: 100%;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 1;
-                    }
-
-                    .user-input::placeholder {
-                        color: #E2E4E8;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 1;
-                    }
-                }
-            }
-
-            .calendar-wrapper {
-                border: 1px solid #E2E4E8;
-                border-radius: 8px;
-                padding: 40px 0px;
-                margin-bottom: 16px;
-
-                .calendar-header {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-bottom: 32px;
-                    gap: 16px;
-                    font-size: 18px;
-                    font-weight: 500;
-
-                    .nav-btn {
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-                        color: #d1d1d1; // SVG 스트로크 기본 색상
-                        padding: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    .nav-btn:hover {
-                        color: #000;
-                        /* 오버시 SVG 스트로크 색상 변경 */
-                        transform: scale(1.1);
-                    }
-
-                    /* 비활성화(현재 달)일 때: hover 없음, 커서 기본 */
-                    .nav-btn:disabled {
-                        cursor: default;
-                        pointer-events: none;
-                    }
-
-                    /* SVG 아이콘 스타일 (크기 및 선 두께 변경 가능) */
-                    .nav-icon {
-                        width: 20px;
-                        height: 20px;
-                        stroke-width: 2px;
-                    }
-                }
-
-                .calendar-grid {
-                    display: grid;
-                    grid-template-columns: repeat(7, 1fr);
-                    grid-auto-rows: auto;
-                    row-gap: 24px;
-                    text-align: center;
-
-                    .weekday {
-                        font-size: 16px;
-                        font-weight: 500;
-                        margin-bottom: 8px;
-                    }
-
-                    .date-cell {
-                        position: relative;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        height: 44px;
-                        font-size: 16px;
-                        font-weight: 400;
-                        user-select: none;
-                    }
-
-                    .date-number {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 60px;
-                        height: 60px;
-                        border-radius: 8px;
-                        transition: background-color 0.2s, color 0.2s;
-                    }
-
-                    /* 지나간 날짜 스타일 */
-                    .date-cell.past {
-                        color: #cdcdcd;
-                        cursor: not-allowed;
-                        pointer-events: none;
-                    }
-
-                    /* 오늘 날짜 스타일 */
-                    .date-cell.today {
-                        font-weight: 600;
-                    }
-
-                    .today-label {
-                        position: absolute;
-                        bottom: -16px;
-                        font-size: 11px;
-                        font-weight: 500;
-                    }
-
-                    /* 마우스 오버(호버) 및 선택 가능 날짜 - date-number에서만 */
-                    .date-cell:not(.past):not(.selected) .date-number {
-                        cursor: pointer;
-
-                        &:hover {
-                            background-color: #f0f0f0;
-                        }
-                    }
-
-                    /* 선택된 날짜 스타일 */
-                    .date-cell.selected .date-number {
-                        background-color: #EA591A;
-                        color: #fff;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-    }
-
-    // 변경: reservation.html 모바일(0~767px) 패딩/타이포/레이아웃 최적화
-    // 변경: 기본 스타일 선언 이후에 위치시켜 모바일 규칙이 덮어쓰도록 순서 정리
-    @media (max-width: 767px) {
-        .reservation-head {
-            margin-top: 64px;
-            padding: 40px 20px 16px;
-            gap: 20px;
-
-            h1 {
-                margin: 0;
-                font-size: clamp(32px, 9vw, 44px);
-            }
-
-            .notice {
-                border-radius: 16px;
-                padding: 18px;
-                gap: 16px;
-
-                .title {
-                    font-size: 16px;
-                }
-
-                .content {
-                    .body {
-                        font-size: 14px;
-                        line-height: 1.5;
-                    }
-
-                    .lounge {
-                        font-size: 14px;
-                        line-height: 1.4;
-                    }
-                }
-            }
-        }
-
-        .reservation-form {
-            padding: 24px 20px 56px;
-            gap: 24px;
-
-            h2 {
-                margin: 0;
-                font-size: 20px;
-            }
-
-            .reservation-form-item {
-                gap: 16px;
-
-                .reservation-form-item-title {
-                    font-size: 16px;
-                    line-height: 1.4;
-                }
-
-                .calendar-wrapper {
-                    padding: 20px 0;
-
-                    .calendar-header {
-                        margin-bottom: 20px;
-                        gap: 12px;
-                        font-size: 16px;
-                    }
-
-                    .calendar-grid {
-                        row-gap: 12px;
-
-                        .weekday {
-                            font-size: 13px;
-                            margin-bottom: 6px;
-                        }
-
-                        .date-cell {
-                            height: 40px;
-                            font-size: 14px;
-                        }
-
-                        .date-number {
-                            width: 44px;
-                            height: 44px;
-                        }
-
-                        .today-label {
-                            bottom: -14px;
-                            font-size: 10px;
-                        }
-                    }
-                }
-
-                .time-group {
-                    margin-bottom: 24px;
-                    flex-direction: column;
-                    align-items: stretch;
-                    gap: 0;
-
-                    .time-group-item {
-                        width: 100%;
-                        gap: 10px;
-
-                        // 변경: 모바일에서 오전 다음 간격은 조금 더 넓힘
-                        &:nth-child(2) {
-                            margin-top: 20px;
-                        }
-
-                        // 변경: 모바일에서 2:00와 4:00 사이는 조금 더 좁힘
-                        &:nth-child(3) {
-                            margin-top: 4px;
-                        }
-
-                        label {
-                            font-size: 14px;
-                        }
-
-                        button {
-                            padding: 18px 16px;
-                            font-size: 15px;
-                            border-radius: 10px;
-                        }
-                    }
-                }
-
-                .reservation-form-item-content {
-                    flex-direction: column;
-                    gap: 16px;
-
-                    .reservation-form-item-content-item {
-                        gap: 12px;
-
-                        label {
-                            font-size: 14px;
-                        }
-
-                        input {
-                            padding: 18px 16px;
-                            font-size: 15px;
-                        }
-
-                        .user-input::placeholder {
-                            font-size: 15px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-//confirm.html
-body {
-    .confirm {
-        padding: 150px;
-        padding-bottom: 20px;
-        background-color: #F9F8F4;
-
-        .confirm-container {
-            width: 100%;
-            padding: 32px;
-            padding-bottom: 40px;
-            background-color: #fff;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-
-            .confirm-image {
-                width: 100%;
-                height: 300px;
-                border-radius: 16px;
-                overflow: hidden;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-            }
-
-            .confirm-content {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-
-                h1 {
-                    font-size: 40px;
-                    font-weight: 600;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                    margin: 0;
-                }
-
-                dl {
-                    display: grid;
-                    grid-template-columns: 50px 1fr;
-                    gap: 8px;
-
-                    dt {
-                        color: #888;
-                    }
-
-                    dd {
-                        margin: 0;
-                    }
-                }
-            }
-
-            .confirm-lounge {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-
-                .title {
-                    font-size: 24px;
-                    font-weight: 600;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                }
-
-                dl {
-                    display: grid;
-                    grid-template-columns: 50px 1fr;
-                    gap: 8px;
-
-                    dt {
-                        color: #888;
-                    }
-
-                    dd {
-                        margin: 0;
-                    }
-                }
-            }
-        }
-    }
-
-    // 변경: confirm.html 모바일(0~767px) 패딩/타이포/정보 레이아웃 최적화
-    @media (max-width: 767px) {
+    //confirm.html
+    body {
         .confirm {
-            // 변경: 고정 헤더를 고려해 상단 패딩 축소(모바일)
-            padding: 96px 20px 16px;
+            padding: 150px;
+            padding-bottom: 20px;
+            background-color: #F9F8F4;
 
             .confirm-container {
-                // 변경: 카드 내부 여백/라운딩/간격 축소
-                padding: 24px;
-                padding-bottom: 28px;
-                border-radius: 18px;
-                gap: 24px;
+                width: 100%;
+                padding: 32px;
+                padding-bottom: 40px;
+                background-color: #fff;
+                border-radius: 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
 
                 .confirm-image {
-                    // 변경: 모바일에서 이미지 높이 유연화(너무 큰 고정 높이 방지)
-                    height: clamp(180px, 48vw, 240px);
-                    border-radius: 14px;
+                    width: 100%;
+                    height: 300px;
+                    border-radius: 16px;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
                 }
 
                 .confirm-content {
-                    gap: 14px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
 
                     h1 {
-                        // 변경: 모바일 타이포 스케일 다운
-                        font-size: clamp(26px, 7.5vw, 32px);
-                        line-height: 1.15;
+                        font-size: 40px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
                         margin: 0;
                     }
 
-                    // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
                     dl {
                         display: grid;
-                        // 변경: 라벨 폭을 확보해 줄바꿈/겹침 방지(필요 시 60~90px 조절)
-                        grid-template-columns: 72px 1fr;
-                        // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
-                        // 변경: dt/dd 간격 추가 축소
-                        column-gap: 0px;
-                        row-gap: 6px;
+                        grid-template-columns: 50px 1fr;
+                        gap: 8px;
 
                         dt {
-                            // 변경: 예약일/예약자/연락처/견적서 라벨-값 폰트 크기 통일
-                            font-size: 15px;
-                            line-height: 1.45;
-                            white-space: nowrap;
+                            color: #888;
                         }
 
                         dd {
                             margin: 0;
-                            font-size: 15px;
-                            line-height: 1.45;
-                            overflow-wrap: anywhere;
-                            // 변경: 그리드에서 긴 텍스트 오버플로우 방지 보강
-                            min-width: 0;
                         }
                     }
                 }
 
                 .confirm-lounge {
-                    gap: 12px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
 
                     .title {
-                        // 변경: 모바일 타이포 스케일 다운
-                        font-size: 18px;
+                        font-size: 24px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
                     }
 
-                    // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
                     dl {
                         display: grid;
-                        grid-template-columns: 72px 1fr;
-                        // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
-                        // 변경: dt/dd 간격 추가 축소
-                        column-gap: 0px;
-                        row-gap: 6px;
+                        grid-template-columns: 50px 1fr;
+                        gap: 8px;
 
                         dt {
-                            // 변경: 위치/주차 라벨-값 폰트 크기 통일
-                            font-size: 15px;
-                            line-height: 1.45;
-                            white-space: nowrap;
+                            color: #888;
                         }
 
                         dd {
                             margin: 0;
-                            font-size: 15px;
-                            line-height: 1.45;
-                            overflow-wrap: anywhere;
-                            min-width: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 변경: confirm.html 모바일(0~767px) 패딩/타이포/정보 레이아웃 최적화
+        @media (max-width: 767px) {
+            .confirm {
+                // 변경: 고정 헤더를 고려해 상단 패딩 축소(모바일)
+                padding: 96px 20px 16px;
+
+                .confirm-container {
+                    // 변경: 카드 내부 여백/라운딩/간격 축소
+                    padding: 24px;
+                    padding-bottom: 28px;
+                    border-radius: 18px;
+                    gap: 24px;
+
+                    .confirm-image {
+                        // 변경: 모바일에서 이미지 높이 유연화(너무 큰 고정 높이 방지)
+                        height: clamp(180px, 48vw, 240px);
+                        border-radius: 14px;
+                    }
+
+                    .confirm-content {
+                        gap: 14px;
+
+                        h1 {
+                            // 변경: 모바일 타이포 스케일 다운
+                            font-size: clamp(26px, 7.5vw, 32px);
+                            line-height: 1.15;
+                            margin: 0;
+                        }
+
+                        // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
+                        dl {
+                            display: grid;
+                            // 변경: 라벨 폭을 확보해 줄바꿈/겹침 방지(필요 시 60~90px 조절)
+                            grid-template-columns: 72px 1fr;
+                            // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
+                            // 변경: dt/dd 간격 추가 축소
+                            column-gap: 0px;
+                            row-gap: 6px;
+
+                            dt {
+                                // 변경: 예약일/예약자/연락처/견적서 라벨-값 폰트 크기 통일
+                                font-size: 15px;
+                                line-height: 1.45;
+                                white-space: nowrap;
+                            }
+
+                            dd {
+                                margin: 0;
+                                font-size: 15px;
+                                line-height: 1.45;
+                                overflow-wrap: anywhere;
+                                // 변경: 그리드에서 긴 텍스트 오버플로우 방지 보강
+                                min-width: 0;
+                            }
+                        }
+                    }
+
+                    .confirm-lounge {
+                        gap: 12px;
+
+                        .title {
+                            // 변경: 모바일 타이포 스케일 다운
+                            font-size: 18px;
+                        }
+
+                        // 변경: 모바일에서도 dt/dd 2열(가로 정렬) 유지
+                        dl {
+                            display: grid;
+                            grid-template-columns: 72px 1fr;
+                            // 변경: 모바일에서 dt/dd 간격(가로/세로) 소폭 축소
+                            // 변경: dt/dd 간격 추가 축소
+                            column-gap: 0px;
+                            row-gap: 6px;
+
+                            dt {
+                                // 변경: 위치/주차 라벨-값 폰트 크기 통일
+                                font-size: 15px;
+                                line-height: 1.45;
+                                white-space: nowrap;
+                            }
+
+                            dd {
+                                margin: 0;
+                                font-size: 15px;
+                                line-height: 1.45;
+                                overflow-wrap: anywhere;
+                                min-width: 0;
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 
-//action CTA
-body {
-    .action {
-        padding: 40px 150px;
-        padding-bottom: 160px;
-        background-color: #F9F8F4;
+    //action CTA
+    body {
+        .action {
+            padding: 40px 150px;
+            padding-bottom: 160px;
+            background-color: #F9F8F4;
 
-        // 변경: 메인(index)에서만 action 부모 배경색 오버라이드
-        &--index {
-            background-color: #f3f3f3;
+            // 변경: 메인(index)에서만 action 부모 배경색 오버라이드
+            &--index {
+                background-color: #f3f3f3;
 
-            // 변경: 메인에서만 action-container 가로 폭을 pricing-container와 동일하게 조정
+                // 변경: 메인에서만 action-container 가로 폭을 pricing-container와 동일하게 조정
+                .action-container {
+                    max-width: 1160px;
+                }
+            }
+
             .action-container {
-                max-width: 1160px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                margin: 0 auto;
+                padding: 40px;
+                border-radius: 24px;
+                background-color: #fff;
+
+                .action-description {
+                    font-size: 18px;
+                    font-weight: 500;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                .action-cta {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    background-color: #000;
+                    border: none;
+                    padding: 16px 24px;
+                    border-radius: 50px;
+                    cursor: pointer;
+
+                    span {
+                        color: #fff;
+                        font-size: 16px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                        text-align: center;
+                    }
+                }
+
+                // 변경: index 전용 CTA 색상 오버라이드
+                .action-cta--index {
+                    background-color: #EA591A;
+                }
+
             }
         }
 
-        .action-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 24px;
+        // 변경: 모바일(0~767px) CTA 섹션 세로 스택/패딩 축소
+        @media (max-width: 767px) {
+            .action {
+                padding: 32px 20px;
+                padding-bottom: 96px;
+
+                .action-container {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 16px;
+                    padding: 24px;
+                }
+
+                .action-description {
+                    line-height: 1.4;
+                    font-size: 16px;
+                    // 변경: 모바일에서는 CTA 설명 문구 숨김 처리
+                    display: none;
+                }
+
+                .action-cta {
+                    width: 100%;
+                }
+            }
+        }
+
+        #action {
             background-color: #fff;
 
-            .action-description {
-                font-size: 18px;
-                font-weight: 500;
-                line-height: 1;
-                letter-spacing: -0.01em;
-            }
-
-            .action-cta {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                background-color: #000;
-                border: none;
-                padding: 16px 24px;
-                border-radius: 50px;
-                cursor: pointer;
-
-                span {
-                    color: #fff;
-                    font-size: 16px;
-                    font-weight: 600;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                    text-align: center;
-                }
-            }
-
-            // 변경: index 전용 CTA 색상 오버라이드
-            .action-cta--index {
-                background-color: #EA591A;
-            }
-
-        }
-    }
-
-    // 변경: 모바일(0~767px) CTA 섹션 세로 스택/패딩 축소
-    @media (max-width: 767px) {
-        .action {
-            padding: 32px 20px;
-            padding-bottom: 96px;
-
             .action-container {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 16px;
-                padding: 24px;
-            }
-
-            .action-description {
-                line-height: 1.4;
-                font-size: 16px;
-                // 변경: 모바일에서는 CTA 설명 문구 숨김 처리
-                display: none;
-            }
-
-            .action-cta {
-                width: 100%;
+                background-color: #F9F9F9;
             }
         }
-    }
 
-    #action {
-        background-color: #fff;
-
-        .action-container {
-            background-color: #F9F9F9;
-        }
-    }
-
-    //footer
-    .footer {
-        display: flex;
-        flex-direction: column;
-        gap: 80px;
-        padding: 80px 150px;
-        background-color: #0D0D0D;
-
-        .service-name {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        .info {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-
-            .list-items {
-                flex: 1;
-                color: #fff;
-
-                .info-title {
-                    font-size: 14px;
-                    font-weight: 600;
-                    line-height: 1;
-                    letter-spacing: -0.01em;
-                    padding-bottom: 24px;
-                }
-
-                .info-item {
-                    font-size: 14px;
-                    font-weight: 300;
-                    line-height: 1.7;
-                    letter-spacing: -0.01em;
-                }
-            }
-        }
-    }
-
-    // 변경: 모바일(0~767px) footer 정보 영역 스택/패딩 축소
-    @media (max-width: 767px) {
+        //footer
         .footer {
-            gap: 40px;
-            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            padding: 80px 150px;
+            background-color: #0D0D0D;
 
             .service-name {
-                font-size: 20px;
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                text-transform: uppercase;
+                color: #fff;
             }
 
             .info {
-                flex-direction: column;
-                gap: 28px;
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
 
                 .list-items {
+                    flex: 1;
+                    color: #fff;
+
                     .info-title {
-                        padding-bottom: 14px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        line-height: 1;
+                        letter-spacing: -0.01em;
+                        padding-bottom: 24px;
+                    }
+
+                    .info-item {
+                        font-size: 14px;
+                        font-weight: 300;
+                        line-height: 1.7;
+                        letter-spacing: -0.01em;
+                    }
+                }
+            }
+        }
+
+        // 변경: 모바일(0~767px) footer 정보 영역 스택/패딩 축소
+        @media (max-width: 767px) {
+            .footer {
+                gap: 40px;
+                padding: 40px 20px;
+
+                .service-name {
+                    font-size: 20px;
+                }
+
+                .info {
+                    flex-direction: column;
+                    gap: 28px;
+
+                    .list-items {
+                        .info-title {
+                            padding-bottom: 14px;
+                        }
                     }
                 }
             }
         }
     }
-}
 
-// 변경: 모바일 전용 하단 고정 견적 바는 기본(데스크톱)에서 숨김
-.self-mobile-total-bar {
-    display: none;
-}
-
-// 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
-@media (max-width: 767px) {
-    body.self-page .footer {
-        padding-bottom: calc(160px + env(safe-area-inset-bottom));
-    }
-
-    // 변경: self.html 에서만 모바일 하단 고정 바 CTA를 사용하므로 기존 action 섹션 숨김
-    body.self-page .action {
+    // 변경: 모바일 전용 하단 고정 견적 바는 기본(데스크톱)에서 숨김
+    .self-mobile-total-bar {
         display: none;
     }
-}
+
+    // 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
+    @media (max-width: 767px) {
+        body.self-page .footer {
+            padding-bottom: calc(160px + env(safe-area-inset-bottom));
+        }
+
+        // 변경: self.html 에서만 모바일 하단 고정 바 CTA를 사용하므로 기존 action 섹션 숨김
+        body.self-page .action {
+            display: none;
+        }
+    }
