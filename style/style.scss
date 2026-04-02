@@ -46,9 +46,7 @@ body {
             line-height: 1;
             letter-spacing: -0.01em;
             text-transform: uppercase;
-            // 변경: 헤더 service-name을 항상 흰색으로 고정
             color: #000;
-            // 변경: 헤더 service-name을 링크로 사용해도 기본 밑줄이 보이지 않도록 설정
             text-decoration: none;
         }
 
@@ -313,7 +311,10 @@ body {
         }
 
         &__thumb-title {
-            font-size: 24px;
+            // 변경: 한 줄 유지 + 반응형 글자 크기(최소 가독성 확보)
+            font-size: clamp(22px, 4.2vw, 24px);
+            line-height: 1.25;
+            white-space: nowrap;
             color: #777;
             text-align: center;
         }
@@ -389,7 +390,9 @@ body {
             padding-bottom: 0;
 
             &__title {
-                font-size: 28px;
+                font-size: clamp(24px, 4.5vw, 28px);
+                line-height: 1.25;
+                white-space: nowrap;
             }
 
             &__desc {
@@ -549,12 +552,22 @@ body {
     // 변경: 모바일 브레이크포인트를 767px로 통일
     @media (max-width: 767px) {
         .how {
+            // 변경: 모바일에서 좌우 여백을 index 다른 섹션(process·CTA·footer 등)과 동일하게 20px로 통일
+            padding: 64px 20px;
+
             &__grid {
                 grid-template-columns: 1fr;
             }
 
             &__title {
                 font-size: 26px;
+            }
+
+            // 변경: 모바일에서 설명 문구(how__desc) 텍스트 크기·줄간격 조정 가능
+            &__desc {
+                margin-top: 24px;
+                font-size: 14px;
+                line-height: 1.55;
             }
         }
     }
@@ -3175,14 +3188,27 @@ body {
         // 변경: 모바일(0~767px) CTA 섹션 세로 스택/패딩 축소
         @media (max-width: 767px) {
             .action {
+                // 변경: 모바일에서 CTA 섹션(부모) 배경 제거
+                background-color: #f3f3f3;
                 padding: 32px 20px;
                 padding-bottom: 96px;
+
+
+                // 변경: index 전용 섹션 배경도 동일하게 제거
+                &.action--index {
+                    background-color: #f3f3f3;
+                }
 
                 .action-container {
                     flex-direction: column;
                     align-items: stretch;
                     gap: 16px;
-                    padding: 24px;
+                    // 변경: 모바일에서 카드형 배경 제거·가로 전체 사용(index max-width 해제 포함)
+                    width: 100%;
+                    max-width: none;
+                    padding: 0;
+                    background-color: transparent;
+                    border-radius: 0;
                 }
 
                 .action-description {
@@ -3193,7 +3219,9 @@ body {
                 }
 
                 .action-cta {
+                    // 변경: 모바일에서 CTA 버튼 가로 전체
                     width: 100%;
+                    box-sizing: border-box;
                 }
             }
         }
@@ -3203,6 +3231,21 @@ body {
 
             .action-container {
                 background-color: #F9F9F9;
+            }
+        }
+
+        // 변경: 모바일에서 #action(reservation 등) CTA도 배경·카드 제거 후 가로 전체와 통일
+        @media (max-width: 767px) {
+            #action {
+                background-color: transparent;
+
+                .action-container {
+                    width: 100%;
+                    max-width: none;
+                    padding: 0;
+                    background-color: transparent;
+                    border-radius: 0;
+                }
             }
         }
 

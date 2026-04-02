@@ -273,7 +273,9 @@ body .problem-card__thumb--cost {
   padding-bottom: 40px;
 }
 body .problem-card__thumb-title {
-  font-size: 24px;
+  font-size: clamp(22px, 4.2vw, 24px);
+  line-height: 1.25;
+  white-space: nowrap;
   color: #777;
   text-align: center;
 }
@@ -335,7 +337,9 @@ body {
     padding-bottom: 0;
   }
   body .problem__title {
-    font-size: 28px;
+    font-size: clamp(24px, 4.5vw, 28px);
+    line-height: 1.25;
+    white-space: nowrap;
   }
   body .problem__desc {
     font-size: 16px;
@@ -458,11 +462,19 @@ body .how-card__text {
   }
 }
 @media (max-width: 767px) {
+  body .how {
+    padding: 64px 20px;
+  }
   body .how__grid {
     grid-template-columns: 1fr;
   }
   body .how__title {
     font-size: 26px;
+  }
+  body .how__desc {
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 1.55;
   }
 }
 body .process-wrapper {
@@ -2602,14 +2614,22 @@ body .action .action-container .action-cta--index {
 }
 @media (max-width: 767px) {
   body .action {
+    background-color: #f3f3f3;
     padding: 32px 20px;
     padding-bottom: 96px;
+  }
+  body .action.action--index {
+    background-color: #f3f3f3;
   }
   body .action .action-container {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
-    padding: 24px;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
   }
   body .action .action-description {
     line-height: 1.4;
@@ -2618,6 +2638,7 @@ body .action .action-container .action-cta--index {
   }
   body .action .action-cta {
     width: 100%;
+    box-sizing: border-box;
   }
 }
 body #action {
@@ -2625,6 +2646,18 @@ body #action {
 }
 body #action .action-container {
   background-color: #F9F9F9;
+}
+@media (max-width: 767px) {
+  body #action {
+    background-color: transparent;
+  }
+  body #action .action-container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+  }
 }
 body .footer {
   display: flex;
