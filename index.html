@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Builderland</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css?v=gray-radius-mobile-pill">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
     <header>
         <a href="index.html" class="service-name">builderland</a>
-        <button>자주 묻는 질문</button>
+        <button>문의하기</button>
     </header>
     <section class="hero">
         <div class="hero-content">
@@ -162,9 +162,7 @@
             <h2 class="header-main">시공이 완료된 공정별로 <br> 시공 업체에 결제</h2>
         </div>
 
-        <!-- 변경: 모바일 전용 이미지로 프로세스 UI 대체 -->
-        <img class="process-mobile-image" src="assets/images/process_mobile.png" alt="시공 공정별 결제 프로세스 모바일 버전">
-
+        <!-- 변경: 모바일에서도 PC 타임라인 마크업 사용(스타일은 SCSS에서 반응형 처리) -->
         <div class="timeline-section">
 
             <!-- Pre-construction Phase -->
@@ -177,7 +175,11 @@
 
                 <div class="blocks-container">
                     <div class="gray-block block-design">디자인</div>
-                    <div class="gray-block block-match">현장 소장 매칭</div>
+                    <!-- 변경: 모바일에서만 '현장 소장' / '매칭' 줄바꿈(SCSS로 전환) -->
+                    <div class="gray-block block-match">
+                        <span class="block-match__text block-match__text--desktop">현장 소장 매칭</span>
+                        <span class="block-match__text block-match__text--mobile">현장 소장<br>매칭</span>
+                    </div>
                 </div>
             </div>
 
@@ -194,9 +196,11 @@
                     <div class="black-blocks">
                         <div class="black-step">공정 1</div>
                         <div class="black-step">공정 2</div>
-                        <div class="black-step">공정 3</div>
-                        <div class="black-step">공정 4</div>
-                        <div class="black-step">공정 5</div>
+                        <!-- 변경: 모바일에서만 … 표시, 공정 3~5는 숨김(SCSS로 전환) -->
+                        <div class="black-step black-step--ellipsis-mobile" aria-hidden="true">...</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 3</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 4</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 5</div>
                         <div class="black-step">공정 6</div>
                         <div class="black-step">준공</div>
                     </div>
@@ -242,7 +246,6 @@
                     <div class="payment-slot"></div>
                 </div>
             </div>
-
         </div>
     </section>
     <section class="pricing">
@@ -590,8 +593,14 @@
                 <li class="info-item">이용약관</li>
             </ul>
             <ul class="list-items">
+                <li class="info-title">Guide</li>
+                <!-- 변경: 인테리어 위키 대문 페이지를 새 탭에서 열도록 연결 -->
+                <li class="info-item"><a href="https://interior.wiki/%EB%8C%80%EB%AC%B8" target="_blank" rel="noopener noreferrer">인테리어 위키</a></li>
+            </ul>
+            <ul class="list-items">
                 <li class="info-title">Contact</li>
-                <li class="info-item">제휴 문의</li>
+                <!-- 변경: 제휴 문의 클릭 시 help@abland.kr 메일 작성 화면으로 연결 -->
+                <li class="info-item"><a href="mailto:help@abland.kr">제휴 문의</a></li>
             </ul>
         </div>
     </section>

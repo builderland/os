@@ -15,17 +15,10 @@ const scopeDetailMap = {
     'wallpaper':      ['도배'],
     'film':           ['필름_문문틀', '필름_창호', '필름_몰딩', '필름_주방가구'],
     'tile':           ['현관타일', '바닥타일'],
-    'floor':          ['바닥'],   // 등급에 따라 장판/강마루/원목마루 자동 결정
+    'floor':          ['바닥'],
     'electric':       ['전기'],
     'kitchen_scope':  ['주방'],
     'bathroom_scope': ['욕실'],
-};
-
-// 바닥재 등급 자동 매핑
-const floorGradeMap = {
-    '베이직':   '장판',
-    '스탠다드': '강마루',
-    '프리미엄': '원목마루',
 };
 
 // 선택 공사 체크박스 value → 한글 매핑
@@ -68,7 +61,7 @@ function getValidUntilDate() {
     return `${y}/${m}/${d}`;
 }
 
-// 변경: 숫자 포맷 성능 향상을 위해 Intl.NumberFormat 인스턴스를 재사용
+// 숫자 포맷 성능 향상을 위해 Intl.NumberFormat 인스턴스를 재사용
 const manwonFormatter = new Intl.NumberFormat('ko-KR');
 
 // 숫자를 만원 단위로 포맷 (콤마 포함)
@@ -77,7 +70,7 @@ function formatManwon(won) {
     return manwonFormatter.format(manwon);
 }
 
-// 변경: 자주 접근하는 DOM 요소 캐싱을 위한 변수 정의
+// 자주 접근하는 DOM 요소 캐싱을 위한 변수 정의
 let estimateRangeEl = null;
 let estimateTableBody = null;
 let estimateTableFootRow = null;
@@ -91,81 +84,81 @@ let overlayEl = null;
 
 // 견적 카드 결과 업데이트
 function updateEstimateCard(data) {
-    const formattedRange = `${formatManwon(data.min_price)} ~ ${formatManwon(data.max_price)}`;
+    const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
 
-    if (estimateRangeEl) {
-        estimateRangeEl.textContent = formattedRange;
-    }
+    // 만원 단위 변환 (반올림 기준 통일)
+    const basicMin    = Math.round(data.basic_price    * 0.9 / 10000);
+    const basicMax    = Math.round(data.basic_price    * 1.1 / 10000);
+    const optMin      = Math.round(data.optional_price * 0.9 / 10000);
+    const optMax      = Math.round(data.optional_price * 1.1 / 10000);
+    const indirectMin = Math.round(indirectTotal        * 0.9 / 10000);
+    const indirectMax = Math.round(indirectTotal        * 1.1 / 10000);
 
-    if (mobileEstimateRangeEl) {
-        mobileEstimateRangeEl.textContent = formattedRange;
-    }
+    // 합계 = 세부 항목 합산 (반올림 일치)
+    const totalMin = basicMin + optMin + indirectMin;
+    const totalMax = basicMax + optMax + indirectMax;
 
+    // 상단 견적 금액 범위
+    const formattedRange = `${manwonFormatter.format(totalMin)} ~ ${manwonFormatter.format(totalMax)}`;
+    if (estimateRangeEl)       estimateRangeEl.textContent       = formattedRange;
+    if (mobileEstimateRangeEl) mobileEstimateRangeEl.textContent = formattedRange;
+
+    // 세부 항목 테이블
     if (estimateTableBody) {
-        // 직접 공사비 외 비용 = indirect_price + overhead(14%) 합산
-        const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
         estimateTableBody.innerHTML = `
             <tr>
                 <td>1</td>
                 <td>기본 공사비</td>
-                <td class="number">${formatManwon(data.basic_price * 0.9)}</td>
-                <td class="number">${formatManwon(data.basic_price * 1.1)}</td>
+                <td class="number">${manwonFormatter.format(basicMin)}</td>
+                <td class="number">${manwonFormatter.format(basicMax)}</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>선택 공사비</td>
-                <td class="number">${formatManwon(data.optional_price * 0.9)}</td>
-                <td class="number">${formatManwon(data.optional_price * 1.1)}</td>
+                <td class="number">${manwonFormatter.format(optMin)}</td>
+                <td class="number">${manwonFormatter.format(optMax)}</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>직접 공사비 외 비용</td>
-                <td class="number">${formatManwon(indirectTotal * 0.9)}</td>
-                <td class="number">${formatManwon(indirectTotal * 1.1)}</td>
+                <td class="number">${manwonFormatter.format(indirectMin)}</td>
+                <td class="number">${manwonFormatter.format(indirectMax)}</td>
             </tr>
         `;
     }
 
+    // 합계 행
     if (estimateTableFootRow) {
-        // 변경: 합계는 "화면에 표시되는 만원 단위(반올림) 항목 합"과 정확히 일치하도록 프론트에서 재계산
-        const indirectTotal = (data.indirect_price || 0) + (data.overhead || 0);
-        const minSumManwon =
-            Math.round((data.basic_price * 0.9) / 10000) +
-            Math.round((data.optional_price * 0.9) / 10000) +
-            Math.round((indirectTotal * 0.9) / 10000);
-        const maxSumManwon =
-            Math.round((data.basic_price * 1.1) / 10000) +
-            Math.round((data.optional_price * 1.1) / 10000) +
-            Math.round((indirectTotal * 1.1) / 10000);
-
         estimateTableFootRow.innerHTML = `
             <td colspan="2">합계(만원)</td>
-            <td class="number">${manwonFormatter.format(minSumManwon)}</td>
-            <td class="number">${manwonFormatter.format(maxSumManwon)}</td>
+            <td class="number">${manwonFormatter.format(totalMin)}</td>
+            <td class="number">${manwonFormatter.format(totalMax)}</td>
         `;
     }
 }
 
 // 버튼 로딩 상태 토글
 function setLoading(isLoading) {
-    const buttons = document.querySelectorAll('.action-cta');
-    if (!buttons.length) return;
-
-    buttons.forEach(btn => {
-        const label = btn.querySelector('.label');
-        btn.disabled = isLoading;
-        if (label) label.textContent = isLoading ? '계산 중...' : '공사 방식 확인';
-    });
+    const btn = document.querySelector('.action-cta');
+    if (!btn) return;
+    const label = btn.querySelector('.label');
+    if (isLoading) {
+        btn.disabled = true;
+        if (label) label.textContent = '계산 중...';
+    } else {
+        btn.disabled = false;
+        if (label) label.textContent = '견적 비교';
+    }
 }
 
-// self.html: 화면 중앙 로딩 오버레이 토글
+// 화면 중앙 로딩 오버레이 토글
 function setOverlayLoading(isLoading) {
     if (!overlayEl) return;
     overlayEl.classList.toggle('is-visible', isLoading);
     overlayEl.setAttribute('aria-hidden', String(!isLoading));
 }
 
-// 변경: 자동 계산/저장을 위한 상태 및 유틸 함수 추가
+// 자동 계산/저장을 위한 상태 및 유틸 함수 추가
 let lastPayload = null;
 let lastEstimate = null;
 let latestRequestId = 0;
@@ -177,18 +170,6 @@ function debounce(fn, delay) {
         clearTimeout(timer);
         timer = setTimeout(() => fn.apply(this, args), delay);
     };
-}
-
-// 변경 내용 주석: 공사 범위 저장 시 화면에서 실제로 선택한 항목만 배열로 수집
-function getSelectedScopeItems(rangeRoot, constructionType) {
-    if (constructionType === '전체') {
-        return ['전체공사'];
-    }
-
-    return Array.from(
-        rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]:checked')
-    ).map(cb => cb.closest('.card')?.querySelector('.text')?.textContent?.trim())
-        .filter(Boolean);
 }
 
 // 현재 폼 상태에서 payload 구성
@@ -217,7 +198,6 @@ function buildPayload(options = { showAlert: false }) {
     const rangeRoot = document.getElementById('self-form-range');
     if (!rangeRoot) return null;
 
-    // 전체 / 부분공사 라디오
     const topScopeRadio = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
     if (!topScopeRadio) {
         if (showAlert) alert('공사 범위(전체/부분)를 선택해주세요.');
@@ -226,11 +206,8 @@ function buildPayload(options = { showAlert: false }) {
 
     const construction_type = topScopeRadio.value === 'full_work' ? '전체' : '부분';
     let scope = [];
-    // 변경 내용 주석: Supabase 저장용 scope는 사용자가 실제 선택한 항목명만 유지
-    let selected_scope_items = getSelectedScopeItems(rangeRoot, construction_type);
 
     if (construction_type === '부분') {
-        // 체크된 scope_detail 수집 후 Edge Function scope로 변환
         const checkedDetails = Array.from(
             rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]:checked')
         ).map(cb => cb.value);
@@ -242,13 +219,11 @@ function buildPayload(options = { showAlert: false }) {
 
         checkedDetails.forEach(val => {
             (scopeDetailMap[val] || []).forEach(s => {
-                scope.push(s);  // 바닥 그대로 전달, 등급은 Edge Function에서 DB 조회로 처리
+                scope.push(s);
             });
         });
 
-        // 중복 제거
         scope = [...new Set(scope)];
-        selected_scope_items = [...new Set(selected_scope_items)];
     }
 
     // ── 선택공사 수집 ────────────────────────────────────────
@@ -273,7 +248,6 @@ function buildPayload(options = { showAlert: false }) {
         grade,
         construction_type,
         scope,
-        selected_scope_items,
         extra_works,
         bathroom_count,
     };
@@ -284,7 +258,7 @@ async function calculateAndRender(payload, options = { useButtonLoading: false, 
     const { useButtonLoading, useOverlayLoading } = options;
     const currentRequestId = ++latestRequestId;
 
-    if (useButtonLoading) setLoading(true);
+    if (useButtonLoading)  setLoading(true);
     if (useOverlayLoading) setOverlayLoading(true);
 
     try {
@@ -310,12 +284,12 @@ async function calculateAndRender(payload, options = { useButtonLoading: false, 
 
         return data;
     } finally {
-        if (useButtonLoading && currentRequestId === latestRequestId) setLoading(false);
+        if (useButtonLoading  && currentRequestId === latestRequestId) setLoading(false);
         if (useOverlayLoading && currentRequestId === latestRequestId) setOverlayLoading(false);
     }
 }
 
-// 변경: 셀프 견적 정보를 sessionStorage에만 저장하고 about.html로 이동
+// 셀프 견적 정보를 sessionStorage에만 저장하고 about.html로 이동
 function saveEstimateToSessionAndNavigate() {
     if (!lastPayload || !lastEstimate) {
         alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
@@ -337,8 +311,7 @@ function saveEstimateToSessionAndNavigate() {
         area_py:           lastPayload.area_py,
         grade:             lastPayload.grade,
         construction_type: lastPayload.construction_type,
-        // 변경 내용 주석: 예약 시 estimates.scope에는 실제 선택 항목 배열만 저장
-        scope:             lastPayload.selected_scope_items || [],
+        scope:             lastPayload.scope,
         extra_works:       lastPayload.extra_works,
         bathroom_count:    lastPayload.bathroom_count,
     };
@@ -362,7 +335,7 @@ function saveEstimateToSessionAndNavigate() {
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 캐싱
     globalInvoiceEl       = document.querySelector('.estimate-card__invoice');
-    const actionButtons   = document.querySelectorAll('.action-cta');
+    const actionButton    = document.querySelector('.action-cta');
     estimateRangeEl       = document.querySelector('.estimate-card__range');
     mobileEstimateRangeEl = document.querySelector('.self-mobile-total-bar__range');
     estimateTableBody     = document.querySelector('.estimate-table tbody');
@@ -393,10 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const validEl = document.querySelector('.estimate-card__valid');
     if (validEl) validEl.textContent = `${getValidUntilDate()} 까지 유효`;
 
-    // 변경: 모바일 하단 고정 바 금액도 기본값과 동일하게 초기화
+    // 모바일 하단 고정 바 초기화
     if (mobileEstimateRangeEl) mobileEstimateRangeEl.textContent = '0';
 
-    if (!actionButtons.length) return;
+    const actionButtons = document.querySelectorAll('.action-cta');
 
     // 자동 계산 디바운스
     const autoCalc = debounce(async () => {
@@ -418,8 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 공사 범위 라디오/체크박스 연동
     const rangeRoot = document.getElementById('self-form-range');
     if (rangeRoot) {
-        const topScopeRadios    = rangeRoot.querySelectorAll('.range-top-cards input[type="radio"]');
-        const detailOptionWrap  = rangeRoot.querySelector('.self-form-item-option');
+        const topScopeRadios     = rangeRoot.querySelectorAll('.range-top-cards input[type="radio"]');
+        const detailOptionWrap   = rangeRoot.querySelector('.self-form-item-option');
         const detailOptionChecks = rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]');
 
         const toggleDetailOptionByTopScope = () => {
@@ -427,7 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!detailOptionWrap) return;
 
             if (selected?.value === 'partial_work') {
-                // 변경: CSS에서 option 영역이 기본 display:none 이므로 부분공사 선택 시 강제로 노출
                 detailOptionWrap.style.display = 'block';
             } else {
                 detailOptionWrap.style.display = 'none';
@@ -443,19 +415,18 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleDetailOptionByTopScope();
     }
 
-    // 변경: 데스크톱/모바일 CTA 버튼이 동일한 검증 및 이동 로직을 공유
-    const handleActionButtonClick = async () => {
+    // 버튼 클릭 핸들러
+    const handleClick = async () => {
         if (!lastPayload || !lastEstimate) {
             alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
             return;
         }
 
-        // 변경: 부분공사 선택 시 하위 항목은 2개 이상 선택해야 다음 페이지로 이동
+        // 부분공사 시 하위 항목 2개 이상 선택 검증
         if (lastPayload.construction_type === '부분') {
             const checkedDetailCount = document.querySelectorAll(
                 '#self-form-range .option-grid input[type="checkbox"]:checked'
             ).length;
-
             if (checkedDetailCount < 2) {
                 alert('부분 공사는 하위 항목을 2개 이상 선택해주세요.');
                 return;
@@ -467,7 +438,5 @@ document.addEventListener('DOMContentLoaded', () => {
         saveEstimateToSessionAndNavigate();
     };
 
-    actionButtons.forEach(button => {
-        button.addEventListener('click', handleActionButtonClick);
-    });
+    actionButtons.forEach(button => button.addEventListener('click', handleClick));
 });

@@ -478,15 +478,10 @@ body .how-card__text {
   }
 }
 body .process-wrapper {
-  padding: 150px;
-  padding-bottom: 300px;
   margin: 0 auto;
   background-color: #F9F8F4;
-}
-body .process-wrapper .process-mobile-image {
-  display: none;
-  width: 100%;
-  height: auto;
+  padding: 150px;
+  padding-bottom: 300px;
 }
 body .process-wrapper .header {
   text-align: center;
@@ -509,19 +504,23 @@ body .process-wrapper .header-main {
 }
 body .process-wrapper .timeline-section {
   display: flex;
+  flex-direction: row;
   gap: 0;
   width: 100%;
   position: relative;
 }
 body .process-wrapper .pre-phase {
   flex: 2.8;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 body .process-wrapper .post-phase {
   flex: 7.2;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 body .process-wrapper .bracket-container {
   display: flex;
@@ -565,12 +564,14 @@ body .process-wrapper .bracket-text {
   font-weight: 500;
   position: relative;
 }
-body .process-wrapper .blocks-container {
+body .process-wrapper .pre-phase .blocks-container {
   display: flex;
-  gap: 0;
+  flex-direction: row;
   height: 80px;
+  gap: 0;
+  align-items: stretch;
 }
-body .process-wrapper .gray-block {
+body .process-wrapper .pre-phase .gray-block {
   background-color: #8C939A;
   border-radius: 40px;
   color: #fff;
@@ -578,38 +579,55 @@ body .process-wrapper .gray-block {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
+  min-width: 0;
 }
-body .process-wrapper .block-design {
+body .process-wrapper .pre-phase .block-design {
   flex: 0.9;
 }
-body .process-wrapper .block-match {
+body .process-wrapper .pre-phase .block-match {
   flex: 1.1;
 }
-body .process-wrapper .black-blocks {
+body .process-wrapper .pre-phase .block-match__text--mobile {
+  display: none;
+}
+body .process-wrapper .pre-phase .block-match__text--desktop {
+  display: inline;
+}
+body .process-wrapper .post-phase .blocks-container {
+  display: flex;
+  gap: 0;
+  height: 80px;
+}
+body .process-wrapper .post-phase .black-blocks {
   background-color: #000;
   border-radius: 40px;
   display: flex;
+  flex-direction: row;
   height: 100%;
   width: 100%;
+  min-width: 0;
   color: #fff;
 }
-body .process-wrapper .black-step {
+body .process-wrapper .post-phase .black-step {
   flex: 1;
+  min-width: 0;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   position: relative;
 }
-body .process-wrapper .black-step:not(:last-child)::after {
+body .process-wrapper .post-phase .black-step:not(:last-child)::after {
   content: "";
   position: absolute;
   right: 0;
   top: 0;
-  height: calc(100% + 24px);
   width: 1px;
+  height: calc(100% + 24px);
   transform: translateX(50%);
   background-image: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px), repeating-linear-gradient(to bottom, #777 0px, #777 4px, transparent 4px, transparent 8px);
   background-size: 100% 80px, 100% 24px;
@@ -617,16 +635,24 @@ body .process-wrapper .black-step:not(:last-child)::after {
   background-repeat: no-repeat;
   z-index: 10;
 }
-body .process-wrapper .payments-container {
+body .process-wrapper .post-phase .black-step--ellipsis-mobile {
+  display: none;
+}
+body .process-wrapper .post-phase .payments-container {
   display: flex;
+  position: static;
+  flex-direction: row;
   width: 100%;
   padding-top: 0;
 }
-body .process-wrapper .payment-slot {
+body .process-wrapper .post-phase .payment-slot {
   flex: 1;
   position: relative;
+  min-width: 0;
+  height: auto;
+  width: auto;
 }
-body .process-wrapper .payment-marker {
+body .process-wrapper .post-phase .payment-marker {
   position: absolute;
   right: 0;
   top: 0;
@@ -635,132 +661,116 @@ body .process-wrapper .payment-marker {
   flex-direction: column;
   align-items: center;
   z-index: 5;
+  height: auto;
+  justify-content: flex-start;
+  padding-bottom: 0;
 }
-body .process-wrapper .payment-line {
+body .process-wrapper .post-phase .payment-line {
+  display: block;
   width: 1px;
   height: 24px;
   margin-bottom: 8px;
 }
-body .process-wrapper .payment-text {
+body .process-wrapper .post-phase .payment-text {
   font-size: 16px;
   font-weight: 500;
   color: #444;
 }
 @media (max-width: 767px) {
   body .process-wrapper {
-    padding: 96px 20px 160px;
-    background-color: #F9F8F4;
+    padding: 80px 16px 128px;
   }
-  body .process-wrapper .timeline-section {
-    display: none;
+  body .process-wrapper .pre-phase {
+    flex: 3.5;
   }
-  body .process-wrapper .process-mobile-image {
-    display: block;
-    width: 100%;
-    max-width: 240px;
-    height: auto;
-    margin: 0 auto;
+  body .process-wrapper .post-phase {
+    flex: 6.5;
   }
   body .process-wrapper .header {
-    margin-bottom: 40px;
+    margin-bottom: 28px;
   }
   body .process-wrapper .header-sub {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin-bottom: 8px;
   }
   body .process-wrapper .header-main {
-    font-size: 22px;
-    line-height: 1.25;
-  }
-  body .process-wrapper .timeline-section {
-    display: none;
-  }
-  body .process-wrapper .pre-phase,
-  body .process-wrapper .post-phase {
-    flex: none;
-    width: 100%;
+    font-size: 20px;
   }
   body .process-wrapper .bracket-container {
-    height: 32px;
-    margin-bottom: 18px;
+    height: 28px;
+    margin-bottom: 14px;
   }
   body .process-wrapper .bracket-tick-left,
   body .process-wrapper .bracket-tick-right {
-    height: 12px;
+    height: 10px;
   }
   body .process-wrapper .bracket-text {
-    font-size: 14px;
-    padding: 0 12px;
+    font-size: 13px;
+    padding: 0 10px;
   }
-  body .process-wrapper .pre-phase .blocks-container {
-    flex-direction: column;
-    height: auto;
-    gap: 18px;
+  body .process-wrapper .pre-phase .blocks-container,
+  body .process-wrapper .post-phase .blocks-container {
+    height: 64px;
+  }
+  body .process-wrapper .post-phase .black-step:not(:last-child)::after {
+    background-size: 100% 64px, 100% 24px;
+    background-position: 0 0, 0 64px;
   }
   body .process-wrapper .pre-phase .gray-block {
-    width: 160px;
-    height: 92px;
+    font-size: 13px;
     border-radius: 999px;
-    font-size: 14px;
   }
   body .process-wrapper .pre-phase .block-design,
   body .process-wrapper .pre-phase .block-match {
-    flex: none;
+    flex: 1;
   }
-  body .process-wrapper .post-phase {
-    position: relative;
+  body .process-wrapper .pre-phase .gray-block.block-match {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
-  body .process-wrapper .post-phase .blocks-container {
-    height: auto;
-  }
-  body .process-wrapper .post-phase .black-blocks {
-    flex-direction: column;
-    height: auto;
-  }
-  body .process-wrapper .post-phase .black-step {
-    flex: none;
-    width: 100%;
-    height: 64px;
-    font-size: 14px;
-  }
-  body .process-wrapper .post-phase .black-step:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 14px;
-    width: 70%;
-    height: 1px;
-    transform: translateX(-50%);
-    background-image: repeating-linear-gradient(to right, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px), repeating-linear-gradient(to right, #777 0px, #777 4px, transparent 4px, transparent 8px);
-  }
-  body .process-wrapper .post-phase .payments-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50px;
-    padding-top: 0;
-    width: 100%;
-    flex-direction: column;
-  }
-  body .process-wrapper .post-phase .payment-slot {
-    flex: none;
-    width: 100%;
-    height: 64px;
-  }
-  body .process-wrapper .post-phase .payment-marker {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    height: 100%;
-    justify-content: flex-end;
-    padding-bottom: 10px;
-  }
-  body .process-wrapper .post-phase .payment-line {
+  body .process-wrapper .pre-phase .block-match__text--desktop {
     display: none;
   }
+  body .process-wrapper .pre-phase .block-match__text--mobile {
+    display: block;
+    line-height: 1.25;
+  }
+  body .process-wrapper .post-phase .black-step {
+    font-size: 13px;
+  }
+  body .process-wrapper .post-phase .black-step--hide-on-mobile {
+    display: none !important;
+  }
+  body .process-wrapper .post-phase .black-step--ellipsis-mobile {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0.85;
+    min-width: 0;
+  }
   body .process-wrapper .post-phase .payment-text {
-    font-size: 14px;
+    font-size: 13px;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(4),
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(5) {
+    display: none;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(1) {
+    flex: 1;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(2) {
+    flex: 1;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(3) {
+    flex: 0.85;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(6) {
+    flex: 1;
+  }
+  body .process-wrapper .post-phase .payments-container .payment-slot:nth-child(7) {
+    flex: 1;
   }
 }
 body .pricing {
@@ -2698,6 +2708,13 @@ body .footer .info .list-items .info-item {
   font-weight: 300;
   line-height: 1.7;
   letter-spacing: -0.01em;
+}
+body .footer .info .list-items .info-item a {
+  color: inherit;
+  text-decoration: none;
+}
+body .footer .info .list-items .info-item a:hover, body .footer .info .list-items .info-item a:focus-visible {
+  text-decoration: underline;
 }
 @media (max-width: 767px) {
   body .footer {

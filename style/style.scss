@@ -51,7 +51,7 @@ body {
         }
 
         button {
-            // 변경: 모든 페이지 헤더의 '자주 묻는 질문' 버튼 숨김
+            // 변경: 모든 페이지 헤더의 '문의하기' 버튼 숨김
             // display: none;
             background-color: #000;
             color: #fff;
@@ -572,19 +572,12 @@ body {
         }
     }
 
-    // 변경: index 결제 프로세스 섹션 스타일 추가(PC 전용)
+    // 변경: 결제 프로세스 — 축 방향은 전 구간 동일(PC와 동일); 분기는 max-width:767px 한 곳에서 타이포·패딩만 조정
     .process-wrapper {
-        padding: 150px;
-        padding-bottom: 300px;
         margin: 0 auto;
         background-color: #F9F8F4;
-
-        // 변경: 모바일 전용 이미지(세로 정렬 UI 대체)
-        .process-mobile-image {
-            display: none;
-            width: 100%;
-            height: auto;
-        }
+        padding: 150px;
+        padding-bottom: 300px;
 
         .header {
             text-align: center;
@@ -610,6 +603,7 @@ body {
 
         .timeline-section {
             display: flex;
+            flex-direction: row;
             gap: 0;
             width: 100%;
             position: relative;
@@ -617,14 +611,17 @@ body {
 
         .pre-phase {
             flex: 2.8;
+            min-width: 0;
             display: flex;
             flex-direction: column;
         }
 
         .post-phase {
             flex: 7.2;
+            min-width: 0;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .bracket-container {
@@ -675,273 +672,266 @@ body {
             position: relative;
         }
 
-        .blocks-container {
-            display: flex;
-            gap: 0;
-            // 변경: 공정 블록 높이 확장
-            height: 80px;
+        .pre-phase {
+            .blocks-container {
+                display: flex;
+                flex-direction: row;
+                height: 80px;
+                gap: 0;
+                align-items: stretch;
+            }
+
+            .gray-block {
+                background-color: #8C939A;
+                border-radius: 40px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 16px;
+                min-width: 0;
+            }
+
+            .block-design {
+                flex: 0.9;
+            }
+
+            .block-match {
+                flex: 1.1;
+            }
+
+            // 변경: PC는 한 줄, 모바일만 '현장 소장' / '매칭' 두 줄
+            .block-match__text--mobile {
+                display: none;
+            }
+
+            .block-match__text--desktop {
+                display: inline;
+            }
         }
 
-        .gray-block {
-            background-color: #8C939A;
-            border-radius: 40px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 18px;
-        }
+        .post-phase {
+            .blocks-container {
+                display: flex;
+                gap: 0;
+                height: 80px;
+            }
 
-        .block-design {
-            flex: 0.9;
-        }
+            .black-blocks {
+                background-color: #000;
+                border-radius: 40px;
+                display: flex;
+                flex-direction: row;
+                height: 100%;
+                width: 100%;
+                min-width: 0;
+                color: #fff;
+            }
 
-        .block-match {
-            flex: 1.1;
-        }
+            .black-step {
+                flex: 1;
+                min-width: 0;
+                width: auto;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                font-weight: 500;
+                position: relative;
 
-        .black-blocks {
-            background-color: #000;
-            border-radius: 40px;
-            display: flex;
-            height: 100%;
-            width: 100%;
-            color: #fff;
-        }
+                &:not(:last-child)::after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 1px;
+                    height: calc(100% + 24px);
+                    transform: translateX(50%);
+                    background-image:
+                        repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px),
+                        repeating-linear-gradient(to bottom, #777 0px, #777 4px, transparent 4px, transparent 8px);
+                    background-size: 100% 80px, 100% 24px;
+                    background-position: 0 0, 0 80px;
+                    background-repeat: no-repeat;
+                    z-index: 10;
+                }
+            }
 
-        .black-step {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 500;
-            position: relative;
+            // 변경: 데스크톱에서는 … 셀 숨김(공정 3~5는 일반 표시)
+            .black-step--ellipsis-mobile {
+                display: none;
+            }
 
-            &:not(:last-child)::after {
-                content: '';
+            .payments-container {
+                display: flex;
+                position: static;
+                flex-direction: row;
+                width: 100%;
+                padding-top: 0;
+            }
+
+            .payment-slot {
+                flex: 1;
+                position: relative;
+                min-width: 0;
+                height: auto;
+                width: auto;
+            }
+
+            .payment-marker {
                 position: absolute;
                 right: 0;
                 top: 0;
-                // 변경: 블록 높이 증가에 맞춰 하단 연결선도 함께 하향
-                height: calc(100% + 24px);
-                width: 1px;
                 transform: translateX(50%);
-                background-image:
-                    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px),
-                    repeating-linear-gradient(to bottom, #777 0px, #777 4px, transparent 4px, transparent 8px);
-                // 변경: 첫 구간(블록 내부) 높이를 80px로 동기화
-                background-size: 100% 80px, 100% 24px;
-                background-position: 0 0, 0 80px;
-                background-repeat: no-repeat;
-                z-index: 10;
-            }
-        }
-
-        .payments-container {
-            display: flex;
-            width: 100%;
-            padding-top: 0;
-        }
-
-        .payment-slot {
-            flex: 1;
-            position: relative;
-        }
-
-        .payment-marker {
-            position: absolute;
-            right: 0;
-            top: 0;
-            transform: translateX(50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 5;
-        }
-
-        .payment-line {
-            width: 1px;
-            height: 24px;
-            margin-bottom: 8px;
-        }
-
-        .payment-text {
-            font-size: 16px;
-            font-weight: 500;
-            color: #444;
-        }
-    }
-
-    // 변경: index process 섹션 모바일(0~767px) 최적화(세로 스택/타이포/간격 축소)
-    @media (max-width: 767px) {
-        .process-wrapper {
-            // 변경: 모바일에서도 process-wrapper 전체는 유지(고정 헤더 고려한 패딩)
-            padding: 96px 20px 160px;
-            background-color: #F9F8F4;
-
-            // 변경: timeline-section만 숨김(모바일 전용 이미지로 대체)
-
-            .timeline-section {
-                display: none;
-            }
-
-            .process-mobile-image {
-                display: block;
-                // 변경: 모바일에서 이미지 폭을 제한해 전체 크기 축소
-                width: 100%;
-                // 변경: 요청(50% 축소)
-                max-width: 240px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 5;
                 height: auto;
-                margin: 0 auto;
+                justify-content: flex-start;
+                padding-bottom: 0;
+            }
+
+            .payment-line {
+                display: block;
+                width: 1px;
+                height: 24px;
+                margin-bottom: 8px;
+            }
+
+            .payment-text {
+                font-size: 16px;
+                font-weight: 500;
+                color: #444;
+            }
+        }
+
+        @media (max-width: 767px) {
+            padding: 80px 16px 128px;
+
+            // 변경: 모바일만 회색 영역 넓힘·검은 바 영역 축소(3.5/6.5, 이전 3.2/6.8), PC는 위 기본 2.8/7.2 유지
+            .pre-phase {
+                flex: 3.5;
+            }
+
+            .post-phase {
+                flex: 6.5;
             }
 
             .header {
-                // 변경: 모바일에서 헤더 간격 축소
-                margin-bottom: 40px;
+                margin-bottom: 28px;
 
                 &-sub {
-                    // 변경: 모바일 타이포 스케일다운
-                    font-size: 14px;
-                    margin-bottom: 10px;
+                    font-size: 13px;
+                    margin-bottom: 8px;
                 }
 
                 &-main {
-                    // 변경: 모바일 메인 타이틀 축소
-                    font-size: 22px;
-                    line-height: 1.25;
+                    font-size: 20px;
                 }
             }
 
-            .timeline-section {
-                // 변경: 모바일에서는 timeline-section 자체를 숨김(이미지로 대체)
-                display: none;
-            }
-
-            .pre-phase,
-            .post-phase {
-                // 변경: 비율(flex) 제거 후 폭 전체 사용
-                flex: none;
-                width: 100%;
-            }
-
             .bracket-container {
-                // 변경: 브라켓 라벨 높이/여백 축소
-                height: 32px;
-                margin-bottom: 18px;
+                height: 28px;
+                margin-bottom: 14px;
             }
 
             .bracket-tick-left,
             .bracket-tick-right {
-                // 변경: 틱 길이 축소
-                height: 12px;
+                height: 10px;
             }
 
             .bracket-text {
-                // 변경: 브라켓 라벨 폰트 축소
-                font-size: 14px;
-                padding: 0 12px;
+                font-size: 13px;
+                padding: 0 10px;
             }
 
-            // 변경: 모바일(767px 이하)에서 이미지처럼 process를 세로 스택 + 가로 점선 형태로 재배치
-            .pre-phase {
-                .blocks-container {
-                    // 변경: 디자인 영역을 세로로 스택
-                    flex-direction: column;
-                    height: auto;
-                    gap: 18px;
-                }
-
-                .gray-block {
-                    // 변경: 원형에 가까운 썸네일처럼 표시
-                    width: 160px;
-                    height: 92px;
-                    border-radius: 999px;
-                    font-size: 14px;
-                }
-
-                .block-design,
-                .block-match {
-                    // 변경: 가로 레이아웃용 flex 값 제거
-                    flex: none;
-                }
+            // 변경: 모바일만 회색·검은 공정 행 높이 축소(PC 80px 유지), 세로 점선 패턴 동기화
+            .pre-phase .blocks-container,
+            .post-phase .blocks-container {
+                height: 64px;
             }
 
-            .post-phase {
-                position: relative;
+            .post-phase .black-step:not(:last-child)::after {
+                background-size: 100% 64px, 100% 24px;
+                background-position: 0 0, 0 64px;
+            }
 
-                .blocks-container {
-                    // 변경: 공정 바를 세로로 스택
-                    height: auto;
-                }
+            .pre-phase .gray-block {
+                font-size: 13px;
+                // 변경: 모바일 그레이 블록만 모서리 더 둥글게(캡슐형, PC는 위 40px 유지)
+                border-radius: 999px;
+            }
 
-                .black-blocks {
-                    // 변경: 검은 공정 바를 세로 컬럼으로 전환
-                    flex-direction: column;
-                    height: auto;
-                }
+            // 변경: 모바일만 회색 블록 2개 폭 동일(PC는 위 0.9/1.1 유지)
+            .pre-phase .block-design,
+            .pre-phase .block-match {
+                flex: 1;
+            }
 
-                .black-step {
-                    // 변경: 세로 스택에서 각 공정 높이 고정(결제 텍스트 오버레이 정렬용)
-                    flex: none;
-                    width: 100%;
-                    height: 64px;
-                    font-size: 14px;
+            .pre-phase .gray-block.block-match {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
 
-                    // 변경: 공정 사이 연결선을 가로 점선으로 전환
-                    &:not(:last-child)::after {
-                        content: '';
-                        position: absolute;
-                        left: 50%;
-                        bottom: 14px;
-                        width: 70%;
-                        height: 1px;
-                        transform: translateX(-50%);
-                        background-image:
-                            repeating-linear-gradient(to right, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 4px, transparent 4px, transparent 8px),
-                            repeating-linear-gradient(to right, #777 0px, #777 4px, transparent 4px, transparent 8px);
-                    }
-                }
+            .pre-phase .block-match__text--desktop {
+                display: none;
+            }
 
-                .payments-container {
-                    // 변경: 결제 텍스트를 공정 높이에 맞춰 블록 위에 오버레이
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 50px; // bracket-container(32px) + margin-bottom(18px)
-                    padding-top: 0;
-                    width: 100%;
-                    flex-direction: column;
-                }
+            .pre-phase .block-match__text--mobile {
+                display: block;
+                line-height: 1.25;
+            }
 
-                .payment-slot {
-                    // 변경: 공정 높이와 동일하게 맞춤
-                    flex: none;
-                    width: 100%;
-                    height: 64px;
-                }
+            .post-phase .black-step {
+                font-size: 13px;
+            }
 
-                .payment-marker {
-                    // 변경: 절대 위치 제거 후 슬롯 하단 정렬
-                    position: relative;
-                    right: auto;
-                    top: auto;
-                    transform: none;
-                    height: 100%;
-                    justify-content: flex-end;
-                    padding-bottom: 10px;
-                }
+            // 변경: 모바일에서 공정 3~5 숨기고 … 셀만 표시
+            .post-phase .black-step--hide-on-mobile {
+                display: none !important;
+            }
 
-                .payment-line {
-                    // 변경: 이미지 스타일과 동일하게 선은 숨김(텍스트만 표시)
-                    display: none;
-                }
+            .post-phase .black-step--ellipsis-mobile {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                flex: 0.85;
+                min-width: 0;
+            }
 
-                .payment-text {
-                    // 변경: 모바일 결제 텍스트 폰트 축소
-                    font-size: 14px;
-                }
+            .post-phase .payment-text {
+                font-size: 13px;
+            }
+
+            // 변경: 모바일은 검은 바 세로 점선 4개에 맞춰 결제 라벨도 4개만 표시(공정3~5 구간 슬롯 숨김), 슬롯 폭을 black-blocks와 동일 비율로 맞춰 x 정렬
+            .post-phase .payments-container .payment-slot:nth-child(4),
+            .post-phase .payments-container .payment-slot:nth-child(5) {
+                display: none;
+            }
+
+            .post-phase .payments-container .payment-slot:nth-child(1) {
+                flex: 1;
+            }
+
+            .post-phase .payments-container .payment-slot:nth-child(2) {
+                flex: 1;
+            }
+
+            .post-phase .payments-container .payment-slot:nth-child(3) {
+                flex: 0.85;
+            }
+
+            .post-phase .payments-container .payment-slot:nth-child(6) {
+                flex: 1;
+            }
+
+            .post-phase .payments-container .payment-slot:nth-child(7) {
+                flex: 1;
             }
         }
     }
@@ -3291,6 +3281,17 @@ body {
                         font-weight: 300;
                         line-height: 1.7;
                         letter-spacing: -0.01em;
+
+                        // 변경: 푸터 연락처 메일 링크가 인접 텍스트와 동일한 톤으로 보이도록
+                        a {
+                            color: inherit;
+                            text-decoration: none;
+
+                            &:hover,
+                            &:focus-visible {
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
             }
