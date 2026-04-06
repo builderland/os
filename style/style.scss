@@ -367,6 +367,73 @@ body {
     }
 }
 
+// 변경: Safari 착공일 빈 칸 — 네이티브 '날짜' 등 대신 커스텀 '연도.월.일' 오버레이(.date-placeholder). SVG 달력(.date-icon) 색은 유지 — body 밖 두지 않음(html.is-safari가 루트 html에 대응)
+html.is-safari {
+    body {
+        .reservation-construction .reservation-construction__field--date {
+            .reservation-construction__date-hitbox.is-empty {
+
+                // 변경: 네이티브 연·월·일 필드 텍스트는 가리고 오버레이만 보이게
+                input[type="date"].user-input,
+                input.reservation-construction__date-native {
+                    &:invalid {
+                        color: transparent;
+                        -webkit-text-fill-color: transparent;
+                    }
+
+                    &:invalid::-webkit-datetime-edit {
+                        color: transparent;
+                        -webkit-text-fill-color: transparent;
+                    }
+
+                    &:invalid::-webkit-datetime-edit-fields-wrapper {
+                        color: transparent;
+                    }
+
+                    &:invalid::-webkit-datetime-edit-year-field,
+                    &:invalid::-webkit-datetime-edit-month-field,
+                    &:invalid::-webkit-datetime-edit-day-field {
+                        color: transparent;
+                        -webkit-text-fill-color: transparent;
+                    }
+                }
+
+                .reservation-construction__date-placeholder {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    left: 24px;
+                    right: 52px;
+                    top: 0;
+                    bottom: 0;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1.2;
+                    letter-spacing: -0.02em;
+                    color: #E2E4E8;
+                    pointer-events: none;
+                    z-index: 2;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            .reservation-construction .reservation-construction__field--date {
+                .reservation-construction__date-hitbox.is-empty {
+                    // 변경: 모바일도 예약 폼 .user-input::placeholder와 동일 #E2E4E8 (달력 SVG .date-icon은 별도 color 유지)
+                    .reservation-construction__date-placeholder {
+                        left: 16px;
+                        right: 48px;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
 // index.html
 body {
     .hero {
@@ -2835,7 +2902,9 @@ body {
                 gap: 16px;
                 min-width: 0;
 
-                label {
+                // 변경: .reservation-construction__label — label 요소 미사용(레이블 클릭 시 포커스 방지), 시각 스타일은 기존 label과 동일
+                label,
+                .reservation-construction__label {
                     font-size: 16px;
                     font-weight: 400;
                     line-height: 1;
@@ -2880,6 +2949,7 @@ body {
 
                 // 변경: 입력 필드 전체를 클릭 영역으로(달력 아이콘만이 아닌 박스 전체)
                 .reservation-construction__date-hitbox {
+                    position: relative;
                     width: 100%;
                     max-width: 100%;
                     min-width: 0;
@@ -2889,19 +2959,41 @@ body {
                     -webkit-user-select: none;
                 }
 
+                // 변경: Safari 전용 '연도.월.일' 힌트(span) — 비사파리·값 선택 후에는 숨김(html.is-safari .is-empty에서만 표시)
+                .reservation-construction__date-placeholder {
+                    display: none;
+                }
+
+                // 변경: Safari에서 사라지는 네이티브 아이콘 대신 항상 보이는 SVG(클릭은 input·히트박스로 처리)
+                // 변경: 아이콘 stroke는 라벨·입력 본문과 동일 톤(#111827)
+                .reservation-construction__date-icon {
+                    position: absolute;
+                    right: 20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    pointer-events: none;
+                    z-index: 1;
+                    color: #111827;
+                }
+
                 input[type="date"].user-input,
                 input.reservation-construction__date-native {
+                    position: relative;
                     width: 100%;
                     max-width: 100%;
                     // 변경: WebKit date 기본 min-width 때문에 모바일에서 100%보다 넓어 보이는 현상 완화
                     min-width: 0;
                     min-height: 56px;
                     padding: 24px;
+                    padding-right: 52px;
                     box-sizing: border-box;
                     // 변경: WebKit date 기본 회색 배경과 시공 지역 text 필드 흰색 차이 방지
                     background-color: #fff;
                     color: #111827;
-                    -webkit-text-fill-color: currentColor;
+                    // 변경: Safari는 input에 -webkit-text-fill-color(currentColor)가 있으면 :invalid 시 아이콘까지 연해짐 — 기본은 color만
                     color-scheme: light;
                     // 변경: 클릭·포커스 시 연·월·일이 텍스트처럼 드래그 선택되는 현상 완화(WebKit date)
                     user-select: none;
@@ -2909,27 +3001,55 @@ body {
                     -moz-user-select: none;
 
                     // 변경: date는 ::placeholder가 없어 빈 값(:invalid)일 때만 연한 톤(다른 필드 placeholder와 동일 #E2E4E8)
+                    // 변경: Safari는 input에 -webkit-text-fill-color를 주면 캘린더 아이콘까지 같은 색으로 묻어 안 보임 → fill은 datetime 조각에만
                     &:invalid {
                         color: #E2E4E8;
-                        -webkit-text-fill-color: #E2E4E8;
                     }
 
                     &:valid {
                         color: #111827;
-                        -webkit-text-fill-color: currentColor;
                     }
 
                     &:invalid::-webkit-datetime-edit {
                         color: #E2E4E8;
+                        -webkit-text-fill-color: #E2E4E8;
                     }
 
                     &:valid::-webkit-datetime-edit {
                         color: #111827;
+                        -webkit-text-fill-color: currentColor;
                     }
 
+                    &:invalid::-webkit-datetime-edit-year-field,
+                    &:invalid::-webkit-datetime-edit-month-field,
+                    &:invalid::-webkit-datetime-edit-day-field {
+                        color: #E2E4E8;
+                        -webkit-text-fill-color: #E2E4E8;
+                    }
+
+                    &:valid::-webkit-datetime-edit-year-field,
+                    &:valid::-webkit-datetime-edit-month-field,
+                    &:valid::-webkit-datetime-edit-day-field {
+                        color: #111827;
+                        -webkit-text-fill-color: currentColor;
+                    }
+
+                    // 변경: 네이티브 아이콘은 숨기고(이중 표시 방지)·클릭 영역은 유지 — 커스텀 SVG만 보이게
                     &::-webkit-calendar-picker-indicator {
                         cursor: pointer;
-                        opacity: 1;
+                        opacity: 0;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        width: 52px;
+                        height: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    // 변경: Firefox 네이티브 아이콘도 숨김(커스텀 SVG만 표시)
+                    &::-moz-calendar-picker-indicator {
+                        opacity: 0;
                     }
                 }
             }
@@ -3252,7 +3372,8 @@ body {
                 .reservation-construction__field {
                     gap: 12px;
 
-                    label {
+                    label,
+                    .reservation-construction__label {
                         font-size: 14px;
                     }
 
@@ -3269,13 +3390,74 @@ body {
                 .reservation-construction__field--date {
                     min-width: 0;
 
+                    .reservation-construction__date-icon {
+                        right: 14px;
+                    }
+
                     input[type="date"].user-input,
                     input.reservation-construction__date-native {
                         min-height: 52px;
-                        padding: 18px 16px;
-                        font-size: 15px;
+                        padding: 18px 48px 18px 16px;
+                        // 변경: iOS Safari는 16px 미만 입력 시 렌더·포커스 동작이 달라질 수 있어 날짜 힌트 가독성에 맞춤
+                        font-size: 16px;
                         max-width: 100%;
                         min-width: 0;
+
+                        // 변경: 모바일도 예약 폼 .user-input::placeholder와 동일 #E2E4E8 (달력 아이콘 .date-icon은 별도)
+                        $date-empty-mobile: #E2E4E8;
+
+                        &:invalid {
+                            color: $date-empty-mobile;
+                        }
+
+                        &:invalid::-webkit-datetime-edit {
+                            color: $date-empty-mobile;
+                            -webkit-text-fill-color: $date-empty-mobile;
+                        }
+
+                        &:invalid::-webkit-datetime-edit-fields-wrapper {
+                            color: $date-empty-mobile;
+                        }
+
+                        &:invalid::-webkit-datetime-edit-year-field,
+                        &:invalid::-webkit-datetime-edit-month-field,
+                        &:invalid::-webkit-datetime-edit-day-field {
+                            color: $date-empty-mobile;
+                            -webkit-text-fill-color: $date-empty-mobile;
+                        }
+
+                        &:valid {
+                            color: #111827;
+                        }
+
+                        &:valid::-webkit-datetime-edit {
+                            color: #111827;
+                            -webkit-text-fill-color: currentColor;
+                        }
+
+                        &:valid::-webkit-datetime-edit-year-field,
+                        &:valid::-webkit-datetime-edit-month-field,
+                        &:valid::-webkit-datetime-edit-day-field {
+                            color: #111827;
+                            -webkit-text-fill-color: currentColor;
+                        }
+
+                        // 변경: 모바일도 네이티브 달력 아이콘 숨김 — PC와 같이 커스텀 SVG 1개만 보이게(이전 opacity:1 이중 표시 제거)
+                        &::-webkit-calendar-picker-indicator {
+                            cursor: pointer;
+                            opacity: 0;
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            width: 48px;
+                            height: 100%;
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        &::-moz-calendar-picker-indicator {
+                            opacity: 0;
+                        }
                     }
 
                     .reservation-construction__date-hitbox {

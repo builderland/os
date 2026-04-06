@@ -1,6 +1,17 @@
 // Supabase 연동을 위해 설정 파일을 import
 import { supabase } from './supabase-config.js';
 
+// 변경: Safari에서 착공일 빈 칸 색을 다른 입력 placeholder(#E2E4E8)와 맞추기 위해 html에 클래스 부여(달력 SVG 아이콘은 별도 스타일 유지)
+(function markSafariHtml() {
+    if (typeof navigator === 'undefined') return;
+    const ua = navigator.userAgent;
+    const isSafari =
+        /safari/i.test(ua) && !/chrome|crios|chromium|fxios|edgios|opr\//i.test(ua);
+    if (isSafari) {
+        document.documentElement.classList.add('is-safari');
+    }
+})();
+
 // 변경: 자주 사용하는 DOM 요소를 상단에서 한 번만 조회해 캐싱
 const dateInput = document.getElementById('date');
 const yearMonthDisplay = document.getElementById('current-year-month');
@@ -52,6 +63,16 @@ function initConstructionDateInput() {
             openNativeDatePicker();
         });
     }
+
+    // 변경: 착공일 값 유무에 따라 is-empty 토글 — Safari에서 커스텀 '연도.월.일' 오버레이 표시 여부
+    function syncConstructionDateHitboxEmpty() {
+        if (!constructionDateHitbox || !constructionStartDateInput) return;
+        constructionDateHitbox.classList.toggle('is-empty', !constructionStartDateInput.value);
+    }
+
+    syncConstructionDateHitboxEmpty();
+    constructionStartDateInput.addEventListener('input', syncConstructionDateHitboxEmpty);
+    constructionStartDateInput.addEventListener('change', syncConstructionDateHitboxEmpty);
 }
 
 function updateInput() {

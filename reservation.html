@@ -33,18 +33,35 @@
             <h2>시공 위치 및 희망 일정</h2>
             <div class="reservation-construction__row">
                 <div class="reservation-construction__field">
-                    <label for="construction-area">시공 희망 지역(주소 또는 건물명)</label>
+                    <!-- 변경: label for 제거 — 레이블 클릭으로 입력 포커스되지 않음(접근성은 aria-labelledby 유지) -->
+                    <span class="reservation-construction__label" id="construction-area-label">시공 희망 지역(주소 또는 건물명)</span>
                     <input class="user-input" type="text" id="construction-area" name="construction_area"
-                        placeholder="위례 롯데 캐슬" autocomplete="address-line1">
+                        placeholder="위례 롯데 캐슬" autocomplete="address-line1" aria-labelledby="construction-area-label">
                     <p class="reservation-construction__hint">*현재 서울과 수도권(일부 제외)에만 서비스를 제공하고 있습니다.</p>
                 </div>
                 <div class="reservation-construction__field reservation-construction__field--date">
                     <!-- 변경: 착공일은 input type="date"로 브라우저·모바일 기본 날짜 픽커 사용 -->
-                    <label for="construction-start-date">시공 희망 착공일</label>
+                    <!-- 변경: label for 제거 — 레이블 클릭으로 날짜 입력 포커스되지 않음 -->
+                    <span class="reservation-construction__label" id="construction-start-date-label">시공 희망 착공일</span>
                     <!-- 변경: 래퍼 전체 클릭 시에도 showPicker로 달력 열림(reservation.js) -->
-                    <div class="reservation-construction__date-hitbox">
+                    <!-- 변경: is-empty는 JS로 동기화 — Safari에서 빈 칸 네이티브 문구 대신 아래 힌트 문구 표시 -->
+                    <div class="reservation-construction__date-hitbox is-empty">
                         <input class="user-input reservation-construction__date-native" type="date"
-                            id="construction-start-date" name="construction_start_date" required>
+                            id="construction-start-date" name="construction_start_date" required
+                            aria-labelledby="construction-start-date-label">
+                        <!-- 변경: Safari 전용 스타일로만 표시 — placeholder처럼 '연도.월.일' 안내 -->
+                        <span class="reservation-construction__date-placeholder" aria-hidden="true">연도. 월. 일.</span>
+                        <!-- 변경: Safari 등에서 네이티브 캘린더 아이콘이 안 보일 때 대비(스타일은 SCSS) -->
+                        <span class="reservation-construction__date-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                        </span>
                     </div>
                 </div>
             </div>
