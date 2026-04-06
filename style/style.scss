@@ -3034,6 +3034,13 @@ body {
                         -webkit-text-fill-color: currentColor;
                     }
 
+                    // 변경: WebKit date 내부 최소 폭이 컨테이너를 밀어내지 않도록(창 폭 축소 시)
+                    &::-webkit-datetime-edit,
+                    &::-webkit-datetime-edit-fields-wrapper {
+                        min-width: 0;
+                        max-width: 100%;
+                    }
+
                     // 변경: 네이티브 아이콘은 숨기고(이중 표시 방지)·클릭 영역은 유지 — 커스텀 SVG만 보이게
                     &::-webkit-calendar-picker-indicator {
                         cursor: pointer;
@@ -3358,6 +3365,11 @@ body {
                 // 변경: 하단 패딩으로 '예약 정보 입력' 섹션과 간격 확보
                 padding: 24px 20px 20px;
                 gap: 24px;
+                // 변경: iOS Safari 등에서 자식이 뷰폭을 밀어내지 않도록
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
 
                 h2 {
                     font-size: 20px;
@@ -3367,6 +3379,8 @@ body {
                     grid-template-columns: 1fr;
                     // 변경: 시공 지역 ↔ 착공일 세로 간격(PC는 위 10px 유지, 모바일만 넓게)
                     gap: 28px;
+                    width: 100%;
+                    min-width: 0;
                 }
 
                 .reservation-construction__field {
@@ -3389,6 +3403,8 @@ body {
 
                 .reservation-construction__field--date {
                     min-width: 0;
+                    width: 100%;
+                    max-width: 100%;
 
                     .reservation-construction__date-icon {
                         right: 14px;
@@ -3400,8 +3416,12 @@ body {
                         padding: 18px 48px 18px 16px;
                         // 변경: iOS Safari는 16px 미만 입력 시 렌더·포커스 동작이 달라질 수 있어 날짜 힌트 가독성에 맞춤
                         font-size: 16px;
+                        width: 100%;
                         max-width: 100%;
                         min-width: 0;
+                        // 변경: 히트박스 flex 안에서 WebKit date intrinsic 폭보다 부모 폭을 우선(시공 지역 text와 동일 폭)
+                        flex: 1 1 0;
+                        box-sizing: border-box;
 
                         // 변경: 모바일도 예약 폼 .user-input::placeholder와 동일 #E2E4E8 (달력 아이콘 .date-icon은 별도)
                         $date-empty-mobile: #E2E4E8;
@@ -3442,6 +3462,13 @@ body {
                             -webkit-text-fill-color: currentColor;
                         }
 
+                        // 변경: Safari 모바일 date 내부 편집 영역이 최소 폭을 과하게 잡아 박스를 넓히는 현상 완화
+                        &::-webkit-datetime-edit,
+                        &::-webkit-datetime-edit-fields-wrapper {
+                            min-width: 0;
+                            max-width: 100%;
+                        }
+
                         // 변경: 모바일도 네이티브 달력 아이콘 숨김 — PC와 같이 커스텀 SVG 1개만 보이게(이전 opacity:1 이중 표시 제거)
                         &::-webkit-calendar-picker-indicator {
                             cursor: pointer;
@@ -3461,8 +3488,15 @@ body {
                     }
 
                     .reservation-construction__date-hitbox {
+                        width: 100%;
                         max-width: 100%;
                         min-width: 0;
+                        // 변경: 단일 자식(input)이 뷰폭 안에서만 수축·확장되도록 — 절대위치 아이콘/placeholder는 플로우 밖
+                        display: flex;
+                        align-items: stretch;
+                        overflow: hidden;
+                        border-radius: 8px;
+                        box-sizing: border-box;
                     }
                 }
             }
