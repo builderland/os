@@ -28,6 +28,27 @@
         </div>
     </section>
     <form id="reservation-form" action="" method="">
+        <!-- 변경: 시공 위치·착공일 입력 섹션(예약 정보 입력 위) -->
+        <section class="reservation-construction" aria-label="시공 위치 및 희망 일정">
+            <h2>시공 위치 및 희망 일정</h2>
+            <div class="reservation-construction__row">
+                <div class="reservation-construction__field">
+                    <label for="construction-area">시공 희망 지역(주소 또는 건물명)</label>
+                    <input class="user-input" type="text" id="construction-area" name="construction_area"
+                        placeholder="위례 롯데 캐슬" autocomplete="address-line1">
+                    <p class="reservation-construction__hint">*현재 서울과 수도권(일부 제외)에만 서비스를 제공하고 있습니다.</p>
+                </div>
+                <div class="reservation-construction__field reservation-construction__field--date">
+                    <!-- 변경: 착공일은 input type="date"로 브라우저·모바일 기본 날짜 픽커 사용 -->
+                    <label for="construction-start-date">시공 희망 착공일</label>
+                    <!-- 변경: 래퍼 전체 클릭 시에도 showPicker로 달력 열림(reservation.js) -->
+                    <div class="reservation-construction__date-hitbox">
+                        <input class="user-input reservation-construction__date-native" type="date"
+                            id="construction-start-date" name="construction_start_date" required>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="reservation-form">
             <h2>예약 정보 입력</h2>
             <div class="reservation-form-item">

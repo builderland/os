@@ -20,6 +20,40 @@ let selectedTime = null;
 let lastLoadedDate = null;
 let lastReservedTimes = null;
 
+// 변경: 시공 희망 착공일 — input[type=date], 모바일·데스크톱 브라우저 기본 픽커
+const constructionStartDateInput = document.getElementById('construction-start-date');
+const constructionAreaInput = document.getElementById('construction-area');
+const constructionDateHitbox = document.querySelector('.reservation-construction__date-hitbox');
+
+/** 변경: 착공일 min=오늘(과거 날짜 선택 불가, 기존 커스텀 달력과 동일 정책) */
+function initConstructionDateInput() {
+    if (!constructionStartDateInput) return;
+    const y = simulatedToday.getFullYear();
+    const m = String(simulatedToday.getMonth() + 1).padStart(2, '0');
+    const d = String(simulatedToday.getDate()).padStart(2, '0');
+    constructionStartDateInput.min = `${y}-${m}-${d}`;
+
+    // 변경: 아이콘뿐 아니라 입력 칸 전체 클릭 시 네이티브 날짜 픽커 열기(showPicker + 모바일 대응)
+    const openNativeDatePicker = () => {
+        const el = constructionStartDateInput;
+        if (typeof el.showPicker === 'function') {
+            try {
+                el.showPicker();
+            } catch {
+                el.focus();
+            }
+        } else {
+            el.focus();
+        }
+    };
+
+    if (constructionDateHitbox) {
+        constructionDateHitbox.addEventListener('click', () => {
+            openNativeDatePicker();
+        });
+    }
+}
+
 function updateInput() {
     if (selectedDate) {
         const y = selectedDate.getFullYear();
@@ -224,6 +258,20 @@ if (reserveButton) {
         const time = selectedTime;
         const name = nameInput.value.trim();
         const phone = phoneInput.value.trim();
+        // 변경: 시공 위치·착공일 필수 검증
+        const construction_area = constructionAreaInput ? constructionAreaInput.value.trim() : '';
+        const construction_start_date = constructionStartDateInput
+            ? constructionStartDateInput.value.trim()
+            : '';
+
+        if (!construction_area) {
+            alert('시공 희망 지역을 입력해 주세요.');
+            return;
+        }
+        if (!construction_start_date) {
+            alert('시공 희망 착공일을 선택해 주세요.');
+            return;
+        }
 
         if (!date) {
             alert('날짜를 선택해 주세요.');
@@ -266,6 +314,7 @@ if (reserveButton) {
             reserveButton.disabled = true;
 
             // Supabase reservations 테이블에 예약 데이터를 저장 (테이블명이 다를 경우 아래 from 인자를 수정하세요)
+            // 변경: 시공 지역·착공일 컬럼이 Supabase reservations 테이블에 있어야 함
             const { data, error } = await supabase
                 .from('reservations')
                 .insert([
@@ -276,6 +325,8 @@ if (reserveButton) {
                         phone,
                         invoice_no,
                         total_price,
+                        construction_area,
+                        construction_start_date,
                     },
                 ]);
 
@@ -329,6 +380,8 @@ if (reserveButton) {
                 time,   // 11:00 / 14:00 / 16:00 등
                 name,
                 phone,
+                construction_area,
+                construction_start_date,
             };
             sessionStorage.setItem('reservationConfirm', JSON.stringify(reservationConfirmData));
             // 예약 완료 후 확인 페이지로 이동
@@ -347,3 +400,5 @@ if (reserveButton) {
 // 초기 화면 렌더링
 updateInput();
 renderCalendar();
+// 변경: 착공일 native date 입력 min 속성
+initConstructionDateInput();

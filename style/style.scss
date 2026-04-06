@@ -2807,12 +2807,127 @@ body {
             }
         }
 
+        // 변경: 시공 위치·착공일 섹션(예약 정보 입력 위)
+        .reservation-construction {
+            padding: 40px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            h2 {
+                font-size: 32px;
+                font-weight: 600;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                margin: 0;
+            }
+
+            .reservation-construction__row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                align-items: start;
+            }
+
+            .reservation-construction__field {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                min-width: 0;
+
+                label {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                }
+
+                .user-input {
+                    width: 100%;
+                    padding: 24px;
+                    border-radius: 8px;
+                    border: 1px solid #E2E4E8;
+                    display: block;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1;
+                }
+
+                .user-input::placeholder {
+                    color: #E2E4E8;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 1;
+                }
+            }
+
+            .reservation-construction__hint {
+                margin: 0;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 1.4;
+                letter-spacing: -0.02em;
+                color: #EA591A;
+            }
+
+            // 변경: 착공일 input[type=date] — 터치 영역·캘린더 아이콘 클릭 가능(모바일 기본 픽커)
+            .reservation-construction__field--date {
+                // 변경: 입력 필드 전체를 클릭 영역으로(달력 아이콘만이 아닌 박스 전체)
+                .reservation-construction__date-hitbox {
+                    width: 100%;
+                    cursor: pointer;
+                    // 변경: 히트박스에서 드래그 시 날짜 숫자만 선택되는 것처럼 보이는 현상 완화
+                    user-select: none;
+                    -webkit-user-select: none;
+                }
+
+                input[type="date"].user-input,
+                input.reservation-construction__date-native {
+                    width: 100%;
+                    min-height: 56px;
+                    padding: 24px;
+                    box-sizing: border-box;
+                    color: #111827;
+                    -webkit-text-fill-color: currentColor;
+                    color-scheme: light;
+                    // 변경: 클릭·포커스 시 연·월·일이 텍스트처럼 드래그 선택되는 현상 완화(WebKit date)
+                    user-select: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+
+                    // 변경: date는 ::placeholder가 없어 빈 값(:invalid)일 때만 연한 톤(다른 필드 placeholder와 동일 #E2E4E8)
+                    &:invalid {
+                        color: #E2E4E8;
+                        -webkit-text-fill-color: #E2E4E8;
+                    }
+
+                    &:valid {
+                        color: #111827;
+                        -webkit-text-fill-color: currentColor;
+                    }
+
+                    &:invalid::-webkit-datetime-edit {
+                        color: #E2E4E8;
+                    }
+
+                    &:valid::-webkit-datetime-edit {
+                        color: #111827;
+                    }
+
+                    &::-webkit-calendar-picker-indicator {
+                        cursor: pointer;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
         .reservation-form {
             padding: 40px 150px;
             padding-bottom: 8px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 32px;
 
             h2 {
                 font-size: 32px;
@@ -3101,6 +3216,47 @@ body {
                             font-size: 14px;
                             line-height: 1.4;
                         }
+                    }
+                }
+            }
+
+            // 변경: 시공 위치 섹션 모바일(한 열·패딩)
+            .reservation-construction {
+                padding: 24px 20px 0;
+                gap: 24px;
+
+                h2 {
+                    font-size: 20px;
+                }
+
+                .reservation-construction__row {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                }
+
+                .reservation-construction__field {
+                    gap: 12px;
+
+                    label {
+                        font-size: 14px;
+                    }
+
+                    .user-input {
+                        padding: 18px 16px;
+                        font-size: 15px;
+                    }
+
+                    .reservation-construction__hint {
+                        font-size: 12px;
+                    }
+                }
+
+                .reservation-construction__field--date {
+                    input[type="date"].user-input,
+                    input.reservation-construction__date-native {
+                        min-height: 52px;
+                        padding: 18px 16px;
+                        font-size: 15px;
                     }
                 }
             }

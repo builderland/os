@@ -2296,12 +2296,116 @@ body .reservation-head .notice .content .lounge {
   letter-spacing: -0.02em;
   color: #50545D;
 }
+body .reservation-construction {
+  padding: 40px 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+body .reservation-construction h2 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+body .reservation-construction .reservation-construction__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: start;
+}
+body .reservation-construction .reservation-construction__field {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+body .reservation-construction .reservation-construction__field label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+body .reservation-construction .reservation-construction__field .user-input {
+  width: 100%;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #E2E4E8;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+body .reservation-construction .reservation-construction__field .user-input::-moz-placeholder {
+  color: #E2E4E8;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+body .reservation-construction .reservation-construction__field .user-input::placeholder {
+  color: #E2E4E8;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+body .reservation-construction .reservation-construction__hint {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #EA591A;
+}
+body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox {
+  width: 100%;
+  cursor: pointer;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native {
+  width: 100%;
+  min-height: 56px;
+  padding: 24px;
+  box-sizing: border-box;
+  color: #111827;
+  -webkit-text-fill-color: currentColor;
+  color-scheme: light;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid {
+  color: #E2E4E8;
+  -webkit-text-fill-color: #E2E4E8;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid {
+  color: #111827;
+  -webkit-text-fill-color: currentColor;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit {
+  color: #E2E4E8;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit {
+  color: #111827;
+}
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-calendar-picker-indicator,
+body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
+}
 body .reservation-form {
   padding: 40px 150px;
   padding-bottom: 8px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 body .reservation-form h2 {
   font-size: 32px;
@@ -2561,6 +2665,36 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   body .reservation-head .notice .content .lounge {
     font-size: 14px;
     line-height: 1.4;
+  }
+  body .reservation-construction {
+    padding: 24px 20px 0;
+    gap: 24px;
+  }
+  body .reservation-construction h2 {
+    font-size: 20px;
+  }
+  body .reservation-construction .reservation-construction__row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  body .reservation-construction .reservation-construction__field {
+    gap: 12px;
+  }
+  body .reservation-construction .reservation-construction__field label {
+    font-size: 14px;
+  }
+  body .reservation-construction .reservation-construction__field .user-input {
+    padding: 18px 16px;
+    font-size: 15px;
+  }
+  body .reservation-construction .reservation-construction__field .reservation-construction__hint {
+    font-size: 12px;
+  }
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input,
+  body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native {
+    min-height: 52px;
+    padding: 18px 16px;
+    font-size: 15px;
   }
   body .reservation-form {
     padding: 24px 20px 56px;
