@@ -85,6 +85,288 @@ body {
     }
 }
 
+// service-policy.html — 이용약관(흰 배경·좌측 정렬·조항 타이포)
+body {
+    .legal-page {
+        margin: 0 auto;
+        padding: 140px 150px 120px;
+        background-color: #fff;
+        color: #111;
+        // 변경: 긴 URL·주소 줄바꿈으로 좌우 단 정렬 유지
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: keep-all;
+
+        a {
+            overflow-wrap: anywhere;
+        }
+
+        &__title {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            margin: 0 0 48px;
+        }
+
+        &__article {
+            margin-bottom: 40px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            // 변경: 조 제목(h2) 아래 본문·목록 — 좌우 동일 들여쓰기로 단 폭·우측 여백 정렬 (contact-block은 margin으로 별도 정렬)
+            .legal-page__article-title ~ .legal-page__paragraph,
+            .legal-page__article-title ~ .legal-page__def-list,
+            .legal-page__article-title ~ .legal-page__hang-list,
+            .legal-page__article-title ~ .legal-page__plain-num-list {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+        }
+
+        &__article-title {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            margin: 0 0 16px;
+        }
+
+        &__paragraph {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.65;
+            letter-spacing: -0.01em;
+            margin: 0;
+
+            // 변경: 이용약관 다문단 조(제6조 등) 문단 간격
+            & + & {
+                margin-top: 12px;
+            }
+        }
+
+        // 변경: privacy-policy 번호 소제목(1. 2. 3.) — 앞 문단 대비 상단 여백 약간 확대
+        &__paragraph + &__paragraph--list-heading {
+            margin-top: 20px;
+        }
+
+        // 변경: 제9·12조 등 대시(–) 하위 목록
+        &__dash-list {
+            list-style: none;
+            margin: 10px 0 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            // 변경: UA 기본 li 여백 제거·flex gap만으로 간격 통일
+            li {
+                position: relative;
+                margin: 0;
+                padding-left: 1.1em;
+                font-size: inherit;
+                line-height: 1.65;
+                letter-spacing: -0.01em;
+
+                &::before {
+                    content: '–';
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
+
+        // 변경: 제11조처럼 도입 문단 직후 ① 목록 상단 여백 축소
+        &__def-list--tight-top {
+            margin-top: 12px;
+        }
+
+        // 변경: 제12조 ① 등 번호 항 안의 문단 2개 이상
+        &__def-body--stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 0;
+
+            // 변경: 도입 문장 + plain-num-list — 목록 기본 margin-top과 gap 이중 여백 방지
+            .legal-page__plain-num-list {
+                margin-top: 0;
+            }
+        }
+
+        &__def-body-text {
+            display: block;
+        }
+
+        &__def-list {
+            list-style: none;
+            margin: 20px 0 0;
+            padding-top: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            // 변경: ol에 flex+gap 대신 block + li 간격만 지정(중첩 grid와 간격 이중 적용 방지)
+            display: block;
+
+            > li {
+                display: grid;
+                // 변경: 긴 문장 줄바꿈 시 우측 단이 그리드 밖으로 밀리지 않도록
+                grid-template-columns: auto minmax(0, 1fr);
+                column-gap: 10px;
+                align-items: start;
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+                line-height: 1.65;
+                letter-spacing: -0.01em;
+                min-width: 0;
+
+                &:not(:first-child) {
+                    margin-top: 12px;
+                }
+            }
+        }
+
+        &__def-num {
+            font-weight: 500;
+            line-height: 1.65;
+            // 변경: ①~⑨ 등 원문자가 줄바꿈되지 않도록
+            white-space: nowrap;
+        }
+
+        &__def-body {
+            min-width: 0;
+
+            strong {
+                font-weight: 700;
+            }
+        }
+
+        // 변경: 부칙 구간 시각적 구분(상단 여백·구분선)
+        &__addendum {
+            margin-top: 8px;
+            padding-top: 36px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        // 변경: privacy-policy.html — 서문·숫자목록·가나다·연락처 블록
+        &__lead {
+            margin-bottom: 32px;
+            // 변경: 서문은 좌측 패딩 없음, 우측만 조 단과 폭 맞춤
+            padding-right: 12px;
+        }
+
+        &__plain-num-list {
+            list-style: decimal;
+            margin: 12px 0 0;
+            padding-left: 1.5em;
+
+            li {
+                margin: 6px 0;
+                padding-left: 0.25em;
+            }
+
+            &--tight-top {
+                margin-top: 12px;
+            }
+
+            // 변경: privacy-policy 제6조 등 — 자동 번호(1.2.3.) 없이 항목만 나열
+            &--bare {
+                list-style: none;
+                padding-left: 0;
+
+                li {
+                    padding-left: 0;
+                }
+            }
+        }
+
+        &__hang-list {
+            list-style: none;
+            margin: 16px 0 0;
+            // 변경: 조 제목 형제 선택자에서 이미 좌우 패딩 적용 — 이중 좌측 들여쓰기 제거
+            padding: 0;
+
+            li {
+                display: grid;
+                grid-template-columns: auto minmax(0, 1fr);
+                gap: 8px 10px;
+                align-items: start;
+                font-size: 16px;
+                line-height: 1.65;
+                letter-spacing: -0.01em;
+                min-width: 0;
+
+                &:not(:first-child) {
+                    margin-top: 10px;
+                }
+            }
+        }
+
+        &__hang-label {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        // 변경: 가·나·다 본문 열 줄바꿈 시 우측 단 맞춤
+        &__hang-body {
+            min-width: 0;
+        }
+
+        // 변경: 조 본문과 동일 좌우 inset(margin), 좌측 세로선(border) 없음
+        &__contact-block {
+            margin: 20px 12px 0;
+            padding: 16px 0 0 0;
+            box-sizing: border-box;
+            min-width: 0;
+
+            .legal-page__dash-list {
+                margin-top: 8px;
+            }
+
+            .legal-page__paragraph {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        &__contact-title {
+            margin-bottom: 8px !important;
+        }
+
+        &__note {
+            font-size: 14px;
+            color: #555;
+            margin-top: 8px !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .legal-page {
+            padding: 96px 20px 80px;
+
+            &__title {
+                font-size: clamp(26px, 7vw, 32px);
+                margin-bottom: 32px;
+            }
+
+            &__article-title {
+                font-size: 16px;
+            }
+
+            &__paragraph,
+            &__def-list li,
+            &__dash-list li,
+            &__hang-list li,
+            &__plain-num-list li {
+                font-size: 15px;
+            }
+        }
+    }
+}
+
 // index.html
 body {
     .hero {
