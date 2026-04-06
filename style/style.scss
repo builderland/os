@@ -2847,6 +2847,8 @@ body {
                     padding: 24px;
                     border-radius: 8px;
                     border: 1px solid #E2E4E8;
+                    // 변경: UA 기본 배경 차이 제거(텍스트·date 동일 흰 배경)
+                    background-color: #fff;
                     display: block;
                     font-size: 16px;
                     font-weight: 400;
@@ -2872,9 +2874,15 @@ body {
 
             // 변경: 착공일 input[type=date] — 터치 영역·캘린더 아이콘 클릭 가능(모바일 기본 픽커)
             .reservation-construction__field--date {
+                // 변경: grid/flex 안에서 필드가 뷰포트 폭에 맞게 줄어들도록(기본 min-width:auto 방지)
+                min-width: 0;
+                width: 100%;
+
                 // 변경: 입력 필드 전체를 클릭 영역으로(달력 아이콘만이 아닌 박스 전체)
                 .reservation-construction__date-hitbox {
                     width: 100%;
+                    max-width: 100%;
+                    min-width: 0;
                     cursor: pointer;
                     // 변경: 히트박스에서 드래그 시 날짜 숫자만 선택되는 것처럼 보이는 현상 완화
                     user-select: none;
@@ -2884,9 +2892,14 @@ body {
                 input[type="date"].user-input,
                 input.reservation-construction__date-native {
                     width: 100%;
+                    max-width: 100%;
+                    // 변경: WebKit date 기본 min-width 때문에 모바일에서 100%보다 넓어 보이는 현상 완화
+                    min-width: 0;
                     min-height: 56px;
                     padding: 24px;
                     box-sizing: border-box;
+                    // 변경: WebKit date 기본 회색 배경과 시공 지역 text 필드 흰색 차이 방지
+                    background-color: #fff;
                     color: #111827;
                     -webkit-text-fill-color: currentColor;
                     color-scheme: light;
@@ -3222,7 +3235,8 @@ body {
 
             // 변경: 시공 위치 섹션 모바일(한 열·패딩)
             .reservation-construction {
-                padding: 24px 20px 0;
+                // 변경: 하단 패딩으로 '예약 정보 입력' 섹션과 간격 확보
+                padding: 24px 20px 20px;
                 gap: 24px;
 
                 h2 {
@@ -3231,7 +3245,8 @@ body {
 
                 .reservation-construction__row {
                     grid-template-columns: 1fr;
-                    gap: 16px;
+                    // 변경: 시공 지역 ↔ 착공일 세로 간격(PC는 위 10px 유지, 모바일만 넓게)
+                    gap: 28px;
                 }
 
                 .reservation-construction__field {
@@ -3252,11 +3267,20 @@ body {
                 }
 
                 .reservation-construction__field--date {
+                    min-width: 0;
+
                     input[type="date"].user-input,
                     input.reservation-construction__date-native {
                         min-height: 52px;
                         padding: 18px 16px;
                         font-size: 15px;
+                        max-width: 100%;
+                        min-width: 0;
+                    }
+
+                    .reservation-construction__date-hitbox {
+                        max-width: 100%;
+                        min-width: 0;
                     }
                 }
             }
