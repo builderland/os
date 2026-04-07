@@ -3797,11 +3797,14 @@ body {
 
                     // 변경: iOS Safari에서 날짜 선택값이 placeholder 위치와 다르게 그려지는 현상 보정
                     &::-webkit-date-and-time-value {
-                        text-align: left;
+                        // 변경: 모바일 Safari에서 선택된 날짜를 placeholder처럼 가운데 정렬
+                        text-align: center;
                     }
 
                     // 변경: Safari 내부 날짜 텍스트 블록도 입력 패딩 기준으로 시작점 정렬
                     &::-webkit-datetime-edit {
+                        // 변경: 모바일 Safari 내부 연/월/일 블록도 함께 중앙 정렬
+                        text-align: center;
                         padding: 0;
                         margin: 0;
                     }

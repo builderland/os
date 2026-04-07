@@ -3101,10 +3101,11 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   }
   body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-date-and-time-value,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-date-and-time-value {
-    text-align: left;
+    text-align: center;
   }
   body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit {
+    text-align: center;
     padding: 0;
     margin: 0;
   }
