@@ -531,6 +531,25 @@ body .hero .hero-image .dim {
   background: rgba(0, 0, 0, 0.6);
 }
 @media (max-width: 767px) {
+  body.page-index {
+    overflow-x: hidden;
+  }
+  body header {
+    padding: calc(12px + env(safe-area-inset-top)) 20px 12px;
+  }
+  body header button {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  body .hero {
+    min-height: 100dvh;
+  }
+  body .hero .hero-image .dim {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.54) 22%, rgba(0, 0, 0, 0.58) 100%);
+  }
   body .hero .hero-service-name {
     padding: 0 20px;
     font-size: clamp(3rem, min(max(0px, 100vw - 40px) * 0.36, 55vmin), 34rem);
@@ -538,15 +557,19 @@ body .hero .hero-image .dim {
   body .hero .hero-content {
     width: 100%;
     max-width: 100%;
-    padding: 40px 20px;
-    gap: 36px;
+    padding: calc(88px + env(safe-area-inset-top)) 20px 36px;
+    gap: 24px;
   }
   body .hero .hero-content-text {
-    gap: 16px;
+    gap: 14px;
+    max-width: 440px;
   }
   body .hero .hero-content-text .hero-content-title {
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: clamp(17px, 4.6vw, 20px);
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    word-break: keep-all;
+    text-wrap: balance;
   }
   body .hero .hero-content-text .hero-content-service-name {
     font-size: 36px;
@@ -554,11 +577,24 @@ body .hero .hero-image .dim {
   body .hero .hero-button {
     width: 100%;
     max-width: 320px;
-    padding: 16px 20px;
+    min-height: 52px;
+    padding: 0 20px;
     font-size: 16px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  body .hero-service-name-container {
+    min-height: 100dvh;
+  }
+  body .hero-service-name-container .hero-service-name {
+    padding: 0 20px;
+    font-size: clamp(3rem, min(max(0px, 100vw - 40px) * 0.36, 55vmin), 34rem);
   }
   body .hero-service-name-container .scroll-indicator {
-    bottom: 18px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
     width: 48px;
     height: 48px;
   }

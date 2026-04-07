@@ -673,7 +673,32 @@ body {
 
     // 변경: 모바일(0~767px) 히어로 콘텐츠가 화면에 맞도록 간격/타이포/버튼 조정
     @media (max-width: 767px) {
+        // 변경: 모바일 index 페이지 우측 오버플로우 방지(가로 스크롤 제거)
+        &.page-index {
+            overflow-x: hidden;
+        }
+
+        // 변경: index 첫 화면에서 헤더가 콘텐츠와 겹쳐도 터치/가독성이 유지되도록 보정
+        header {
+            padding: calc(12px + env(safe-area-inset-top)) 20px 12px;
+
+            button {
+                min-height: 44px;
+                padding: 0 16px;
+                border-radius: 999px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }
+
         .hero {
+            // 변경: 모바일 첫 화면 최소 높이를 동적 뷰포트 기준으로 고정해 주소창 변화 대응
+            min-height: 100dvh;
+
+            // 변경: 히어로 콘텐츠가 헤더 아래에서 시작되도록 상단 안전 여백 확보
+            .hero-image .dim {
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.54) 22%, rgba(0, 0, 0, 0.58) 100%);
+            }
 
             // 변경: 모바일 헤더 좌우 20px와 동일 패딩·가용 너비(100vw - 40px) 기준 폰트 스케일
             .hero-service-name {
@@ -684,16 +709,22 @@ body {
             .hero-content {
                 width: 100%;
                 max-width: 100%;
-                padding: 40px 20px;
-                gap: 36px;
+                // 변경: 헤더 높이만큼 상단 여백을 늘려 타이틀/버튼이 눌리지 않도록 조정
+                padding: calc(88px + env(safe-area-inset-top)) 20px 36px;
+                gap: 24px;
             }
 
             .hero-content-text {
-                gap: 16px;
+                gap: 14px;
+                max-width: 440px;
 
                 .hero-content-title {
-                    font-size: 18px;
-                    line-height: 1.5;
+                    // 변경: 작은 폭에서도 문장이 안정적으로 보이도록 clamp 타이포 적용
+                    font-size: clamp(17px, 4.6vw, 20px);
+                    line-height: 1.45;
+                    letter-spacing: -0.015em;
+                    word-break: keep-all;
+                    text-wrap: balance;
                 }
 
                 .hero-content-service-name {
@@ -704,15 +735,30 @@ body {
             .hero-button {
                 width: 100%;
                 max-width: 320px;
-                padding: 16px 20px;
+                min-height: 52px;
+                padding: 0 20px;
                 font-size: 16px;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
             }
         }
 
         // 변경: 모바일에서 스크롤 화살표 터치 영역/위치 조정
         .hero-service-name-container {
+            // 변경: 주소창 동적 높이 변화에도 첫 화면 높이를 안정적으로 유지
+            min-height: 100dvh;
+
+            // 변경: 첫 화면 워터마크(.hero-service-name)는 .hero 바깥에 있어 별도 모바일 오버라이드 필요
+            .hero-service-name {
+                padding: 0 20px;
+                font-size: clamp(3rem, min(calc(max(0px, 100vw - 40px) * 0.36), 55vmin), 34rem);
+            }
+
             .scroll-indicator {
-                bottom: 18px;
+                bottom: calc(12px + env(safe-area-inset-bottom));
                 width: 48px;
                 height: 48px;
             }
