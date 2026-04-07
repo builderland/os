@@ -6,7 +6,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Pretendard", sans-serif;
-    background-color: #fff;
+    // 변경: 전체 페이지 기본 배경색을 검정으로 변경
+    background-color: #000;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -760,7 +761,8 @@ body {
             .hero-service-name {
                 padding: 0 20px;
                 // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 추가 소폭 축소
-                font-size: clamp(2.6rem, min(calc(max(0px, 100vw - 40px) * 0.31), 50vmin), 28rem);
+                // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 재조정(추가 소폭 축소)
+                font-size: clamp(2.5rem, min(calc(max(0px, 100vw - 40px) * 0.30), 48vmin), 26rem);
             }
 
             .scroll-indicator {
@@ -914,7 +916,8 @@ body {
             &-inner {
                 position: relative;
                 height: 100%;
-                transform: translateY(12px);
+                // 변경: 요청사항 반영 — 태그 묶음 전체를 좌측으로 소폭 이동
+                transform: translate(-10px, 12px);
             }
 
             &-inner span {
@@ -1039,6 +1042,11 @@ body {
         .problem-card__tags {
             --tags-scale: 0.78;
             height: 120px;
+        }
+
+        // 변경: 요청사항 반영 — 모바일에서 썸네일 제목과 태그 묶음 간격 소폭 축소
+        .problem-card__thumb--cost {
+            gap: 10px;
         }
     }
 
