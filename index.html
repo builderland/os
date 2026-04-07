@@ -4,29 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Builderland</title>
+    <title>MMMH</title>
     <link rel="stylesheet" href="style/style.css?v=gray-radius-mobile-pill">
+    <!-- 변경: Google Sans Flex(히어로 .hero-service-name) 로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="page-index">
     <header>
-        <a href="index.html" class="service-name">builderland</a>
+        <a href="index.html" class="service-name">MMMH</a>
         <button>문의하기</button>
     </header>
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-content-text">
-                <div class="hero-content-title">숨은 비용 없이<br>내가 직접 관리하는 투명한 인테리어</div>
-                <div class="hero-content-service-name">builderland</div>
-            </div>
-            <a href="self.html" class="hero-button">셀프 견적해보기</a>
+    <section>
+        <div class="hero-service-name-container">
+            <span class="hero-service-name">MMMH</span>
         </div>
+    </section>
+    <section class="hero">
         <div class="hero-image">
             <img src="assets/images/hero_img.png" alt="hero-image">
             <div class="dim"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-content-text">
+                <div class="hero-content-title">숨은 비용 없이<br>내가 직접 관리하는 투명한 인테리어</div>
+                <!-- <div class="hero-content-service-name">MMMH</div> -->
+            </div>
+            <a href="self.html" class="hero-button">셀프 견적해보기</a>
         </div>
     </section>
     <section class="problem">
@@ -578,7 +587,7 @@
     </section>
     <section class="footer">
         <div class="service-name">
-            builderland
+            MMMH
         </div>
         <div class="info">
             <ul class="list-items">
@@ -596,7 +605,8 @@
             <ul class="list-items">
                 <li class="info-title">Guide</li>
                 <!-- 변경: 인테리어 위키 대문 페이지를 새 탭에서 열도록 연결 -->
-                <li class="info-item"><a href="https://interior.wiki/%EB%8C%80%EB%AC%B8" target="_blank" rel="noopener noreferrer">인테리어 위키</a></li>
+                <li class="info-item"><a href="https://interior.wiki/%EB%8C%80%EB%AC%B8" target="_blank"
+                        rel="noopener noreferrer">인테리어 위키</a></li>
             </ul>
             <ul class="list-items">
                 <li class="info-title">Contact</li>
@@ -605,6 +615,8 @@
             </ul>
         </div>
     </section>
+    <!-- 변경: 히어로 타이틀 → 헤더 로고 위치 스크롤 연동 -->
+    <script src="script/index-hero-scroll.js" defer></script>
 </body>
 
 </html>

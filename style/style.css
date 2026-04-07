@@ -287,21 +287,131 @@ body .legal-page__note {
   }
 }
 
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-fields-wrapper,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-fields-wrapper {
+  color: transparent;
+}
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-year-field, html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-month-field, html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-year-field,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-month-field,
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-day-field {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty .reservation-construction__date-placeholder {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 24px;
+  right: 52px;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #E2E4E8;
+  pointer-events: none;
+  z-index: 2;
+}
+@media (max-width: 767px) {
+  html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty .reservation-construction__date-placeholder {
+    left: 16px;
+    right: 48px;
+    font-size: 16px;
+  }
+}
+
+body.page-index header .service-name {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+body.page-index header button {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+body.page-index header.header-inquiry-visible button {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+body.page-index .hero .hero-service-name.hero-service-name--fixed {
+  inset: auto;
+  padding: 0;
+  display: block;
+  align-items: unset;
+  justify-content: unset;
+}
+
+body .hero-service-name-container {
+  position: relative;
+  z-index: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+}
+body .hero-service-name-container .hero-service-name {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 150px;
+  box-sizing: border-box;
+  pointer-events: none;
+  font-family: "Google Sans Flex", sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, min(max(0px, 100vw - 300px) * 0.36, 55vmin), 34rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
 body .hero {
   position: relative;
-  height: 100vh;
-  width: 100%;
-}
-body .hero .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 176px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  min-height: 100vh;
+  width: 100%;
+}
+body .hero .hero-content {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 48px 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 body .hero .hero-content .hero-content-text {
   display: flex;
@@ -329,7 +439,7 @@ body .hero .hero-content .hero-button {
   background-color: #fff;
   color: #E15619;
   border: none;
-  padding: 24px 48px;
+  padding: 24px 80px;
   border-radius: 50px;
   cursor: pointer;
   font-size: 20px;
@@ -358,9 +468,15 @@ body .hero .hero-image .dim {
   background: rgba(0, 0, 0, 0.6);
 }
 @media (max-width: 767px) {
+  body .hero .hero-service-name {
+    padding: 0 20px;
+    font-size: clamp(3rem, min(max(0px, 100vw - 40px) * 0.36, 55vmin), 34rem);
+  }
   body .hero .hero-content {
-    width: calc(100% - 40px);
-    gap: 56px;
+    width: 100%;
+    max-width: 100%;
+    padding: 40px 20px;
+    gap: 36px;
   }
   body .hero .hero-content-text {
     gap: 16px;
@@ -2373,7 +2489,6 @@ body .reservation-construction .reservation-construction__field--date .reservati
        user-select: none;
   -webkit-user-select: none;
 }
-/* 변경: Safari 전용 착공일 힌트(span) — 기본 숨김, html.is-safari .is-empty에서만 표시 */
 body .reservation-construction .reservation-construction__field--date .reservation-construction__date-placeholder {
   display: none;
 }
@@ -2424,27 +2539,22 @@ body .reservation-construction .reservation-construction__field--date input.rese
   color: #111827;
   -webkit-text-fill-color: currentColor;
 }
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-year-field,
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-year-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-month-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-year-field,
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-month-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-month-field,
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-day-field {
   color: #E2E4E8;
   -webkit-text-fill-color: #E2E4E8;
 }
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-year-field,
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-year-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-month-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-day-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-year-field,
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-month-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-month-field,
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-day-field,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-day-field {
   color: #111827;
   -webkit-text-fill-color: currentColor;
 }
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit,
+body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit, body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit-fields-wrapper,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit,
-body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit-fields-wrapper,
 body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit-fields-wrapper {
   min-width: 0;
   max-width: 100%;
@@ -2794,11 +2904,9 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-fields-wrapper {
     color: #E2E4E8;
   }
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-year-field,
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-year-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-month-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-year-field,
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-month-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-month-field,
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:invalid::-webkit-datetime-edit-day-field {
     color: #E2E4E8;
     -webkit-text-fill-color: #E2E4E8;
@@ -2812,18 +2920,15 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
     color: #111827;
     -webkit-text-fill-color: currentColor;
   }
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-year-field,
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-year-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-month-field, body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-day-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-year-field,
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-month-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-month-field,
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input:valid::-webkit-datetime-edit-day-field,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native:valid::-webkit-datetime-edit-day-field {
     color: #111827;
     -webkit-text-fill-color: currentColor;
   }
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit,
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit, body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit-fields-wrapper,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit,
-  body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit-fields-wrapper,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit-fields-wrapper {
     min-width: 0;
     max-width: 100%;
@@ -2939,55 +3044,6 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   }
   body .reservation-form .reservation-form-item .reservation-form-item-content .reservation-form-item-content-item .user-input::placeholder {
     font-size: 15px;
-  }
-}
-/* 변경: Safari 착공일 빈 칸 — 네이티브 문구 대신 '연도.월.일' 오버레이(달력 SVG 아이콘은 별도) */
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-fields-wrapper,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-fields-wrapper {
-  color: transparent;
-}
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-year-field,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-month-field,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input[type=date].user-input:invalid::-webkit-datetime-edit-day-field,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-year-field,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-month-field,
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty input.reservation-construction__date-native:invalid::-webkit-datetime-edit-day-field {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty .reservation-construction__date-placeholder {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 24px;
-  right: 52px;
-  top: 0;
-  bottom: 0;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: #E2E4E8;
-  pointer-events: none;
-  z-index: 2;
-}
-@media (max-width: 767px) {
-  html.is-safari body .reservation-construction .reservation-construction__field--date .reservation-construction__date-hitbox.is-empty .reservation-construction__date-placeholder {
-    left: 16px;
-    right: 48px;
-    font-size: 16px;
   }
 }
 
