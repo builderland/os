@@ -3099,6 +3099,15 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
     min-width: 0;
     max-width: 100%;
   }
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-date-and-time-value,
+  body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-date-and-time-value {
+    text-align: left;
+  }
+  body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-datetime-edit,
+  body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-datetime-edit {
+    padding: 0;
+    margin: 0;
+  }
   body .reservation-construction .reservation-construction__field--date input[type=date].user-input::-webkit-calendar-picker-indicator,
   body .reservation-construction .reservation-construction__field--date input.reservation-construction__date-native::-webkit-calendar-picker-indicator {
     cursor: pointer;
@@ -3260,6 +3269,9 @@ body .confirm .confirm-container .confirm-content dl {
   grid-template-columns: 50px 1fr;
   gap: 8px;
 }
+body .confirm .confirm-container .confirm-content dl .confirm-invoice {
+  display: none;
+}
 body .confirm .confirm-container .confirm-content dl dt {
   color: #888;
 }
@@ -3407,12 +3419,12 @@ body .action .action-container .action-cta--index {
 }
 @media (max-width: 767px) {
   body .action {
-    background-color: #f3f3f3;
+    background-color: #F9F8F4;
     padding: 32px 20px;
     padding-bottom: 96px;
   }
   body .action.action--index {
-    background-color: #f3f3f3;
+    background-color: #F9F8F4;
   }
   body .action .action-container {
     flex-direction: column;
