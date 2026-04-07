@@ -723,7 +723,8 @@ body {
 
                 .hero-content-title {
                     // 변경: 작은 폭에서도 문장이 안정적으로 보이도록 clamp 타이포 적용
-                    font-size: clamp(17px, 4.6vw, 20px);
+                    // 변경: 요청사항 반영 — 모바일 히어로 타이틀 폰트 크기 소폭 축소
+                    font-size: clamp(16px, 4.2vw, 18px);
                     line-height: 1.45;
                     letter-spacing: -0.015em;
                     word-break: keep-all;
@@ -740,7 +741,8 @@ body {
                 max-width: 320px;
                 min-height: 52px;
                 padding: 0 20px;
-                font-size: 16px;
+                // 변경: 요청사항 반영 — 모바일 CTA 문구 폰트 크기 소폭 축소
+                font-size: 15px;
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;
@@ -757,12 +759,13 @@ body {
             // 변경: 첫 화면 워터마크(.hero-service-name)는 .hero 바깥에 있어 별도 모바일 오버라이드 필요
             .hero-service-name {
                 padding: 0 20px;
-                // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 소폭 축소
-                font-size: clamp(2.8rem, min(calc(max(0px, 100vw - 40px) * 0.33), 52vmin), 30rem);
+                // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 추가 소폭 축소
+                font-size: clamp(2.6rem, min(calc(max(0px, 100vw - 40px) * 0.31), 50vmin), 28rem);
             }
 
             .scroll-indicator {
-                bottom: calc(12px + env(safe-area-inset-bottom));
+                // 변경: 요청사항 반영 — 모바일에서 하단 화살표를 조금 더 상단으로 이동
+                bottom: calc(24px + env(safe-area-inset-bottom));
                 width: 48px;
                 height: 48px;
             }
@@ -988,9 +991,16 @@ body {
 
     // 변경: 모바일 브레이크포인트를 767px로 통일
     @media (max-width: 767px) {
-        // 변경: 요청사항 반영 — index 첫 번째 문제 카드 이미지(section_img.png) 모바일에서 20% 축소
+        // 변경: 요청사항 반영 — index 첫 번째 문제 카드 이미지(section_img.png) 모바일에서 10% 축소 + 중앙 정렬
+        .problem-card__thumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .problem-card__thumb img {
-            height: 80%;
+            height: 90%;
+            margin: 0 auto;
         }
 
         .problem {
@@ -1001,7 +1011,8 @@ body {
 
             // 변경: 요청사항 반영 — 모바일에서 problem 설명문 타이포 소폭 축소
             &__desc {
-                font-size: 15px;
+                // 변경: 요청사항 반영 — 모바일 problem 설명문 폰트 크기 추가 소폭 축소
+                font-size: 14px;
                 line-height: 1.45;
             }
 
@@ -1017,6 +1028,11 @@ body {
                 // 변경: 모바일에서도 문구가 한 줄로 유지되도록 줄바꿈 방지
                 white-space: nowrap;
             }
+        }
+
+        // 변경: 요청사항 반영 — 모바일에서 problem 카드 썸네일 제목 폰트 소폭 축소
+        .problem-card__thumb-title {
+            font-size: clamp(18px, 4vw, 20px);
         }
 
         // 변경: 모바일에서 태그 스택 형태 유지(비율만 축소)

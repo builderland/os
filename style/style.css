@@ -568,7 +568,7 @@ body .hero .hero-image .dim {
     max-width: 440px;
   }
   body .hero .hero-content-text .hero-content-title {
-    font-size: clamp(17px, 4.6vw, 20px);
+    font-size: clamp(16px, 4.2vw, 18px);
     line-height: 1.45;
     letter-spacing: -0.015em;
     word-break: keep-all;
@@ -582,7 +582,7 @@ body .hero .hero-image .dim {
     max-width: 320px;
     min-height: 52px;
     padding: 0 20px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -594,10 +594,10 @@ body .hero .hero-image .dim {
   }
   body .hero-service-name-container .hero-service-name {
     padding: 0 20px;
-    font-size: clamp(2.8rem, min(max(0px, 100vw - 40px) * 0.33, 52vmin), 30rem);
+    font-size: clamp(2.6rem, min(max(0px, 100vw - 40px) * 0.31, 50vmin), 28rem);
   }
   body .hero-service-name-container .scroll-indicator {
-    bottom: calc(12px + env(safe-area-inset-bottom));
+    bottom: calc(24px + env(safe-area-inset-bottom));
     width: 48px;
     height: 48px;
   }
@@ -791,14 +791,20 @@ body {
   }
 }
 @media (max-width: 767px) {
+  body .problem-card__thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   body .problem-card__thumb img {
-    height: 80%;
+    height: 90%;
+    margin: 0 auto;
   }
   body .problem__title {
     font-size: clamp(22px, 4.1vw, 26px);
   }
   body .problem__desc {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.45;
   }
   body .problem__grid {
@@ -808,6 +814,9 @@ body {
     font-size: clamp(24px, 8.6vw, 64px);
     margin-top: 160px;
     white-space: nowrap;
+  }
+  body .problem-card__thumb-title {
+    font-size: clamp(18px, 4vw, 20px);
   }
   body .problem-card__tags {
     --tags-scale: 0.78;
