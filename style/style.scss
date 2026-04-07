@@ -7,7 +7,6 @@ body {
     padding: 0;
     font-family: "Pretendard", sans-serif;
     // 변경: 전체 페이지 기본 배경색을 검정으로 변경
-    background-color: #000;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -438,6 +437,9 @@ html.is-safari {
 
 // index.html — 헤더 로고 텍스트는 항상 숨김(히어로 .hero-service-name 만 해당 위치로 이동·표시)
 body.page-index {
+    // 변경: 요청사항 반영 — index 페이지 배경색을 footer와 동일한 색상으로 통일
+    background-color: #0D0D0D;
+
     // 변경: 우측 스크롤바 배경/여백 노출 방지용 가로 오버플로우 차단
     overflow-x: clip;
 
@@ -482,7 +484,8 @@ body {
         justify-content: center;
         width: 100%;
         height: 100vh;
-        background-color: #000;
+        // 변경: 요청사항 반영 — 첫 화면(hero-service-name-container) 배경색을 footer와 동일 색상으로 통일
+        background-color: #0D0D0D;
 
         // 변경: 첫 화면(hero-service-name-container) 배경 이미지를 비율 유지하며 화면에 꽉 차게 표시
         .hero-image {
@@ -762,7 +765,8 @@ body {
                 padding: 0 20px;
                 // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 추가 소폭 축소
                 // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 재조정(추가 소폭 축소)
-                font-size: clamp(2.5rem, min(calc(max(0px, 100vw - 40px) * 0.30), 48vmin), 26rem);
+                // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 재추가 소폭 축소
+                font-size: clamp(2.4rem, min(calc(max(0px, 100vw - 40px) * 0.29), 46vmin), 24rem);
             }
 
             .scroll-indicator {
@@ -1040,13 +1044,25 @@ body {
 
         // 변경: 모바일에서 태그 스택 형태 유지(비율만 축소)
         .problem-card__tags {
-            --tags-scale: 0.78;
+            // 변경: 요청사항 반영 — 모바일에서 긴 태그 문구 줄바꿈 방지를 위해 전체 스케일 소폭 추가 축소
+            --tags-scale: 0.72;
             height: 120px;
+        }
+
+        // 변경: 요청사항 반영 — 모바일에서 태그 묶음 전체를 좌측으로 추가 이동(줄바꿈 방지 목적)
+        .problem-card__tags-inner {
+            transform: translate(-16px, 12px);
+        }
+
+        // 변경: 요청사항 반영 — 모바일에서 태그 문구는 줄바꿈 없이 한 줄 유지
+        .problem-card__tags-inner span {
+            white-space: nowrap;
         }
 
         // 변경: 요청사항 반영 — 모바일에서 썸네일 제목과 태그 묶음 간격 소폭 축소
         .problem-card__thumb--cost {
-            gap: 10px;
+            // 변경: 요청사항 반영 — 모바일에서 두 요소 간격 추가 소폭 축소
+            gap: 6px;
         }
     }
 
@@ -2165,6 +2181,11 @@ body {
 
 //self.html
 body {
+    // 변경: self.html 페이지 전체 배경색을 #F9F8F4로 고정
+    &.self-page {
+        background-color: #F9F8F4;
+    }
+
     .self-head {
         padding: 150px;
         padding-bottom: 20px;
@@ -2573,7 +2594,8 @@ body {
             align-items: start;
             justify-content: space-between;
             gap: 16px;
-            padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
+            // 변경: 모바일 하단 고정 바가 너무 위로 뜨지 않도록 하단 패딩을 소폭 축소
+            padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
             background-color: #fff;
             border-top: 1px solid #E2E4E8;
             box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
@@ -2682,6 +2704,11 @@ body {
 
 //about.html
 body {
+    // 변경: about.html 페이지 전체 배경색을 #F9F8F4로 지정
+    &.about-page {
+        background-color: #F9F8F4;
+    }
+
     .about-head {
         padding: 150px;
         padding-bottom: 20px;
@@ -3108,6 +3135,11 @@ body {
 
 //reservation.html
 body {
+    // 변경: reservation.html 페이지 전체 배경색을 #fff로 지정
+    &.reservation-page {
+        background-color: #fff;
+    }
+
     .reservation-head {
         margin-top: 80px;
         padding: 40px 150px;
@@ -3901,6 +3933,11 @@ body {
 
 //confirm.html
 body {
+    // 변경: confirm.html 페이지 전체 배경색을 #F9F8F4로 지정
+    &.confirm-page {
+        background-color: #F9F8F4;
+    }
+
     .confirm {
         padding: 150px;
         padding-bottom: 20px;

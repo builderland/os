@@ -7,7 +7,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Pretendard", sans-serif;
-  background-color: #000;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -335,6 +334,7 @@ html.is-safari body .reservation-construction .reservation-construction__field--
 }
 
 body.page-index {
+  background-color: #0D0D0D;
   overflow-x: clip;
 }
 body.page-index header .service-name {
@@ -371,7 +371,7 @@ body .hero-service-name-container {
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background-color: #000;
+  background-color: #0D0D0D;
 }
 body .hero-service-name-container .hero-image {
   position: absolute;
@@ -594,7 +594,7 @@ body .hero .hero-image .dim {
   }
   body .hero-service-name-container .hero-service-name {
     padding: 0 20px;
-    font-size: clamp(2.5rem, min(max(0px, 100vw - 40px) * 0.3, 48vmin), 26rem);
+    font-size: clamp(2.4rem, min(max(0px, 100vw - 40px) * 0.29, 46vmin), 24rem);
   }
   body .hero-service-name-container .scroll-indicator {
     bottom: calc(24px + env(safe-area-inset-bottom));
@@ -819,11 +819,17 @@ body {
     font-size: clamp(18px, 4vw, 20px);
   }
   body .problem-card__tags {
-    --tags-scale: 0.78;
+    --tags-scale: 0.72;
     height: 120px;
   }
+  body .problem-card__tags-inner {
+    transform: translate(-16px, 12px);
+  }
+  body .problem-card__tags-inner span {
+    white-space: nowrap;
+  }
   body .problem-card__thumb--cost {
-    gap: 10px;
+    gap: 6px;
   }
 }
 body .how {
@@ -1722,6 +1728,9 @@ body .corevalue .content .list-items .body {
   scroll-margin-top: 90px;
 }
 
+body.self-page {
+  background-color: #F9F8F4;
+}
 body .self-head {
   padding: 150px;
   padding-bottom: 20px;
@@ -2074,7 +2083,7 @@ body section.self-form .estimate-card__notice p {
     align-items: start;
     justify-content: space-between;
     gap: 16px;
-    padding: 20px 20px calc(40px + env(safe-area-inset-bottom));
+    padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
     background-color: #fff;
     border-top: 1px solid #E2E4E8;
     box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
@@ -2162,6 +2171,9 @@ body .self-spinner {
   to {
     transform: rotate(360deg);
   }
+}
+body.about-page {
+  background-color: #F9F8F4;
 }
 body .about-head {
   padding: 150px;
@@ -2514,6 +2526,9 @@ body .about-bottom .about-bottom-card.is-builderland {
   }
 }
 
+body.reservation-page {
+  background-color: #fff;
+}
 body .reservation-head {
   margin-top: 80px;
   padding: 40px 150px;
@@ -3196,6 +3211,9 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   }
 }
 
+body.confirm-page {
+  background-color: #F9F8F4;
+}
 body .confirm {
   padding: 150px;
   padding-bottom: 20px;
