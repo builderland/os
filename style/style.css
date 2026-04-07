@@ -820,7 +820,7 @@ body {
   }
   body .problem-card__tags {
     --tags-scale: 0.72;
-    height: 120px;
+    height: 96px;
   }
   body .problem-card__tags-inner {
     transform: translate(-16px, 12px);
@@ -829,6 +829,8 @@ body {
     white-space: nowrap;
   }
   body .problem-card__thumb--cost {
+    height: 280px;
+    justify-content: flex-start;
     gap: 6px;
   }
 }
@@ -3517,7 +3519,7 @@ body .footer .info .list-items .info-item a:hover, body .footer .info .list-item
 
 @media (max-width: 767px) {
   body.self-page .footer {
-    padding-bottom: calc(160px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
   }
   body.self-page .action {
     display: none;

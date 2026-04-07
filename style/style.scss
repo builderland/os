@@ -1046,7 +1046,8 @@ body {
         .problem-card__tags {
             // 변경: 요청사항 반영 — 모바일에서 긴 태그 문구 줄바꿈 방지를 위해 전체 스케일 소폭 추가 축소
             --tags-scale: 0.72;
-            height: 120px;
+            // 변경: 요청사항 반영 — 모바일에서 상단 텍스트와 태그 영역 간격 체감이 줄도록 높이 소폭 축소
+            height: 96px;
         }
 
         // 변경: 요청사항 반영 — 모바일에서 태그 묶음 전체를 좌측으로 추가 이동(줄바꿈 방지 목적)
@@ -1062,6 +1063,10 @@ body {
         // 변경: 요청사항 반영 — 모바일에서 썸네일 제목과 태그 묶음 간격 소폭 축소
         .problem-card__thumb--cost {
             // 변경: 요청사항 반영 — 모바일에서 두 요소 간격 추가 소폭 축소
+            // 변경: 모바일에서 space-between을 해제해 title-태그 간격(gap)이 실제로 적용되도록
+            // 변경: 모바일에서 부모 박스 높이를 줄여 과도한 세로 여백을 축소
+            height: 280px;
+            justify-content: flex-start;
             gap: 6px;
         }
     }
@@ -4333,7 +4338,8 @@ body {
 // 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
 @media (max-width: 767px) {
     body.self-page .footer {
-        padding-bottom: calc(160px + env(safe-area-inset-bottom));
+        // 변경: 모바일에서 푸터가 바닥에 붙어 보이도록 self 페이지 하단 추가 여백 제거
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     // 변경: self.html 에서만 모바일 하단 고정 바 CTA를 사용하므로 기존 action 섹션 숨김
