@@ -334,6 +334,9 @@ html.is-safari body .reservation-construction .reservation-construction__field--
   }
 }
 
+body.page-index {
+  overflow-x: clip;
+}
 body.page-index header .service-name {
   opacity: 0;
   visibility: hidden;
@@ -591,7 +594,7 @@ body .hero .hero-image .dim {
   }
   body .hero-service-name-container .hero-service-name {
     padding: 0 20px;
-    font-size: clamp(3rem, min(max(0px, 100vw - 40px) * 0.36, 55vmin), 34rem);
+    font-size: clamp(2.8rem, min(max(0px, 100vw - 40px) * 0.33, 52vmin), 30rem);
   }
   body .hero-service-name-container .scroll-indicator {
     bottom: calc(12px + env(safe-area-inset-bottom));
@@ -788,6 +791,16 @@ body {
   }
 }
 @media (max-width: 767px) {
+  body .problem-card__thumb img {
+    height: 80%;
+  }
+  body .problem__title {
+    font-size: clamp(22px, 4.1vw, 26px);
+  }
+  body .problem__desc {
+    font-size: 15px;
+    line-height: 1.45;
+  }
   body .problem__grid {
     grid-template-columns: 1fr;
   }

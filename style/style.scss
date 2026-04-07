@@ -437,6 +437,9 @@ html.is-safari {
 
 // index.html — 헤더 로고 텍스트는 항상 숨김(히어로 .hero-service-name 만 해당 위치로 이동·표시)
 body.page-index {
+    // 변경: 우측 스크롤바 배경/여백 노출 방지용 가로 오버플로우 차단
+    overflow-x: clip;
+
     header .service-name {
         opacity: 0;
         visibility: hidden;
@@ -754,7 +757,8 @@ body {
             // 변경: 첫 화면 워터마크(.hero-service-name)는 .hero 바깥에 있어 별도 모바일 오버라이드 필요
             .hero-service-name {
                 padding: 0 20px;
-                font-size: clamp(3rem, min(calc(max(0px, 100vw - 40px) * 0.36), 55vmin), 34rem);
+                // 변경: 요청사항 반영 — 모바일 워터마크 폰트 크기 소폭 축소
+                font-size: clamp(2.8rem, min(calc(max(0px, 100vw - 40px) * 0.33), 52vmin), 30rem);
             }
 
             .scroll-indicator {
@@ -984,7 +988,23 @@ body {
 
     // 변경: 모바일 브레이크포인트를 767px로 통일
     @media (max-width: 767px) {
+        // 변경: 요청사항 반영 — index 첫 번째 문제 카드 이미지(section_img.png) 모바일에서 20% 축소
+        .problem-card__thumb img {
+            height: 80%;
+        }
+
         .problem {
+            // 변경: 요청사항 반영 — 모바일에서 problem 헤더 타이포 소폭 축소
+            &__title {
+                font-size: clamp(22px, 4.1vw, 26px);
+            }
+
+            // 변경: 요청사항 반영 — 모바일에서 problem 설명문 타이포 소폭 축소
+            &__desc {
+                font-size: 15px;
+                line-height: 1.45;
+            }
+
             &__grid {
                 grid-template-columns: 1fr;
             }
