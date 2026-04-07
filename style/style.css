@@ -11,6 +11,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  body {
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
+  }
+}
 ul {
   list-style: none;
   padding: 0;

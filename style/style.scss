@@ -11,6 +11,20 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+// 변경: 사파리 모바일 등에서 가로 스크롤(좌우 흔들림) 방지
+@media (max-width: 767px) {
+    html,
+    body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    body {
+        touch-action: pan-y;
+        overscroll-behavior-x: none;
+    }
+}
+
 ul {
     list-style: none;
     padding: 0;
