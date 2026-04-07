@@ -451,6 +451,13 @@ body.page-index {
     // 변경: 우측 스크롤바 배경/여백 노출 방지용 가로 오버플로우 차단
     overflow-x: clip;
 
+    // 변경: hero-service-name 선행 스크롤 동안 페이지 스크롤 잠금(휠/터치 입력은 JS가 인터셉트)
+    &.intro-scroll-lock {
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: none;
+    }
+
     header .service-name {
         opacity: 0;
         visibility: hidden;
@@ -478,13 +485,20 @@ body.page-index {
         align-items: unset;
         justify-content: unset;
     }
+
+    // 변경: 첫 화면 이후 섹션들이 고정 히어로 이미지를 위에서 덮도록 스택 순서 지정
+    section:not(:first-of-type) {
+        position: relative;
+        z-index: 1;
+    }
 }
 
 // index.html
 body {
     .hero-service-name-container {
         position: relative;
-        z-index: 0;
+        // 변경: hero-service-name의 전역 z-index 적용을 위해 부모 스택 컨텍스트 제한 해제
+        z-index: auto;
         flex: 1 1 auto;
         min-height: 0;
         display: flex;
@@ -492,17 +506,18 @@ body {
         justify-content: center;
         width: 100%;
         height: 100vh;
-        // 변경: 요청사항 반영 — 첫 화면(hero-service-name-container) 배경색을 footer와 동일 색상으로 통일
-        background-color: #0D0D0D;
+
 
         // 변경: 첫 화면(hero-service-name-container) 배경 이미지를 비율 유지하며 화면에 꽉 차게 표시
         .hero-image {
-            position: absolute;
+            // 변경: 요청사항 반영 — 첫 화면 이미지 고정(fixed) 처리
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: -1;
+            // 변경: 하단 섹션이 스크롤되어 올라오면 이미지를 가리도록 더 뒤 레이어로 배치
+            z-index: -2;
 
             img {
                 width: 100%;
@@ -608,6 +623,7 @@ body {
         justify-content: center;
         min-height: 100vh;
         width: 100%;
+        background-color: transparent;
 
         .hero-content {
             position: relative;
@@ -2184,6 +2200,17 @@ body {
 @media (prefers-reduced-motion: reduce) {
     body .hero-service-name-container .scroll-indicator {
         animation: none;
+    }
+}
+
+// 변경: 전체 페이지 스크롤을 부드럽게(사용자 OS 모션 줄이기 설정은 존중)
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 }
 

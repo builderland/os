@@ -30,6 +30,8 @@ let selectedTime = null;
 // 변경: 특정 날짜의 예약 시간 조회를 캐싱하여 동일 날짜 재조회 시 네트워크 호출 최소화
 let lastLoadedDate = null;
 let lastReservedTimes = null;
+// 변경: 예약 달력에서 수요일(0:일 ~ 6:토 중 3)만 선택 가능하도록 상수화
+const RESERVATION_AVAILABLE_WEEKDAY = 3;
 
 // 변경: 시공 희망 착공일 — input[type=date], 모바일·데스크톱 브라우저 기본 픽커
 const constructionStartDateInput = document.getElementById('construction-start-date');
@@ -112,6 +114,8 @@ function renderCalendar() {
         const cellDate = new Date(year, month, i);
         const cell = document.createElement('div');
         cell.className = 'date-cell';
+        // 변경: 예약 가능 요일(수요일) 여부를 미리 계산해 클릭 가능/커서 상태에 재사용
+        const isAvailableWeekday = cellDate.getDay() === RESERVATION_AVAILABLE_WEEKDAY;
 
         const dateNumber = document.createElement('div');
         dateNumber.className = 'date-number';
@@ -121,6 +125,11 @@ function renderCalendar() {
         // 과거 날짜 비활성화 (오늘보다 이전)
         if (cellDate < simulatedToday) {
             cell.classList.add('past');
+        }
+        // 변경: 수요일이 아닌 날짜는 선택 불가 상태로 표시(스타일 파일 수정 없이 클래스/인라인 커서만 적용)
+        if (!isAvailableWeekday) {
+            cell.classList.add('disabled-weekday');
+            dateNumber.style.cursor = 'not-allowed';
         }
 
         // 오늘 날짜 표시
@@ -136,7 +145,8 @@ function renderCalendar() {
         // 날짜 클릭 이벤트 (date-number에서만 선택)
         dateNumber.addEventListener('click', async (e) => {
             e.stopPropagation();
-            if (!cell.classList.contains('past') && cellDate >= simulatedToday) {
+            // 변경: 오늘 이후 + 수요일일 때만 날짜 선택 허용
+            if (!cell.classList.contains('past') && cellDate >= simulatedToday && isAvailableWeekday) {
                 selectedDate = new Date(year, month, i);
                 updateInput();
                 renderCalendar();

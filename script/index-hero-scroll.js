@@ -1,5 +1,5 @@
 /**
- * 변경: index.html 전용 — 히어로 .hero-service-name 이 스크롤에 따라 작아지며 헤더 .service-name 위치로 이동
+ * 변경: index.html 전용 — 스크롤 위치 기반으로 .hero-service-name 이 작아졌다 커지도록 단순화
  */
 (function () {
     "use strict";
@@ -10,12 +10,14 @@
     var heroName = document.querySelector(".hero-service-name");
     var headerName = document.querySelector("header .service-name");
     var headerEl = document.querySelector("header");
+    // 변경: 첫 화면 고정 배경 딤(.hero-service-name-container .hero-image .dim) 참조
+    var heroBgDim = document.querySelector(".hero-service-name-container .hero-image .dim");
     if (!hero || !heroName || !headerName || !headerEl) return;
 
     var cachedStart = null;
     var ticking = false;
 
-    /** 스크롤이 맨 위일 때만 DOM에서 시작 중심·시작 폰트 크기 캐시 */
+    /** 스크롤이 맨 위일 때만 시작 중심·폰트 크기 캐시 */
     function refreshStartIfAtTop() {
         if (window.scrollY > 2) return;
         var r = heroName.getBoundingClientRect();
@@ -34,7 +36,7 @@
         return Math.min(1, Math.max(0, x));
     }
 
-    /** 변경: index만 — .hero 상단이 뷰포트 상단에 도달하면 문의하기 버튼 표시 */
+    /** 변경: .hero 상단이 뷰포트 상단에 도달하면 문의하기 버튼 표시 */
     function updateInquiryVisibility() {
         var top = hero.getBoundingClientRect().top;
         if (top <= 0) {
@@ -48,7 +50,10 @@
         refreshStartIfAtTop();
 
         var maxScroll = Math.max(hero.offsetHeight * 0.75, window.innerHeight * 0.45);
+        // 변경: 아래로 스크롤하면 0->1, 위로 스크롤하면 1->0으로 자연 복귀
         var p = clamp01(window.scrollY / maxScroll);
+        // 변경: 요청사항 반영 — hero-service-name 진행률과 동일하게 첫 화면 딤 투명도 보간
+        var dimOpacity = lerp(0, 0.6, p);
 
         var endR = headerName.getBoundingClientRect();
         var endCx = endR.left + endR.width / 2;
@@ -61,10 +66,14 @@
             start = cachedStart;
         }
 
-        // 변경: 헤더 .service-name 은 항상 숨김 — 히어로 텍스트만 보간해 동일 위치로 이동
+        // 변경: 진행률이 거의 0이면 원래 상태로 복귀
         if (p < 0.01) {
             heroName.removeAttribute("style");
             heroName.classList.remove("hero-service-name--fixed");
+            if (heroBgDim) {
+                // 변경: 최상단 복귀 시 딤 원복
+                heroBgDim.style.background = "rgba(0, 0, 0, 0)";
+            }
             return;
         }
 
@@ -76,17 +85,23 @@
         var cy = lerp(start.cy, endCy, p);
         var fs = lerp(start.fontSize, endFs, p);
 
-        // 변경: 스크롤해도 글자색은 SCSS(.hero-service-name color) 유지 — 보간으로 검정 변하지 않음
+        // 변경: 스크롤 방향과 무관하게 동일 보간으로 위치/크기 갱신
         heroName.style.position = "fixed";
         heroName.style.left = cx + "px";
         heroName.style.top = cy + "px";
         heroName.style.transform = "translate(-50%, -50%)";
         heroName.style.fontSize = fs + "px";
         heroName.style.color = "";
-        heroName.style.zIndex = "101";
+        // 변경: hero-service-name을 최상단 레이어로 올림
+        heroName.style.zIndex = "10000";
         heroName.style.opacity = "1";
         heroName.style.visibility = "visible";
         heroName.style.pointerEvents = "none";
+
+        if (heroBgDim) {
+            // 변경: 스크롤 진행률에 맞춰 딤 농도 증가/감소
+            heroBgDim.style.background = "rgba(0, 0, 0, " + dimOpacity.toFixed(3) + ")";
+        }
     }
 
     function onScrollOrResize() {
@@ -102,10 +117,13 @@
 
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", function () {
-        // 변경: 맨 위에서만 재측정 — 스크롤 중 리사이즈 시 시작점 캐시 유지
-        if (window.scrollY <= 2) cachedStart = null;
+        // 변경: 맨 위에서만 시작점 캐시 재측정
+        if (window.scrollY <= 2) {
+            cachedStart = null;
+        }
         onScrollOrResize();
     });
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", function () {
             refreshStartIfAtTop();

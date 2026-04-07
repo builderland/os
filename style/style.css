@@ -340,6 +340,11 @@ body.page-index {
   background-color: #0D0D0D;
   overflow-x: clip;
 }
+body.page-index.intro-scroll-lock {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
 body.page-index header .service-name {
   opacity: 0;
   visibility: hidden;
@@ -363,10 +368,14 @@ body.page-index .hero .hero-service-name.hero-service-name--fixed {
   align-items: unset;
   justify-content: unset;
 }
+body.page-index section:not(:first-of-type) {
+  position: relative;
+  z-index: 1;
+}
 
 body .hero-service-name-container {
   position: relative;
-  z-index: 0;
+  z-index: auto;
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -374,15 +383,14 @@ body .hero-service-name-container {
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background-color: #0D0D0D;
 }
 body .hero-service-name-container .hero-image {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: -2;
 }
 body .hero-service-name-container .hero-image img {
   width: 100%;
@@ -467,6 +475,7 @@ body .hero {
   justify-content: center;
   min-height: 100vh;
   width: 100%;
+  background-color: transparent;
 }
 body .hero .hero-content {
   position: relative;
@@ -1727,6 +1736,15 @@ body .corevalue .content .list-items .body {
 @media (prefers-reduced-motion: reduce) {
   body .hero-service-name-container .scroll-indicator {
     animation: none;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 #hero {
