@@ -373,32 +373,26 @@ html.is-safari {
         .reservation-construction .reservation-construction__field--date {
             .reservation-construction__date-hitbox {
 
-                // 변경: 네이티브 연·월·일 필드 텍스트는 가리고 오버레이만 보이게
+                // 변경: 날짜 이중 표시 방지 — 빈 값일 때만 네이티브 텍스트를 숨기고(placeholder용), 선택값은 네이티브 input에 그대로 표시
                 input[type="date"].user-input,
                 input.reservation-construction__date-native {
-                    &:invalid,
-                    &:valid {
+                    &:invalid {
                         color: transparent;
                         -webkit-text-fill-color: transparent;
                     }
 
-                    &:invalid::-webkit-datetime-edit,
-                    &:valid::-webkit-datetime-edit {
+                    &:invalid::-webkit-datetime-edit {
                         color: transparent;
                         -webkit-text-fill-color: transparent;
                     }
 
-                    &:invalid::-webkit-datetime-edit-fields-wrapper,
-                    &:valid::-webkit-datetime-edit-fields-wrapper {
+                    &:invalid::-webkit-datetime-edit-fields-wrapper {
                         color: transparent;
                     }
 
                     &:invalid::-webkit-datetime-edit-year-field,
                     &:invalid::-webkit-datetime-edit-month-field,
-                    &:invalid::-webkit-datetime-edit-day-field,
-                    &:valid::-webkit-datetime-edit-year-field,
-                    &:valid::-webkit-datetime-edit-month-field,
-                    &:valid::-webkit-datetime-edit-day-field {
+                    &:invalid::-webkit-datetime-edit-day-field {
                         color: transparent;
                         -webkit-text-fill-color: transparent;
                     }
@@ -423,36 +417,11 @@ html.is-safari {
                     z-index: 2;
                 }
 
-                // 변경: Safari에서 선택값도 placeholder와 같은 위치에 표시할 오버레이
-                .reservation-construction__date-value {
-                    display: none;
-                    align-items: center;
-                    position: absolute;
-                    left: 24px;
-                    right: 52px;
-                    top: 0;
-                    bottom: 0;
-                    margin: 0;
-                    padding: 0;
-                    font-size: 16px;
-                    font-weight: 400;
-                    line-height: 1.2;
-                    letter-spacing: -0.02em;
-                    color: #111827;
-                    pointer-events: none;
-                    z-index: 2;
-                }
             }
 
-            // 변경: 값이 없으면 placeholder만, 값이 있으면 오버레이 값만 표시
+            // 변경: 값이 없을 때만 placeholder 표시(값 선택 후에는 숨김)
             .reservation-construction__date-hitbox.is-empty {
                 .reservation-construction__date-placeholder {
-                    display: flex;
-                }
-            }
-
-            .reservation-construction__date-hitbox:not(.is-empty) {
-                .reservation-construction__date-value {
                     display: flex;
                 }
             }
@@ -463,8 +432,7 @@ html.is-safari {
                 .reservation-construction__date-hitbox {
 
                     // 변경: 모바일도 예약 폼 .user-input::placeholder와 동일 #E2E4E8 (달력 SVG .date-icon은 별도 color 유지)
-                    .reservation-construction__date-placeholder,
-                    .reservation-construction__date-value {
+                    .reservation-construction__date-placeholder {
                         left: 16px;
                         right: 48px;
                         font-size: 16px;

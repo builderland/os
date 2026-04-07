@@ -35,8 +35,7 @@ let lastReservedTimes = null;
 const constructionStartDateInput = document.getElementById('construction-start-date');
 const constructionAreaInput = document.getElementById('construction-area');
 const constructionDateHitbox = document.querySelector('.reservation-construction__date-hitbox');
-// 변경: Safari 오버레이 날짜 텍스트(span) 캐싱
-const constructionDateValueOverlay = document.querySelector('.reservation-construction__date-value');
+// 변경: 날짜 이중 표시 방지 — 선택값 오버레이 제거(네이티브 input 값만 사용)
 
 /** 변경: 착공일 min=오늘(과거 날짜 선택 불가, 기존 커스텀 달력과 동일 정책) */
 function initConstructionDateInput() {
@@ -72,24 +71,9 @@ function initConstructionDateInput() {
         constructionDateHitbox.classList.toggle('is-empty', !constructionStartDateInput.value);
     }
 
-    // 변경: Safari에서 선택된 날짜를 placeholder와 같은 위치의 오버레이 텍스트로 표시
-    function syncConstructionDateOverlayValue() {
-        if (!constructionDateValueOverlay || !constructionStartDateInput) return;
-        const value = constructionStartDateInput.value;
-        if (!value) {
-            constructionDateValueOverlay.textContent = '';
-            return;
-        }
-        const [year, month, day] = value.split('-');
-        constructionDateValueOverlay.textContent = `${year}. ${month}. ${day}.`;
-    }
-
     syncConstructionDateHitboxEmpty();
-    syncConstructionDateOverlayValue();
     constructionStartDateInput.addEventListener('input', syncConstructionDateHitboxEmpty);
     constructionStartDateInput.addEventListener('change', syncConstructionDateHitboxEmpty);
-    constructionStartDateInput.addEventListener('input', syncConstructionDateOverlayValue);
-    constructionStartDateInput.addEventListener('change', syncConstructionDateOverlayValue);
 }
 
 function updateInput() {

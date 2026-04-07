@@ -52,8 +52,7 @@
                             aria-labelledby="construction-start-date-label">
                         <!-- 변경: Safari 전용 스타일로만 표시 — placeholder처럼 '연도.월.일' 안내 -->
                         <span class="reservation-construction__date-placeholder" aria-hidden="true">연도. 월. 일.</span>
-                        <!-- 변경: Safari에서 선택값도 placeholder와 동일 위치에 표시하기 위한 오버레이 -->
-                        <span class="reservation-construction__date-value" aria-hidden="true"></span>
+                        <!-- 변경: 날짜 이중 표시 방지 — 선택값 오버레이 제거, 입력폼 내부 네이티브 값만 표시 -->
                         <!-- 변경: Safari 등에서 네이티브 캘린더 아이콘이 안 보일 때 대비(스타일은 SCSS) -->
                         <span class="reservation-construction__date-icon" aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
