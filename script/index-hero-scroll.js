@@ -10,6 +10,10 @@
     var heroName = document.querySelector(".hero-service-name");
     var headerName = document.querySelector("header .service-name");
     var headerEl = document.querySelector("header");
+    // 변경: 첫 화면 고정 배경 이미지(.hero-service-name-container .hero-image) 참조
+    var heroBgImage = document.querySelector(".hero-service-name-container .hero-image");
+    // 변경: pricing 섹션 상단 도달 시점 감지를 위한 참조
+    var pricingSection = document.querySelector(".pricing");
     // 변경: 첫 화면 고정 배경 딤(.hero-service-name-container .hero-image .dim) 참조
     var heroBgDim = document.querySelector(".hero-service-name-container .hero-image .dim");
     if (!hero || !heroName || !headerName || !headerEl) return;
@@ -52,6 +56,8 @@
         var maxScroll = Math.max(hero.offsetHeight * 0.75, window.innerHeight * 0.45);
         // 변경: 아래로 스크롤하면 0->1, 위로 스크롤하면 1->0으로 자연 복귀
         var p = clamp01(window.scrollY / maxScroll);
+        // 변경: pricing 섹션이 상단에 닿으면 고정 배경 이미지 숨김
+        var hideHeroBgImage = pricingSection && pricingSection.getBoundingClientRect().top <= 0;
         // 변경: 요청사항 반영 — hero-service-name 진행률과 동일하게 첫 화면 딤 투명도 보간
         var dimOpacity = lerp(0, 0.6, p);
 
@@ -73,6 +79,11 @@
             if (heroBgDim) {
                 // 변경: 최상단 복귀 시 딤 원복
                 heroBgDim.style.background = "rgba(0, 0, 0, 0)";
+            }
+            if (heroBgImage) {
+                // 변경: 기본 상태는 항상 표시
+                heroBgImage.style.opacity = "1";
+                heroBgImage.style.visibility = "visible";
             }
             return;
         }
@@ -97,6 +108,12 @@
         heroName.style.opacity = "1";
         heroName.style.visibility = "visible";
         heroName.style.pointerEvents = "none";
+
+        if (heroBgImage) {
+            // 변경: pricing 섹션이 상단에 오면 고정 배경 이미지 숨김, 다시 올라가면 표시
+            heroBgImage.style.opacity = hideHeroBgImage ? "0" : "1";
+            heroBgImage.style.visibility = hideHeroBgImage ? "hidden" : "visible";
+        }
 
         if (heroBgDim) {
             // 변경: 스크롤 진행률에 맞춰 딤 농도 증가/감소
