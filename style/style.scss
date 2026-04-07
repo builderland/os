@@ -477,8 +477,33 @@ body {
         align-items: center;
         justify-content: center;
         width: 100%;
-        height: 100vh;
+        height: 90vh;
         background-color: #000;
+
+        // 변경: 첫 화면(hero-service-name-container) 배경 이미지를 비율 유지하며 화면에 꽉 차게 표시
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+            }
+
+            .dim {
+                position: absolute;
+                inset: 0;
+                // 변경: 요청사항 반영 — dim 투명도 0%
+                background: rgba(0, 0, 0, 0);
+            }
+        }
 
         // 변경: Google Sans Flex + 뷰포트 대응 큰 타이포(워터마크), 히어로 전역 중앙·히어로 콘텐츠보다 뒤(z-index)
         // 변경: 좌우 150px 패딩 안 가용 너비(100vw - 300px) 기준으로만 vw 스케일 — 전체 36vw는 패딩 밖까지 커지는 문제 방지
@@ -501,6 +526,61 @@ body {
             text-transform: uppercase;
             color: #fff;
             white-space: nowrap;
+        }
+
+        // 변경: 첫 화면 하단 스크롤 유도 화살표(위아래 움직임)
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: inline-flex;
+            // 변경: 상단+하단 이중 화살표가 세로로 쌓이도록 정렬
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            // 변경: 요청사항 반영 — 이중 화살표 간격 축소
+            gap: 1px;
+            padding: 6px;
+            cursor: pointer;
+            // 변경: 요청사항 반영 — 애니메이션 속도 느리게 조정
+            animation: scroll-indicator-float 2.2s ease-in-out infinite;
+
+            &:focus-visible {
+                outline: 2px solid rgba(255, 255, 255, 0.9);
+                outline-offset: 3px;
+            }
+
+            &__icon {
+                // 변경: 화살표를 보더 회전형에서 직선 V자 형태로 변경(더 각진 인상)
+                position: relative;
+                // 변경: 요청사항 반영 — 화살표 크기 소폭 확대
+                // 변경: 요청사항 반영 — 화살표 크기 추가 확대
+                width: 20px;
+                height: 12px;
+
+                &::before,
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    width: 11px;
+                    height: 2px;
+                    background: rgba(255, 255, 255, 0.95);
+                    transform-origin: center;
+                }
+
+                &::before {
+                    left: 0;
+                    transform: rotate(35deg);
+                }
+
+                &::after {
+                    right: 0;
+                    transform: rotate(-35deg);
+                }
+            }
         }
     }
 
@@ -626,6 +706,15 @@ body {
                 max-width: 320px;
                 padding: 16px 20px;
                 font-size: 16px;
+            }
+        }
+
+        // 변경: 모바일에서 스크롤 화살표 터치 영역/위치 조정
+        .hero-service-name-container {
+            .scroll-indicator {
+                bottom: 18px;
+                width: 48px;
+                height: 48px;
             }
         }
     }
@@ -1958,6 +2047,30 @@ body {
             }
         }
     }
+}
+
+// 변경: 스크롤 유도 화살표 애니메이션/모션 감소 대응
+@keyframes scroll-indicator-float {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(8px);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body .hero-service-name-container .scroll-indicator {
+        animation: none;
+    }
+}
+
+// 변경: 앵커 이동 시 고정 헤더에 가려지지 않도록 여백 확보
+#hero {
+    scroll-margin-top: 90px;
 }
 
 //self.html

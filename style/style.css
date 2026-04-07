@@ -367,8 +367,30 @@ body .hero-service-name-container {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   background-color: #000;
+}
+body .hero-service-name-container .hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+body .hero-service-name-container .hero-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  display: block;
+}
+body .hero-service-name-container .hero-image .dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
 }
 body .hero-service-name-container .hero-service-name {
   position: absolute;
@@ -389,6 +411,47 @@ body .hero-service-name-container .hero-service-name {
   text-transform: uppercase;
   color: #fff;
   white-space: nowrap;
+}
+body .hero-service-name-container .scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px;
+  cursor: pointer;
+  animation: scroll-indicator-float 2.2s ease-in-out infinite;
+}
+body .hero-service-name-container .scroll-indicator:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+}
+body .hero-service-name-container .scroll-indicator__icon {
+  position: relative;
+  width: 20px;
+  height: 12px;
+}
+body .hero-service-name-container .scroll-indicator__icon::before, body .hero-service-name-container .scroll-indicator__icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 11px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.95);
+  transform-origin: center;
+}
+body .hero-service-name-container .scroll-indicator__icon::before {
+  left: 0;
+  transform: rotate(35deg);
+}
+body .hero-service-name-container .scroll-indicator__icon::after {
+  right: 0;
+  transform: rotate(-35deg);
 }
 body .hero {
   position: relative;
@@ -493,6 +556,11 @@ body .hero .hero-image .dim {
     max-width: 320px;
     padding: 16px 20px;
     font-size: 16px;
+  }
+  body .hero-service-name-container .scroll-indicator {
+    bottom: 18px;
+    width: 48px;
+    height: 48px;
   }
 }
 body .problem {
@@ -1571,6 +1639,26 @@ body .corevalue .content .list-items .body {
   body .corevalue .content .list-items .body {
     font-size: 15px;
   }
+}
+
+@keyframes scroll-indicator-float {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .hero-service-name-container .scroll-indicator {
+    animation: none;
+  }
+}
+#hero {
+  scroll-margin-top: 90px;
 }
 
 body .self-head {

@@ -23,9 +23,14 @@
     <section>
         <div class="hero-service-name-container">
             <span class="hero-service-name">MMMH</span>
+            <!-- 변경: 첫 화면 하단 스크롤 유도 화살표(클릭 시 다음 섹션으로 이동) -->
+            <a class="scroll-indicator" href="#hero" aria-label="아래로 스크롤">
+                <span class="scroll-indicator__icon" aria-hidden="true"></span>
+            </a>
         </div>
     </section>
-    <section class="hero">
+    <!-- 변경: 스크롤 유도 화살표의 이동 대상 앵커 -->
+    <section class="hero" id="hero">
         <div class="hero-image">
             <img src="assets/images/hero_img.png" alt="hero-image">
             <div class="dim"></div>
