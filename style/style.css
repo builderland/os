@@ -769,19 +769,19 @@ body .problem-card__tags-inner span {
   /* 전체 카드 x값을 오른쪽으로 40px 이동 */
 }
 body .problem-card__tags-inner span:nth-child(1) {
-  transform: translate(-50%, -50%) translate(-50px, -60px) rotate(-5deg);
+  transform: translate(-50%, -50%) translate(-55px, -60px) rotate(-5deg);
 }
 body .problem-card__tags-inner span:nth-child(2) {
   transform: translate(-50%, -50%) translate(90px, -75px) rotate(10deg);
 }
 body .problem-card__tags-inner span:nth-child(3) {
-  transform: translate(-50%, -50%) translate(-30px, -5px) rotate(-5deg);
+  transform: translate(-50%, -50%) translate(-40px, -5px) rotate(-5deg);
 }
 body .problem-card__tags-inner span:nth-child(4) {
   transform: translate(-50%, -50%) translate(120px, -15px) rotate(10deg);
 }
 body .problem-card__tags-inner span:nth-child(5) {
-  transform: translate(-50%, -50%) translate(-105px, 54px) rotate(0deg);
+  transform: translate(-50%, -50%) translate(-105px, 56px) rotate(0deg);
 }
 body .problem-card__tags-inner span:nth-child(6) {
   transform: translate(-50%, -50%) translate(40px, 50px) rotate(-8deg);
