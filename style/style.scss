@@ -4266,8 +4266,8 @@ body {
 
             // 변경: index 전용 섹션 배경도 동일하게 제거
             &.action--index {
-                // 변경: index 전용 action 배경도 모바일에서 #F9F8F4로 통일
-                background-color: #F9F8F4;
+                // 변경: 모바일에서도 index 전용 action 배경을 데스크톱과 동일하게 유지
+                background-color: #f3f3f3;
             }
 
             .action-container {
