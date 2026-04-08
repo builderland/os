@@ -769,7 +769,7 @@ body .problem-card__tags-inner span {
   /* 전체 카드 x값을 오른쪽으로 40px 이동 */
 }
 body .problem-card__tags-inner span:nth-child(1) {
-  transform: translate(-50%, -50%) translate(-55px, -60px) rotate(-5deg);
+  transform: translate(-50%, -50%) translate(-60px, -60px) rotate(-5deg);
 }
 body .problem-card__tags-inner span:nth-child(2) {
   transform: translate(-50%, -50%) translate(90px, -75px) rotate(10deg);
