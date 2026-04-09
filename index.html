@@ -9,7 +9,8 @@
     <!-- 변경: Google Sans Flex(히어로 .hero-service-name) 로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..900&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
@@ -18,7 +19,9 @@
 <body class="page-index">
     <header>
         <a href="index.html" class="service-name">MMMH</a>
-        <button>문의하기</button>
+        <button onclick="ChannelIO('showMessenger')">
+            문의하기
+        </button>
     </header>
     <section>
         <div class="hero-service-name-container">
@@ -626,6 +629,46 @@
     </section>
     <!-- 변경: 히어로 타이틀 → 헤더 로고 위치 스크롤 연동 -->
     <script src="script/index-hero-scroll.js" defer></script>
+    <!-- 채널톡 -->
+    <script>
+        (function () {
+            var w = window;
+            if (w.ChannelIO) {
+                return w.console.error("ChannelIO script included twice.");
+            }
+            var ch = function () { ch.c(arguments); };
+            ch.q = [];
+            ch.c = function (args) { ch.q.push(args); };
+            w.ChannelIO = ch;
+
+            function l() {
+                if (w.ChannelIOInitialized) { return; }
+                w.ChannelIOInitialized = true;
+
+                var s = document.createElement("script");
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+
+                var x = document.getElementsByTagName("script")[0];
+                if (x.parentNode) {
+                    x.parentNode.insertBefore(s, x);
+                }
+            }
+
+            if (document.readyState === "complete") {
+                l();
+            } else {
+                w.addEventListener("DOMContentLoaded", l);
+                w.addEventListener("load", l);
+            }
+        })();
+
+        ChannelIO('boot', {
+            pluginKey: "1bc68edb-9418-4735-a798-0fee5f1427dd",
+            hideChannelButtonOnBoot: true
+        });
+    </script>
 </body>
 
 </html>
