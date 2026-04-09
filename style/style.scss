@@ -3416,22 +3416,14 @@ body {
                     max-width: 100%;
                 }
 
-                // 변경: 네이티브 아이콘은 숨기고(이중 표시 방지)·클릭 영역은 유지 — 커스텀 SVG만 보이게
+                // 변경: opacity만으로는 Chromium/Safari 등에서 네이티브 달력이 겹쳐 보이는 경우가 있어 완전 비표시 — 커스텀 SVG 1개만 표시(픽커는 .date-hitbox 클릭 + showPicker)
                 &::-webkit-calendar-picker-indicator {
-                    cursor: pointer;
-                    opacity: 0;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    width: 52px;
-                    height: 100%;
-                    margin: 0;
-                    padding: 0;
+                    display: none;
                 }
 
-                // 변경: Firefox 네이티브 아이콘도 숨김(커스텀 SVG만 표시)
+                // 변경: Firefox 네이티브 달력 아이콘 비표시(커스텀 SVG만)
                 &::-moz-calendar-picker-indicator {
-                    opacity: 0;
+                    display: none;
                 }
             }
         }
@@ -3858,21 +3850,13 @@ body {
                         margin: 0;
                     }
 
-                    // 변경: 모바일도 네이티브 달력 아이콘 숨김 — PC와 같이 커스텀 SVG 1개만 보이게(이전 opacity:1 이중 표시 제거)
+                    // 변경: 모바일도 네이티브 달력 아이콘 완전 비표시 — PC와 동일하게 커스텀 SVG 1개만
                     &::-webkit-calendar-picker-indicator {
-                        cursor: pointer;
-                        opacity: 0;
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        width: 48px;
-                        height: 100%;
-                        margin: 0;
-                        padding: 0;
+                        display: none;
                     }
 
                     &::-moz-calendar-picker-indicator {
-                        opacity: 0;
+                        display: none;
                     }
                 }
 
