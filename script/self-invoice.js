@@ -410,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const topScopeRadios     = rangeRoot.querySelectorAll('.range-top-cards input[type="radio"]');
         const detailOptionWrap   = rangeRoot.querySelector('.self-form-item-option');
         const detailOptionChecks = rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]');
+        let previousTopScopeChecked = null;
 
         const toggleDetailOptionByTopScope = () => {
             const selected = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
@@ -424,7 +425,26 @@ document.addEventListener('DOMContentLoaded', () => {
             autoCalc();
         };
 
-        topScopeRadios.forEach(r => r.addEventListener('change', toggleDetailOptionByTopScope));
+        // 변경: 라디오/라벨 클릭 전에 현재 선택된 공사 범위를 기억
+        rangeRoot.addEventListener('pointerdown', () => {
+            previousTopScopeChecked = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
+        }, true);
+
+        topScopeRadios.forEach(r => {
+            // 변경: 이미 선택된 라디오를 다시 클릭하면 해제되도록 처리
+            r.addEventListener('click', () => {
+                if (previousTopScopeChecked === r) {
+                    r.checked = false;
+                    previousTopScopeChecked = null;
+                    toggleDetailOptionByTopScope();
+                }
+            });
+
+            r.addEventListener('change', () => {
+                previousTopScopeChecked = r;
+                toggleDetailOptionByTopScope();
+            });
+        });
         detailOptionChecks.forEach(cb => cb.addEventListener('change', autoCalc));
 
         // 초기 상태 동기화
