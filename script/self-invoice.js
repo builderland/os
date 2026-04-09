@@ -182,7 +182,8 @@ function buildPayload(options = { showAlert: false }) {
     const gradeVal  = gradeSelectEl?.value;
 
     if (!typeVal || !sizeVal || !gradeVal) {
-        if (showAlert) alert('공간 유형, 면적, 마감재 등급을 모두 선택해주세요.');
+        // 변경: 필수 선택 안내 문구를 통합 표현으로 수정
+        if (showAlert) alert('필수 항목을 모두 선택해주세요.');
         return null;
     }
 
@@ -194,12 +195,37 @@ function buildPayload(options = { showAlert: false }) {
 
     const grade = gradeMap[gradeVal];
 
+    // ── 선택공사 수집 (라디오 체크 전에 먼저 수집) ──────────────
+    const extra_works = [];
+    if (optionalCheckboxes) {
+        for (const cb of optionalCheckboxes) {
+            if (cb.checked) {
+                const mapped = extraMap[cb.value];
+                if (mapped) extra_works.push(mapped);
+            }
+        }
+    }
+
     // ── 공사 범위 수집 ───────────────────────────────────────
     const rangeRoot = document.getElementById('self-form-range');
     if (!rangeRoot) return null;
 
     const topScopeRadio = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
+
+    // 라디오 미선택이어도 선택공사만 있으면 계산 진행
     if (!topScopeRadio) {
+        if (extra_works.length > 0) {
+            return {
+                invoice_no:        invoiceEl ? invoiceEl.textContent : '',
+                space_type:        typeMap[typeVal],
+                area_py:           areaPy,
+                grade,
+                construction_type: '부분',
+                scope:             [],
+                extra_works,
+                bathroom_count:    0,
+            };
+        }
         if (showAlert) alert('공사 범위(전체/부분)를 선택해주세요.');
         return null;
     }
@@ -212,8 +238,10 @@ function buildPayload(options = { showAlert: false }) {
             rangeRoot.querySelectorAll('.option-grid input[type="checkbox"]:checked')
         ).map(cb => cb.value);
 
-        if (checkedDetails.length === 0) {
-            if (showAlert) alert('공사 항목을 1개 이상 선택해주세요.');
+        // 공사 항목도 없고 선택공사도 없으면 중단
+        if (checkedDetails.length === 0 && extra_works.length === 0) {
+            // 변경: 부분공사 선택 안내 문구를 2개 이상 기준으로 통일
+            if (showAlert) alert('부분 공사는 하위 항목을 2개 이상 선택해주세요.');
             return null;
         }
 
@@ -224,17 +252,6 @@ function buildPayload(options = { showAlert: false }) {
         });
 
         scope = [...new Set(scope)];
-    }
-
-    // ── 선택공사 수집 ────────────────────────────────────────
-    const extra_works = [];
-    if (optionalCheckboxes) {
-        for (const cb of optionalCheckboxes) {
-            if (cb.checked) {
-                const mapped = extraMap[cb.value];
-                if (mapped) extra_works.push(mapped);
-            }
-        }
     }
 
     // 욕실 개수
@@ -335,7 +352,6 @@ function saveEstimateToSessionAndNavigate() {
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 캐싱
     globalInvoiceEl       = document.querySelector('.estimate-card__invoice');
-    const actionButton    = document.querySelector('.action-cta');
     estimateRangeEl       = document.querySelector('.estimate-card__range');
     mobileEstimateRangeEl = document.querySelector('.self-mobile-total-bar__range');
     estimateTableBody     = document.querySelector('.estimate-table tbody');
@@ -417,13 +433,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 버튼 클릭 핸들러
     const handleClick = async () => {
-        if (!lastPayload || !lastEstimate) {
-            alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
+        // 변경: 버튼 클릭 시점에 필수값 검증 알림이 반드시 뜨도록 재검증
+        const payload = buildPayload({ showAlert: true });
+        if (!payload) return;
+
+        // 변경: 공사 범위를 직접 선택하지 않은 경우 범위 선택 알림을 우선 노출
+        const selectedTopScope = document.querySelector('#self-form-range .range-top-cards input[type="radio"]:checked');
+        if (!selectedTopScope) {
+            alert('공사 범위(전체/부분)를 선택해주세요.');
             return;
         }
 
+        // 변경: 자동 계산이 아직 끝나지 않았거나 최신 상태가 아니면 즉시 재계산
+        const isSamePayload = JSON.stringify(lastPayload) === JSON.stringify(payload);
+        if (!lastEstimate || !isSamePayload) {
+            try {
+                await calculateAndRender(payload, { useButtonLoading: true, useOverlayLoading: true });
+            } catch (e) {
+                alert(e?.message || '견적 계산 중 오류가 발생했습니다.');
+                return;
+            }
+        }
+
         // 부분공사 시 하위 항목 2개 이상 선택 검증
-        if (lastPayload.construction_type === '부분') {
+        if (payload.construction_type === '부분') {
             const checkedDetailCount = document.querySelectorAll(
                 '#self-form-range .option-grid input[type="checkbox"]:checked'
             ).length;
