@@ -57,7 +57,7 @@ body header .service-name {
   text-decoration: none;
 }
 body header button {
-  background-color: #000;
+  background-color: transparent;
   color: #fff;
   border: none;
   padding: 14px 20px;
