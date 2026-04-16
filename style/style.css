@@ -3434,6 +3434,9 @@ body .action .action-container .action-cta span {
 body .action .action-container .action-cta--index {
   background-color: #EA591A;
 }
+body .action .action-container .action-cta--self {
+  background-color: #EA591A;
+}
 @media (max-width: 767px) {
   body .action {
     background-color: #F9F8F4;
