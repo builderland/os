@@ -57,6 +57,7 @@ body header .service-name {
   text-decoration: none;
 }
 body header button {
+  display: none;
   background-color: transparent;
   color: #000;
   border: none;

@@ -59,8 +59,7 @@
 <body class="self-page">
     <header>
         <a href="index.html" class="service-name">MMMH</a>
-        <!-- 변경: 문의하기 → 채널톡 메신저 (index.html과 동일) -->
-        <button onclick="ChannelIO('showMessenger')">문의하기</button>
+        <!-- 변경: 문의하기 버튼을 Contact 영역으로 이동 -->
     </header>
     <section class="self-head">
         <h1>셀프 견적</h1>
@@ -333,8 +332,10 @@
             </ul>
             <ul class="list-items">
                 <li class="info-title">Contact</li>
+                <!-- 변경: 헤더의 문의하기 버튼을 Contact 영역으로 이동 -->
+                <li class="info-item"><a href="javascript:ChannelIO('showMessenger')">문의하기</a></li>
                 <!-- 변경: 제휴 문의 클릭 시 help@abland.kr 메일 작성 화면으로 연결 -->
-                <li class="info-item"><a href="mailto:help@abland.kr">제휴 문의</a></li>
+                <li class="info-item"><a href="mailto:help@abland.kr">제휴문의</a></li>
             </ul>
         </div>
     </section>
