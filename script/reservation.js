@@ -23,6 +23,8 @@ const nextMonthBtn = document.getElementById('next-month');
 let simulatedToday = new Date();
 simulatedToday.setHours(0, 0, 0, 0); // 시간 비교를 정확히 하기 위해 0시로 초기화
 let viewDate = new Date(simulatedToday.getFullYear(), simulatedToday.getMonth(), 1);
+// 변경: 예약 달력은 현재 달 + 다음 달까지만 이동 가능하도록 최대 조회 월을 고정
+const maxViewDate = new Date(simulatedToday.getFullYear(), simulatedToday.getMonth() + 1, 1);
 let selectedDate = null; // 초기 선택된 날짜 없음
 // 시간 선택 상태를 저장하기 위한 변수
 let selectedTime = null;
@@ -182,6 +184,14 @@ function renderCalendar() {
             prevMonthBtn.disabled = false;
         }
     }
+
+    // 변경: 다음 달 이동 버튼은 최대 조회 월(현재 달 + 다음 달)에서 비활성화
+    if (nextMonthBtn) {
+        const isMaxMonth =
+            viewDate.getFullYear() === maxViewDate.getFullYear() &&
+            viewDate.getMonth() === maxViewDate.getMonth();
+        nextMonthBtn.disabled = isMaxMonth;
+    }
 }
 
 // 변경: 이전/다음 달 이동 버튼도 캐싱된 요소를 사용하여 DOM 탐색 최소화
@@ -195,6 +205,11 @@ if (prevMonthBtn) {
 
 if (nextMonthBtn) {
     nextMonthBtn.addEventListener('click', () => {
+        // 변경: 다음 달 초과 이동 방지(버튼 상태 외 우회 클릭 방지)
+        const isMaxMonth =
+            viewDate.getFullYear() === maxViewDate.getFullYear() &&
+            viewDate.getMonth() === maxViewDate.getMonth();
+        if (isMaxMonth) return;
         viewDate.setMonth(viewDate.getMonth() + 1);
         renderCalendar();
     });
