@@ -11,9 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
     <!-- 변경: Vercel Analytics 수집 스크립트 -->
     <script defer src="/_vercel/insights/script.js"></script>
+    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
+    <script defer src="script/tracking.js"></script>
 </head>
 
 <body class="reservation-page">
+    <!-- 변경: Meta Pixel — JS 비활성 시 PageView(공식 noscript) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=957125517307149&ev=PageView&noscript=1" alt="" /></noscript>
     <header>
         <a href="index.html" class="service-name">MMMH</a>
         <!-- 변경: 문의하기 → 채널톡 메신저 (index.html과 동일) -->
@@ -226,6 +230,33 @@
             hideChannelButtonOnBoot: true
         });
     </script>
+    <script>
+        // 예약 폼 제출 추적 (핵심 전환!)
+        document.addEventListener('DOMContentLoaded', function() {
+          const reservationForm = document.getElementById('reservation-form');
+        
+          if (reservationForm) {
+            reservationForm.addEventListener('submit', function(e) {
+              // 메타 픽셀 리드 이벤트
+              if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                  content_name: 'Reservation_Submit',
+                  value: 1.00,
+                  currency: 'KRW'
+                });
+              }
+        
+              // GA4 이벤트
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'generate_lead', {
+                  'method': 'reservation_form',
+                  'value': 1
+                });
+              }
+            });
+          }
+        });
+        </script>
 </body>
 
 </html>

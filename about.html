@@ -11,9 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
     <!-- 변경: Vercel Analytics 수집 스크립트 -->
     <script defer src="/_vercel/insights/script.js"></script>
+    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
+    <script defer src="script/tracking.js"></script>
 </head>
 
 <body class="about-page">
+    <!-- 변경: Meta Pixel — JS 비활성 시 PageView(공식 noscript) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=957125517307149&ev=PageView&noscript=1" alt="" /></noscript>
     <header>
         <a href="index.html" class="service-name">MMMH</a>
         <!-- 변경: 문의하기 → 채널톡 메신저 (index.html과 동일) -->
