@@ -152,12 +152,12 @@ function renderCalendar() {
                 selectedDate = new Date(year, month, i);
                 updateInput();
                 renderCalendar();
-                // 날짜 선택 시 모든 시간 버튼을 우선 활성화하고, 해당 날짜의 예약된 시간을 다시 불러와 비활성화 처리
+                // 변경: 날짜 선택 시 시간 선택만 초기화 — 활성/비활성은 상시 막는 시간(11·16)·DB 예약을 sync에서 처리
                 const currentDateValue = dateInput.value;
                 timeButtons.forEach((button) => {
-                    button.disabled = false;
                     button.classList.remove('is-active');
                 });
+                selectedTime = null;
                 await loadReservedTimesForDate(currentDateValue);
             }
         });
@@ -218,6 +218,29 @@ if (nextMonthBtn) {
 // 시간 선택 버튼 클릭 시 선택 상태 및 selectedTime을 관리하는 로직
 const timeButtons = document.querySelectorAll('.time-group button[data-time]');
 
+// 변경: 11:00·16:00 — 예약 폼에서 선택 불가(버튼 disabled만 적용, 제출 검증은 추가하지 않음)
+const SELECTION_CLOSED_TIMES = new Set(['11:00', '16:00']);
+
+// 변경: false — 같은 날짜·시간에 DB 예약이 있어도 시간 선택 가능(중복 예약 허용 UI). true — 슬롯 중복 불가(기존 동작).
+const ENFORCE_UNIQUE_SLOT = false;
+
+/** 변경: 상시 선택 불가 시간 + (옵션) 해당 일자 DB 예약 시간을 반영해 시간 버튼 disabled 동기화 */
+function syncTimeButtonsWithReserved(reservedTimesSet) {
+    const reserved = reservedTimesSet instanceof Set ? reservedTimesSet : new Set();
+    timeButtons.forEach((button) => {
+        const buttonTime = button.dataset.time;
+        const slotTakenInDb = ENFORCE_UNIQUE_SLOT && reserved.has(buttonTime);
+        const unavailable = SELECTION_CLOSED_TIMES.has(buttonTime) || slotTakenInDb;
+        button.disabled = unavailable;
+        if (unavailable) {
+            button.classList.remove('is-active');
+            if (selectedTime === buttonTime) {
+                selectedTime = null;
+            }
+        }
+    });
+}
+
 // 날짜가 선택되기 전에는 시간 버튼을 비활성화하기 위한 초기 설정
 timeButtons.forEach((button) => {
     button.disabled = true;
@@ -243,19 +266,17 @@ const phoneInput = document.querySelector('input[name="phone"]');
 async function loadReservedTimesForDate(date) {
     if (!date) return;
 
+    // 변경: ENFORCE_UNIQUE_SLOT이 false면 DB 예약 조회 없이 상시 막는 시간(11·16)만 반영
+    if (!ENFORCE_UNIQUE_SLOT) {
+        lastLoadedDate = date;
+        lastReservedTimes = new Set();
+        syncTimeButtonsWithReserved(new Set());
+        return;
+    }
+
     // 변경: 같은 날짜를 다시 선택할 경우 캐싱된 결과를 재사용하여 불필요한 네트워크 호출 방지
     if (lastLoadedDate === date && lastReservedTimes) {
-        timeButtons.forEach((button) => {
-            const buttonTime = button.dataset.time;
-            const isReserved = lastReservedTimes.has(buttonTime);
-            button.disabled = isReserved;
-            if (isReserved) {
-                button.classList.remove('is-active');
-                if (selectedTime === buttonTime) {
-                    selectedTime = null;
-                }
-            }
-        });
+        syncTimeButtonsWithReserved(lastReservedTimes);
         return;
     }
 
@@ -267,6 +288,8 @@ async function loadReservedTimesForDate(date) {
 
         if (error) {
             console.error('예약 시간 조회 오류:', error);
+            // 변경: 조회 실패 시에도 11·16 선택 불가·14:00 등은 동기화해 사용자가 시간 선택 가능하도록
+            syncTimeButtonsWithReserved(new Set());
             return;
         }
 
@@ -276,18 +299,11 @@ async function loadReservedTimesForDate(date) {
         lastLoadedDate = date;
         lastReservedTimes = reservedTimes;
 
-        timeButtons.forEach((button) => {
-            const buttonTime = button.dataset.time;
-            if (reservedTimes.has(buttonTime)) {
-                button.disabled = true;
-                button.classList.remove('is-active');
-                if (selectedTime === buttonTime) {
-                    selectedTime = null;
-                }
-            }
-        });
+        syncTimeButtonsWithReserved(reservedTimes);
     } catch (err) {
         console.error('예약 시간 조회 예외:', err);
+        // 변경: 예외 시에도 상시 막는 시간대 반영
+        syncTimeButtonsWithReserved(new Set());
     }
 }
 
