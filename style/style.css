@@ -393,7 +393,8 @@ body .hero-service-name-container {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 body .hero-service-name-container .hero-image {
   position: fixed;
@@ -612,6 +613,7 @@ body .hero .hero-image .dim {
     white-space: nowrap;
   }
   body .hero-service-name-container {
+    min-height: 100vh;
     min-height: 100dvh;
   }
   body .hero-service-name-container .hero-service-name {

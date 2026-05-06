@@ -20,6 +20,10 @@
 
     var cachedStart = null;
     var ticking = false;
+    // 변경: 스크롤 중 불필요한 style 재적용을 줄이기 위한 상태 캐시
+    var isHeroNameFixed = false;
+    // 변경: 배경 이미지 숨김 상태가 바뀔 때만 opacity를 갱신
+    var lastHeroBgHidden = null;
 
     /** 스크롤이 맨 위일 때만 시작 중심·폰트 크기 캐시 */
     function refreshStartIfAtTop() {
@@ -56,8 +60,8 @@
         var maxScroll = Math.max(hero.offsetHeight * 0.75, window.innerHeight * 0.45);
         // 변경: 아래로 스크롤하면 0->1, 위로 스크롤하면 1->0으로 자연 복귀
         var p = clamp01(window.scrollY / maxScroll);
-        // 변경: pricing 섹션이 상단에 닿으면 고정 배경 이미지 숨김
-        var hideHeroBgImage = pricingSection && pricingSection.getBoundingClientRect().top <= 0;
+        // 변경: pricing 경계에서 급격한 토글을 줄이기 위해 완충 구간(24px) 적용
+        var hideHeroBgImage = pricingSection && pricingSection.getBoundingClientRect().top <= -24;
         // 변경: 요청사항 반영 — hero-service-name 진행률과 동일하게 첫 화면 딤 투명도 보간
         var dimOpacity = lerp(0, 0.6, p);
 
@@ -74,45 +78,56 @@
 
         // 변경: 진행률이 거의 0이면 원래 상태로 복귀
         if (p < 0.01) {
-            heroName.removeAttribute("style");
-            heroName.classList.remove("hero-service-name--fixed");
+            if (isHeroNameFixed) {
+                heroName.removeAttribute("style");
+                heroName.classList.remove("hero-service-name--fixed");
+                isHeroNameFixed = false;
+            }
             if (heroBgDim) {
                 // 변경: 최상단 복귀 시 딤 원복
                 heroBgDim.style.background = "rgba(0, 0, 0, 0)";
             }
             if (heroBgImage) {
-                // 변경: 기본 상태는 항상 표시
+                // 변경: 기본 상태는 항상 표시(visibility 토글 제거로 레이아웃 변동 최소화)
                 heroBgImage.style.opacity = "1";
-                heroBgImage.style.visibility = "visible";
+                lastHeroBgHidden = false;
             }
             return;
         }
 
         if (!start) return;
 
-        heroName.classList.add("hero-service-name--fixed");
+        if (!isHeroNameFixed) {
+            heroName.classList.add("hero-service-name--fixed");
+            // 변경: fixed 진입 시 시작점만 1회 배치하고 이후에는 transform으로만 보간
+            heroName.style.position = "fixed";
+            heroName.style.left = start.cx + "px";
+            heroName.style.top = start.cy + "px";
+            heroName.style.transformOrigin = "center center";
+            heroName.style.willChange = "transform, opacity";
+            heroName.style.color = "";
+            // 변경: hero-service-name을 최상단 레이어로 올림
+            heroName.style.zIndex = "10000";
+            heroName.style.opacity = "1";
+            heroName.style.visibility = "visible";
+            heroName.style.pointerEvents = "none";
+            isHeroNameFixed = true;
+        }
 
-        var cx = lerp(start.cx, endCx, p);
-        var cy = lerp(start.cy, endCy, p);
-        var fs = lerp(start.fontSize, endFs, p);
+        var tx = lerp(0, endCx - start.cx, p);
+        var ty = lerp(0, endCy - start.cy, p);
+        var safeStartFont = Math.max(start.fontSize, 1);
+        var scale = lerp(1, endFs / safeStartFont, p);
 
-        // 변경: 스크롤 방향과 무관하게 동일 보간으로 위치/크기 갱신
-        heroName.style.position = "fixed";
-        heroName.style.left = cx + "px";
-        heroName.style.top = cy + "px";
-        heroName.style.transform = "translate(-50%, -50%)";
-        heroName.style.fontSize = fs + "px";
-        heroName.style.color = "";
-        // 변경: hero-service-name을 최상단 레이어로 올림
-        heroName.style.zIndex = "10000";
-        heroName.style.opacity = "1";
-        heroName.style.visibility = "visible";
-        heroName.style.pointerEvents = "none";
+        // 변경: left/top/font-size 대신 transform 기반으로만 업데이트해 리플로우 부담 완화
+        heroName.style.transform = "translate(-50%, -50%) translate(" + tx.toFixed(2) + "px, " + ty.toFixed(2) + "px) scale(" + scale.toFixed(4) + ")";
 
         if (heroBgImage) {
-            // 변경: pricing 섹션이 상단에 오면 고정 배경 이미지 숨김, 다시 올라가면 표시
-            heroBgImage.style.opacity = hideHeroBgImage ? "0" : "1";
-            heroBgImage.style.visibility = hideHeroBgImage ? "hidden" : "visible";
+            // 변경: 상태가 바뀔 때만 opacity 갱신해 페인트 빈도 최소화
+            if (lastHeroBgHidden !== hideHeroBgImage) {
+                heroBgImage.style.opacity = hideHeroBgImage ? "0" : "1";
+                lastHeroBgHidden = hideHeroBgImage;
+            }
         }
 
         if (heroBgDim) {
