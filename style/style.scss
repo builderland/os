@@ -767,9 +767,8 @@ body {
                 max-width: 440px;
 
                 .hero-content-title {
-                    // 변경: 작은 폭에서도 문장이 안정적으로 보이도록 clamp 타이포 적용
-                    // 변경: 요청사항 반영 — 모바일 히어로 타이틀 폰트 크기 소폭 축소
-                    font-size: clamp(16px, 4.2vw, 18px);
+                    // 변경: 모바일 히어로 타이틀 폰트 크기를 14px로 고정
+                    font-size: 14px;
                     line-height: 1.45;
                     letter-spacing: -0.015em;
                     word-break: keep-all;
@@ -783,11 +782,12 @@ body {
 
             .hero-button {
                 width: 100%;
-                max-width: 320px;
-                min-height: 52px;
-                padding: 0 20px;
+                // 변경: 모바일 hero-button 과도한 크기 체감 완화(중간 축소)
+                max-width: 280px;
+                min-height: 44px;
+                padding: 0 16px;
                 // 변경: 요청사항 반영 — 모바일 CTA 문구 폰트 크기 소폭 축소
-                font-size: 15px;
+                font-size: 14px;
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;
@@ -1056,13 +1056,14 @@ body {
         .problem {
             // 변경: 요청사항 반영 — 모바일에서 problem 헤더 타이포 소폭 축소
             &__title {
-                font-size: clamp(22px, 4.1vw, 26px);
+                // 변경: 모바일 h2.problem__title 폰트 하한을 20px으로 추가 조정
+                font-size: clamp(20px, 4.1vw, 26px);
             }
 
             // 변경: 요청사항 반영 — 모바일에서 problem 설명문 타이포 소폭 축소
             &__desc {
-                // 변경: 요청사항 반영 — 모바일 problem 설명문 폰트 크기 추가 소폭 축소
-                font-size: 14px;
+                // 변경: 요청사항 반영 — 모바일 problem 설명문 폰트 크기를 13px로 추가 소폭 축소
+                font-size: 13px;
                 line-height: 1.45;
             }
 
@@ -1238,13 +1239,15 @@ body {
             }
 
             &__title {
-                font-size: 26px;
+                // 변경: 모바일 how__title 폰트 크기를 24px로 조정
+                font-size: 24px;
             }
 
             // 변경: 모바일에서 설명 문구(how__desc) 텍스트 크기·줄간격 조정 가능
             &__desc {
                 margin-top: 24px;
-                font-size: 14px;
+                // 변경: 모바일 where how__desc 폰트 하한 조정(13px)
+                font-size: 13px;
                 line-height: 1.55;
             }
         }
@@ -1507,7 +1510,8 @@ body {
                 }
 
                 &-main {
-                    font-size: 20px;
+                    // 변경: 모바일 process header-main 폰트 크기를 24px로 조정
+                    font-size: 24px;
                 }
             }
 
@@ -1942,7 +1946,8 @@ body {
                 }
 
                 h1 {
-                    font-size: 26px;
+                    // 변경: 모바일 pricing 헤더 h1 폰트 크기를 24px로 조정
+                    font-size: 24px;
                     line-height: 1.35;
                 }
             }

@@ -591,7 +591,7 @@ body .hero .hero-image .dim {
     max-width: 440px;
   }
   body .hero .hero-content-text .hero-content-title {
-    font-size: clamp(16px, 4.2vw, 18px);
+    font-size: 14px;
     line-height: 1.45;
     letter-spacing: -0.015em;
     word-break: keep-all;
@@ -602,10 +602,10 @@ body .hero .hero-image .dim {
   }
   body .hero .hero-button {
     width: 100%;
-    max-width: 320px;
-    min-height: 52px;
-    padding: 0 20px;
-    font-size: 15px;
+    max-width: 280px;
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 14px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -826,10 +826,10 @@ body {
     margin: 0 auto;
   }
   body .problem__title {
-    font-size: clamp(22px, 4.1vw, 26px);
+    font-size: clamp(20px, 4.1vw, 26px);
   }
   body .problem__desc {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.45;
   }
   body .problem__grid {
@@ -961,11 +961,11 @@ body .how-card__text {
     grid-template-columns: 1fr;
   }
   body .how__title {
-    font-size: 26px;
+    font-size: 24px;
   }
   body .how__desc {
     margin-top: 24px;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.55;
   }
 }
@@ -1186,7 +1186,7 @@ body .process-wrapper .post-phase .payment-text {
     margin-bottom: 8px;
   }
   body .process-wrapper .header-main {
-    font-size: 20px;
+    font-size: 24px;
   }
   body .process-wrapper .bracket-container {
     height: 28px;
@@ -1534,7 +1534,7 @@ body .pricing .pricing-info-container .pricing-info-content {
     font-size: 12px;
   }
   body .pricing .pricing-header h1 {
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.35;
   }
   body .pricing .pricing-container {

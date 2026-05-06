@@ -28,6 +28,21 @@ const extraMap = {
     'bathroom': '시스템에어컨',
 };
 
+// Edge Function scope → 저장용 scope 역변환
+// (필름_문문틀/창호/몰딩/주방가구 → 필름, 현관타일/바닥타일 → 타일 하나로 통합)
+function normalizeScope(scope) {
+    const filmScopes = ['필름_문문틀', '필름_창호', '필름_몰딩', '필름_주방가구'];
+    const tileScopes = ['현관타일', '바닥타일'];
+
+    const hasFilm = filmScopes.some(s => scope.includes(s));
+    const hasTile = tileScopes.some(s => scope.includes(s));
+
+    let result = scope.filter(s => !filmScopes.includes(s) && !tileScopes.includes(s));
+    if (hasFilm) result.push('필름');
+    if (hasTile) result.push('타일');
+    return result;
+}
+
 // 인보이스 번호 생성: MMDD + XXXX(당일 순번) + RRR(랜덤 영숫자)
 function generateInvoiceNumber() {
     const now = new Date();
@@ -182,7 +197,6 @@ function buildPayload(options = { showAlert: false }) {
     const gradeVal  = gradeSelectEl?.value;
 
     if (!typeVal || !sizeVal || !gradeVal) {
-        // 변경: 필수 선택 안내 문구를 통합 표현으로 수정
         if (showAlert) alert('필수 항목을 모두 선택해주세요.');
         return null;
     }
@@ -240,7 +254,6 @@ function buildPayload(options = { showAlert: false }) {
 
         // 공사 항목도 없고 선택공사도 없으면 중단
         if (checkedDetails.length === 0 && extra_works.length === 0) {
-            // 변경: 부분공사 선택 안내 문구를 2개 이상 기준으로 통일
             if (showAlert) alert('부분 공사는 하위 항목을 2개 이상 선택해주세요.');
             return null;
         }
@@ -328,7 +341,7 @@ function saveEstimateToSessionAndNavigate() {
         area_py:           lastPayload.area_py,
         grade:             lastPayload.grade,
         construction_type: lastPayload.construction_type,
-        scope:             lastPayload.scope,
+        scope:             normalizeScope(lastPayload.scope),  // 필름 → 하나로 통합
         extra_works:       lastPayload.extra_works,
         bathroom_count:    lastPayload.bathroom_count,
     };
@@ -425,13 +438,11 @@ document.addEventListener('DOMContentLoaded', () => {
             autoCalc();
         };
 
-        // 변경: 라디오/라벨 클릭 전에 현재 선택된 공사 범위를 기억
         rangeRoot.addEventListener('pointerdown', () => {
             previousTopScopeChecked = rangeRoot.querySelector('.range-top-cards input[type="radio"]:checked');
         }, true);
 
         topScopeRadios.forEach(r => {
-            // 변경: 이미 선택된 라디오를 다시 클릭하면 해제되도록 처리
             r.addEventListener('click', () => {
                 if (previousTopScopeChecked === r) {
                     r.checked = false;
@@ -445,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggleDetailOptionByTopScope();
             });
         });
+
         detailOptionChecks.forEach(cb => cb.addEventListener('change', autoCalc));
 
         // 초기 상태 동기화
@@ -453,18 +465,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 버튼 클릭 핸들러
     const handleClick = async () => {
-        // 변경: 버튼 클릭 시점에 필수값 검증 알림이 반드시 뜨도록 재검증
         const payload = buildPayload({ showAlert: true });
         if (!payload) return;
 
-        // 변경: 공사 범위를 직접 선택하지 않은 경우 범위 선택 알림을 우선 노출
         const selectedTopScope = document.querySelector('#self-form-range .range-top-cards input[type="radio"]:checked');
         if (!selectedTopScope) {
             alert('공사 범위(전체/부분)를 선택해주세요.');
             return;
         }
 
-        // 변경: 자동 계산이 아직 끝나지 않았거나 최신 상태가 아니면 즉시 재계산
         const isSamePayload = JSON.stringify(lastPayload) === JSON.stringify(payload);
         if (!lastEstimate || !isSamePayload) {
             try {
@@ -475,7 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 부분공사 시 하위 항목 2개 이상 선택 검증
         if (payload.construction_type === '부분') {
             const checkedDetailCount = document.querySelectorAll(
                 '#self-form-range .option-grid input[type="checkbox"]:checked'
