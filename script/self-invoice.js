@@ -341,7 +341,9 @@ function saveEstimateToSessionAndNavigate() {
         area_py:           lastPayload.area_py,
         grade:             lastPayload.grade,
         construction_type: lastPayload.construction_type,
-        scope:             normalizeScope(lastPayload.scope),  // 필름 → 하나로 통합
+        scope:             lastPayload.construction_type === '전체'
+                             ? ['전체공사']
+                             : normalizeScope(lastPayload.scope),
         extra_works:       lastPayload.extra_works,
         bathroom_count:    lastPayload.bathroom_count,
     };
