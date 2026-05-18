@@ -319,7 +319,7 @@ async function calculateAndRender(payload, options = { useButtonLoading: false, 
     }
 }
 
-// 셀프 견적 정보를 sessionStorage에만 저장하고 about.html로 이동
+// 변경: 셀프 견적 정보를 sessionStorage에 저장하고 reservation.html로 이동
 function saveEstimateToSessionAndNavigate() {
     if (!lastPayload || !lastEstimate) {
         alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
@@ -361,7 +361,11 @@ function saveEstimateToSessionAndNavigate() {
         console.warn('sessionStorage에 셀프 견적 정보를 저장하지 못했습니다.', e);
     }
 
-    window.location.href = 'about.html';
+    // 변경: b/self.html 등 하위 경로에서도 루트 reservation.html로 이동
+    const reservationHref = window.location.pathname.includes('/b/')
+        ? '../reservation.html'
+        : 'reservation.html';
+    window.location.href = reservationHref;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
