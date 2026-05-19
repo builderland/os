@@ -3462,7 +3462,7 @@ body .action .action-container .action-cta {
   cursor: pointer;
 }
 body .action .action-container .action-cta span {
-  color: #fff;
+  color: #000;
   font-size: 16px;
   font-weight: 600;
   line-height: 1;
@@ -3470,10 +3470,10 @@ body .action .action-container .action-cta span {
   text-align: center;
 }
 body .action .action-container .action-cta--index {
-  background-color: #EA591A;
+  background-color: #9CFFC3;
 }
 body .action .action-container .action-cta--self {
-  background-color: #EA591A;
+  background-color: #9CFFC3;
 }
 @media (max-width: 767px) {
   body .action {

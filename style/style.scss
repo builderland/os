@@ -4324,7 +4324,7 @@ body {
                 cursor: pointer;
 
                 span {
-                    color: #fff;
+                    color: #000;
                     font-size: 16px;
                     font-weight: 600;
                     line-height: 1;
@@ -4335,12 +4335,12 @@ body {
 
             // 변경: index 전용 CTA 색상 오버라이드
             .action-cta--index {
-                background-color: #EA591A;
+                background-color: #9CFFC3;
             }
 
             // 변경: self.html PC CTA 버튼 색상을 요청사항(#EA591A)으로 적용
             .action-cta--self {
-                background-color: #EA591A;
+                background-color: #9CFFC3;
             }
 
         }
