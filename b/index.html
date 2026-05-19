@@ -1,174 +1,608 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMMH (B)</title>
-    <!-- 변경: B 버전 전용 스타일 (style/style.scss 컴파일 결과) -->
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <!-- 변경: trust-card 아이콘(tabler) 표시 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <title>MMMH</title>
+    <link rel="stylesheet" href="style/style.css?v=gray-radius-mobile-pill">
+    <!-- 변경: Google Sans Flex(히어로 .hero-service-name) 로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
+    <!-- 변경: Vercel Analytics 수집 스크립트 -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
+    <script defer src="../script/tracking.js"></script>
 </head>
 
-<body class="page-b">
-    <!-- B 버전 웹페이지 작업 영역 -->
-    <div class="lp">
-        <div class="nav">
-            <div class="nav-logo">MMMH</div>
-            <div class="nav-links">
-                <!-- 변경: 서비스 소개 → about.html -->
-                <a href="../about.html" class="nav-link">서비스 소개</a>
-                <span class="nav-link">셀프 견적</span>
+<body class="page-index">
+    <!-- 변경: Meta Pixel — JS 비활성 시 PageView(공식 noscript) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=957125517307149&ev=PageView&noscript=1" alt="" /></noscript>
+    <header>
+        <a href="index.html" class="service-name">MMMH</a>
+        <button onclick="ChannelIO('showMessenger')">
+            문의하기
+        </button>
+    </header>
+    <section>
+        <div class="hero-service-name-container">
+            <div class="hero-image">
+                <img src="assets/images/main_img_01.png" alt="main-image">
+                <div class="dim"></div>
             </div>
+            <span class="hero-service-name">MMMH</span>
+            <!-- 변경: 첫 화면 하단 스크롤 유도 화살표(클릭 시 다음 섹션으로 이동) -->
+            <!-- <a class="scroll-indicator" href="#hero" aria-label="아래로 스크롤">
+                <span class="scroll-indicator__icon" aria-hidden="true"></span>
+            </a> -->
         </div>
-
-        <div class="hero">
-            <div class="hero-badge"><span class="hero-dot"></span> 베타 오픈</div>
-            <h1 class="hero-h1">같은 전문가,<br><em>20% 더 저렴하게</em></h1>
-            <p class="hero-p">전문 디자이너와 숙련 소장은 그대로.<br>비용이 어디에 쓰이는지 직접 보면서 진행합니다.</p>
-            <div class="hero-box">
-                <input class="hero-input" placeholder="평수와 공간 유형을 선택하면 예상 견적이 나와요" />
-                <button class="hero-btn">견적 확인 →</button>
+    </section>
+    <!-- 변경: 스크롤 유도 화살표의 이동 대상 앵커 -->
+    <section class="hero" id="hero">
+        <!-- <div class="hero-image">
+            <img src="assets/images/hero_img.png" alt="hero-image">
+            <div class="dim"></div>
+        </div> -->
+        <div class="hero-content">
+            <div class="hero-content-text">
+                <div class="hero-content-title">숨은 비용 없이<br>내가 직접 관리하는 투명한 인테리어</div>
+                <!-- <div class="hero-content-service-name">MMMH</div> -->
             </div>
-            <div class="hero-hint">30초면 예상 범위를 알 수 있어요 · 무료</div>
+            <a href="self.html" class="hero-button">셀프 견적해보기</a>
         </div>
+    </section>
+    <section class="problem">
+        <div class="problem__inner">
 
-        <div class="sec light">
-            <div class="sec-tag on-light">비용 비교</div>
-            <h2 class="sec-h2 on-light">얼마나 달라지나요?</h2>
-            <p class="sec-p on-light">30평 아파트 전체 공사 기준</p>
-            <div class="nc-wrap">
-                <div class="nc-card">
-                    <div class="nc-label">일반 턴키</div>
-                    <div class="nc-num">5,700만원</div>
-                    <div class="nc-desc">예비비 포함<br>보수적 견적</div>
-                </div>
-                <div class="nc-vs">vs</div>
-                <div class="nc-card hot">
-                    <div class="nc-label">MMMH</div>
-                    <div class="nc-num">4,560만원</div>
-                    <div class="nc-badge">1,140만원 절감</div>
-                    <div class="nc-desc">실제 집행된<br>내용만 지불</div>
-                </div>
+            <!-- 헤더 -->
+            <div class="problem__header">
+                <h2 class="problem__title">
+                    왜 소비자에게 유리한 인테리어는 없을까요?
+                </h2>
+
+                <p class="problem__desc">
+                    턴키 방식의 인테리어는 한 업체가 모든 과정을 맡아 편리합니다.<br />
+                    하자에 대한 책임도 해당 업체가 전적으로 부담합니다.<br /><br />
+                    하지만 리스크가 한 곳에 집중되면서 피해가 커질 수 있고,<br />
+                    숨은 비용을 <span class="highlight">소비자가 부담</span>하게 됩니다.
+                </p>
             </div>
-            <p class="nc-note">실제 진행 현장 기준 평균값. 공간·마감재에 따라 달라질 수 있습니다.</p>
-        </div>
 
-        <div class="sec dark2">
-            <div class="sec-tag on-dark">동일한 전문가, 다른 구조</div>
-            <h2 class="sec-h2 on-dark">왜 더 저렴한가요?</h2>
-            <p class="sec-p on-dark">전문가는 같습니다. 계약 구조와 이윤 구조가 다릅니다.</p>
-            <div class="str-wrap">
-                <div class="str-card dim">
-                    <div class="str-head">일반 턴키</div>
-                    <div class="str-body">
-                        <div class="str-row">
-                            <div class="str-lbl">계약 구조</div>
-                            <div class="str-val dim">소비자 → 업체 일괄</div>
-                        </div>
-                        <div class="str-row">
-                            <div class="str-lbl">이윤</div>
-                            <div class="str-val dim">업체가 가져감</div>
-                        </div>
-                        <div class="str-row">
-                            <div class="str-lbl">견적 방식</div>
-                            <div class="str-val dim">예비비 포함 보수적 산정</div>
-                        </div>
-                        <div class="str-row">
-                            <div class="str-lbl">책임</div>
-                            <div class="str-val dim">업체 한 곳에 집중</div>
-                            <div class="str-sub">문제 발생 시 원인 파악 어려움</div>
-                        </div>
+            <!-- 카드 영역 -->
+            <div class="problem__grid">
+
+                <!-- 카드 1 -->
+                <div class="problem-card">
+                    <div class="problem-card__thumb">
+                        <img src="assets/images/section_img.png" alt="image">
+                    </div>
+
+                    <div class="problem-card__content">
+                        <h3 class="problem-card__title">리스크 과중</h3>
+                        <p class="problem-card__text">
+                            턴키 인테리어 업체는 하자 책임도 일괄로 가져갑니다.
+                            그래서 리스크가 업체 한 곳에 집중되게 됩니다.
+                            만약, 업체가 폐업하거나, 잠수를 타거나, 분쟁이 발생하면
+                            모든 피해는 소비자의 몫이 됩니다.
+                        </p>
                     </div>
                 </div>
-                <div class="str-card hot">
-                    <div class="str-head">MMMH</div>
-                    <div class="str-body">
-                        <div class="str-row">
-                            <div class="str-lbl">계약 구조</div>
-                            <div class="str-val hot">소비자가 전문가와 직접</div>
+
+                <!-- 카드 2 -->
+                <div class="problem-card">
+                    <div class="problem-card__thumb problem-card__thumb--cost">
+                        <p class="problem-card__thumb-title">
+                            소비자가 부담하는 하자보수충당부채 + α
+                        </p>
+                        <div class="problem-card__tags">
+                            <div class="problem-card__tags-inner">
+                                <span>리스크 대비 비용</span>
+                                <span>직원 월급</span>
+                                <span>현장 변수 대비 비용</span>
+                                <span>마케팅 비용</span>
+                                <span>예비 비용</span>
+                                <span>높은 하자 대비 비용</span>
+                                <span>임대료</span>
+                            </div>
                         </div>
-                        <div class="str-row">
-                            <div class="str-lbl">이윤</div>
-                            <div class="str-val acc">소비자에게 돌아옴</div>
+                    </div>
+
+                    <div class="problem-card__content">
+                        <h3 class="problem-card__title">숨은 비용</h3>
+                        <p class="problem-card__text">
+                            리스크가 한 업체에 집중되는 구조에서는, 인테리어 업체가 마진 외에
+                            하자보수충당금을 견적에 포함합니다. 이는 발생 여부가 불확실한 예비 비용으로,
+                            실제 하자가 없더라도 소비자가 부담하게 됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 하단 문구 -->
+            <p class="problem__bottom">
+                우리는 이 구조를 바꿉니다
+            </p>
+
+        </div>
+    </section>
+    <section class="how">
+        <div class="how__inner">
+            <div class="how__header">
+                <p class="how__eyebrow">HOW IT WORKS</p>
+                <h2 class="how__title">
+                    인테리어 구조를 마진 중심에서<br />
+                    운영 중심으로 바꿉니다.
+                </h2>
+                <p class="how__desc">
+                    턴키 방식의 편의성은 유지하고 리스크와 비용만 줄였습니다.
+                </p>
+            </div>
+
+            <div class="how__grid">
+                <!-- 카드 1 -->
+                <div class="how-card">
+                    <span class="how-card__badge">결제 리스크 분산</span>
+                    <h3 class="how-card__title">한 번에 맡기지 않습니다</h3>
+                    <p class="how-card__text">
+                        자금이 한 곳에 묶이지 않습니다.
+                    </p>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="how-card">
+                    <span class="how-card__badge">하자 리스크 분산</span>
+                    <h3 class="how-card__title">업체에만 의존하는 구조가 아닙니다</h3>
+                    <p class="how-card__text">
+                        소장, 작업자, 소비자가 함께 확인합니다.
+                    </p>
+                </div>
+
+                <!-- 카드 3 -->
+                <div class="how-card">
+                    <span class="how-card__badge">항목별 공개 구조</span>
+                    <h3 class="how-card__title">비용과 공정이 보입니다</h3>
+                    <p class="how-card__text">
+                        어디에 쓰였는지 알고, 조율할 수 있습니다.
+                    </p>
+                </div>
+
+                <!-- 카드 4 -->
+                <div class="how-card">
+                    <span class="how-card__badge">시스템 기반 운영</span>
+                    <h3 class="how-card__title">사람이 아니라 기준으로 관리합니다</h3>
+                    <p class="how-card__text">
+                        메뉴얼, 체크리스트, 기록이 기준이 됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 변경: 결제 프로세스 섹션 추가 -->
+    <section class="process-wrapper">
+        <div class="header">
+            <div class="header-sub">PROCESS</div>
+            <h2 class="header-main">시공이 완료된 공정별로 <br> 시공 업체에 결제</h2>
+        </div>
+
+        <!-- 변경: 모바일에서도 PC 타임라인 마크업 사용(스타일은 SCSS에서 반응형 처리) -->
+        <div class="timeline-section">
+
+            <!-- Pre-construction Phase -->
+            <div class="pre-phase">
+                <div class="bracket-container">
+                    <div class="bracket-line"></div>
+                    <div class="bracket-tick-left"></div>
+                    <div class="bracket-text">착공 전</div>
+                </div>
+
+                <div class="blocks-container">
+                    <div class="gray-block block-design">디자인</div>
+                    <!-- 변경: 모바일에서만 '현장 소장' / '매칭' 줄바꿈(SCSS로 전환) -->
+                    <div class="gray-block block-match">
+                        <span class="block-match__text block-match__text--desktop">현장 소장 매칭</span>
+                        <span class="block-match__text block-match__text--mobile">현장 소장<br>매칭</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post-construction Phase -->
+            <div class="post-phase">
+                <div class="bracket-container">
+                    <div class="bracket-line"></div>
+                    <div class="bracket-tick-left"></div>
+                    <div class="bracket-tick-right"></div>
+                    <div class="bracket-text">착공 후</div>
+                </div>
+
+                <div class="blocks-container">
+                    <div class="black-blocks">
+                        <div class="black-step">공정 1</div>
+                        <div class="black-step">공정 2</div>
+                        <!-- 변경: 모바일에서만 … 표시, 공정 3~5는 숨김(SCSS로 전환) -->
+                        <div class="black-step black-step--ellipsis-mobile" aria-hidden="true">...</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 3</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 4</div>
+                        <div class="black-step black-step--hide-on-mobile">공정 5</div>
+                        <div class="black-step">공정 6</div>
+                        <div class="black-step">준공</div>
+                    </div>
+                </div>
+
+                <div class="payments-container">
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
                         </div>
-                        <div class="str-row">
-                            <div class="str-lbl">견적 방식</div>
-                            <div class="str-val hot">실제 집행된 내용만 지불</div>
+                    </div>
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
                         </div>
-                        <div class="str-row">
-                            <div class="str-lbl">책임</div>
-                            <div class="str-val hot">역할별로 명확히 분리</div>
-                            <div class="str-sub str-sub--accent">하자 원인을 바로 특정 가능</div>
+                    </div>
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
                         </div>
+                    </div>
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
+                        </div>
+                    </div>
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
+                        </div>
+                    </div>
+                    <div class="payment-slot">
+                        <div class="payment-marker">
+                            <div class="payment-line"></div>
+                            <div class="payment-text">결제</div>
+                        </div>
+                    </div>
+                    <div class="payment-slot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pricing">
+        <!-- pricing 섹션 추가 -->
+        <div class="pricing-header">
+            <p>PRICING</p>
+            <h1>구조를 바꾸면 비용이 달라집니다.</h1>
+        </div>
+
+        <div class="pricing-container">
+            <!-- Left Column (Quotation) -->
+            <div class="column left-col">
+                <h2 class="col-header">기존 견적서</h2>
+
+                <div class="divider"></div>
+
+                <div class="details-section">
+                    <div class="details-col">
+                        <span>[2026.01.01]</span>
+                        <span>[Account No.]</span>
+                        <span>[Client Name]</span>
+                        <span>[Project Name]</span>
+                    </div>
+                    <div class="details-col">
+
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="table-header">
+                    <span>대분류</span>
+                    <span>공정</span>
+                    <span>금액(만원)</span>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="cost-group">
+                    <div class="cost-row">
+                        <div class="category">공사비용</div>
+                        <div class="process">간접공사</div>
+                        <div class="amount">350</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">철거공사</div>
+                        <div class="amount">235</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">창호공사</div>
+                        <div class="amount">1,070</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">확장공사</div>
+                        <div class="amount">352</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">설비공사</div>
+                        <div class="amount">176</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">목공사</div>
+                        <div class="amount">783</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">전기공사</div>
+                        <div class="amount">507</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">도배공사</div>
+                        <div class="amount">488</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">도장공사</div>
+                        <div class="amount">66</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">필름공사</div>
+                        <div class="amount">111</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">바닥공사</div>
+                        <div class="amount">734</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">주방공사</div>
+                        <div class="amount">827</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">가구공사</div>
+                        <div class="amount">726</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">욕실공사</div>
+                        <div class="amount">614</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">기타공사</div>
+                        <div class="amount">170</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="cost-group" style="margin-bottom: 0;">
+                    <div class="cost-row">
+                        <div class="category">부대비용</div>
+                        <div class="process">공과 잡비</div>
+                        <div class="amount">216</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">현장 운영비</div>
+                        <div class="amount">216</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="category"></div>
+                        <div class="process">자사 이윤</div>
+                        <div class="amount">577</div>
+                    </div>
+                </div>
+
+                <div class="total-divider"></div>
+
+                <div class="total-row">
+                    <div class="label">총 금액</div>
+                    <div class="amount">8,218</div>
+                </div>
+            </div>
+
+            <!-- Right Column (Builderland) -->
+            <div class="column right-col">
+                <h2 class="col-header">MMMH</h2>
+
+                <div class="divider"></div>
+
+                <div class="details-section">
+                    <div class="details-col" style="color: #aaa;">
+                        <span>[2026.01.01]</span>
+                        <span>[Account No.]</span>
+                        <span>[Client Name]</span>
+                        <span>[Project Name]</span>
+                    </div>
+                    <div class="details-col" style="color: #aaa;">
+                        <!-- Intentionally left blank as per image -->
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="table-header">
+                    <span>공정</span>
+                    <span>금액(만원)</span>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="cost-group">
+                    <div class="cost-row">
+                        <div class="process">간접공사</div>
+                        <div class="amount" style="color: #fff;">298</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">철거공사</div>
+                        <div class="amount" style="color: #fff;">200</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">창호공사</div>
+                        <div class="amount" style="color: #fff;">912</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">확장공사</div>
+                        <div class="amount" style="color: #fff;">300</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">설비공사</div>
+                        <div class="amount" style="color: #fff;">150</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">목공사</div>
+                        <div class="amount" style="color: #fff;">667</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">전기공사</div>
+                        <div class="amount" style="color: #fff;">432</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">도배공사</div>
+                        <div class="amount" style="color: #fff;">416</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">도장공사</div>
+                        <div class="amount" style="color: #fff;">56</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">필름공사</div>
+                        <div class="amount" style="color: #fff;">95</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">바닥공사</div>
+                        <div class="amount" style="color: #fff;">625</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">주방공사</div>
+                        <div class="amount" style="color: #fff;">705</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">가구공사</div>
+                        <div class="amount" style="color: #fff;">619</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">욕실공사</div>
+                        <div class="amount" style="color: #fff;">523</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">기타공사</div>
+                        <div class="amount" style="color: #fff;">145</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="cost-group" style="margin-bottom: 0;">
+                    <div class="cost-row">
+                        <div class="process">공과 잡비</div>
+                        <div class="amount" style="color: #fff;">216</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">현장 운영비</div>
+                        <div class="amount" style="color: #fff;">216</div>
+                    </div>
+                    <div class="cost-row">
+                        <div class="process">자사 이윤</div>
+                        <div class="amount" style="color: #fff;">0</div>
+                    </div>
+                </div>
+
+                <div class="total-divider"></div>
+
+                <div class="total-row">
+                    <div class="label">총 금액</div>
+                    <div class="amount-wrapper">
+                        <!-- 변경: 할인 배지 문구를 한 줄 텍스트로 통합 -->
+                        <div class="discount-sticker">기존 견적 대비 20% ↓</div>
+                        <div class="amount">6,575</div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="sec light">
-            <div class="sec-tag on-light">기존 인테리어의 구조적 문제</div>
-            <h2 class="sec-h2 on-light">왜 소비자에게 유리한<br>인테리어는 없었을까요?</h2>
-            <p class="sec-p on-light">업체 중심으로 설계된 구조이기 때문입니다</p>
-            <div class="why-wrap">
-                <div class="why-card prob">
-                    <div class="why-chip prob">기존 문제</div>
-                    <div class="why-title">비용이 어디에 쓰이는지 알 수 없음</div>
-                    <div class="why-desc">예비비와 마진이 견적 안에 숨어있어 실제로 얼마가 공사에 쓰이는지 알기 어렵습니다.</div>
-                </div>
-                <div class="why-card sol">
-                    <div class="why-chip sol">MMMH</div>
-                    <div class="why-title">공정별로 직접 확인하고 결정</div>
-                    <div class="why-desc">항목 하나하나 선택하며 불필요한 비용을 줄일 수 있어요.</div>
-                </div>
-                <div class="why-card prob">
-                    <div class="why-chip prob">기존 문제</div>
-                    <div class="why-title">하자 생기면 책임 소재 불명확</div>
-                    <div class="why-desc">모든 책임이 업체 한 곳에 몰려있어 문제가 생겼을 때 어느 공정의 잘못인지 소비자가 알기 힘듭니다.</div>
-                </div>
-                <div class="why-card sol">
-                    <div class="why-chip sol">MMMH</div>
-                    <div class="why-title">역할별 책임이 계약서에 명시</div>
-                    <div class="why-desc">디자이너·소장·시공업체가 각자 담당 공정에 책임져요. 문제가 생기면 원인을 바로 특정할 수 있습니다.</div>
-                </div>
-            </div>
+        <div class="pricing-info-container">
+            <ul class="pricing-info-list">
+                <li class="pricing-info-title">1. 공사 비용</li>
+                <li class="pricing-info-content">시공에 실제로 필요한 항목만 반영합니다. 숨겨진 예비비나 당장 필요하지 않은 비용은 포함하지 않습니다.</li>
+            </ul>
+            <ul class="pricing-info-list">
+                <li class="pricing-info-title">2. 부대비용</li>
+                <li class="pricing-info-content">현장 운영에 필요한 최소 비용만 포함하고, 기존 턴키 구조에서 발생하던 이윤은 제외했습니다.</li>
+            </ul>
+            <ul class="pricing-info-list">
+                <li class="pricing-info-title">3. 총 금액</li>
+                <li class="pricing-info-content">동일한 공사라도 비용은 약 20% 줄어듭니다. 비용 절감이 아닌 구조를 바꿔 만들어낸 결과입니다.</li>
+            </ul>
         </div>
+    </section>
 
-        <div class="sec dark">
-            <div class="sec-tag on-dark">리스크 관리</div>
-            <h2 class="sec-h2 on-dark">오히려 더 안전합니다</h2>
-            <p class="sec-p on-dark">구조를 분리했다고 불안할 필요 없어요</p>
-            <div class="trust-wrap">
-                <div class="trust-card">
-                    <div class="trust-ic"><i class="ti ti-lock" aria-hidden="true"></i></div>
-                    <div class="trust-t">에스크로 결제</div>
-                    <div class="trust-d">완료 확인 후 지급. 돈 떼일 위험 없음.</div>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-ic"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div>
-                    <div class="trust-t">공정별 검수</div>
-                    <div class="trust-d">각 단계 서명 후 다음 공정 진행.</div>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-ic"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
-                    <div class="trust-t">심사 통과 파트너</div>
-                    <div class="trust-d">MMMH 기준을 통과한 전문가만 연결.</div>
-                </div>
-            </div>
+
+    <!-- <section class="corevalue">
+        <div class="headline">
+            <span class="eyebrow">core value</span>
+            <span class="title">인테리어 기준을<br>소비자 중심으로 바꿉니다.</span>
         </div>
-
-        <div class="cta">
-            <h2 class="cta-h2">지금 예상 비용을 확인해보세요</h2>
-            <p class="cta-p">공간 정보만 입력하면 30초 안에<br>예상 범위를 알 수 있어요</p>
-            <!-- 변경: 셀프 견적 페이지(self.html)로 이동 -->
-            <a href="self.html" class="cta-btn">셀프 견적 바로 확인 →</a>
-            <div class="cta-sub">상담 예약도 무료입니다</div>
+        <div class="content">
+            <ul class="list-items">
+                <li class="title">리스크가 줄어듭니다.</li>
+                <li class="body">디자인 문제는 디자이너가, 시공 문제는 각 공정의 시공사가 책임집니다.</li>
+                <li class="body">책임이 분산된 구조로 리스크가 한 곳에 집중되지 않습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">숨은 비용이 없습니다.</li>
+                <li class="body">리스크에 대비한 예비비나 하자보수충당비를 미리 포함하지 않습니다.</li>
+                <li class="body">하자가 발생한 경우에만 실제 비용을 기준으로 정산합니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">공정별로 나누어 결제합니다.</li>
+                <li class="body">공정별 시공 완료 후 확인하고 결제합니다.</li>
+                <li class="body">진행 과정과 비용을 단계별로 직접 확인할 수 있습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">전문성은 그대로 유지됩니다.</li>
+                <li class="body">디자인은 전문 디자이너가, 시공은 공정별 전문 업체가 담당합니다.</li>
+                <li class="body">각 분야의 전문성을 유지하면서도 구조만 개선했습니다.</li>
+            </ul>
+            <ul class="list-items">
+                <li class="title">일정과 공정은 체계적으로 관리됩니다.</li>
+                <li class="body">현장 소장이 전체 일정과 공정을 관리합니다.</li>
+                <li class="body">각 공정은 확인과 승인 과정을 거쳐 안정적으로 진행됩니다.</li>
+            </ul>
         </div>
-    </div>
-
-    <!-- 변경: 기존 공통 푸터 추가 (index.html·self.html과 동일) -->
+    </section> -->
+    <section class="action action--index">
+        <div class="action-container">
+            <span class="action-description">
+                3분만에 우리집 인테리어 공사비를 알아보세요.
+            </span>
+            <!-- 변경: index 전용 CTA 색상 적용을 위한 클래스 추가 -->
+            <a href="self.html" class="action-cta action-cta--index">
+                <span class="label">셀프 견적해보기</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="round" />
+                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                        stroke-linejoin="bevel" />
+                </svg>
+            </a>
+        </div>
+    </section>
     <section class="footer">
         <div class="service-name">
             MMMH
@@ -182,22 +616,28 @@
             </ul>
             <ul class="list-items">
                 <li class="info-title">Terms & Conditions</li>
-                <li class="info-item"><a href="../privacy-policy.html">개인정보처리방침</a></li>
-                <li class="info-item"><a href="../service-policy.html">이용약관</a></li>
+                <!-- 변경: 개인정보처리방침 전문 페이지로 연결 -->
+                <li class="info-item"><a href="privacy-policy.html">개인정보처리방침</a></li>
+                <li class="info-item"><a href="service-policy.html">이용약관</a></li>
             </ul>
             <ul class="list-items">
                 <li class="info-title">Guide</li>
+                <!-- 변경: 인테리어 위키 대문 페이지를 새 탭에서 열도록 연결 -->
                 <li class="info-item"><a href="https://interior.wiki/%EB%8C%80%EB%AC%B8" target="_blank"
                         rel="noopener noreferrer">인테리어 위키</a></li>
             </ul>
             <ul class="list-items">
                 <li class="info-title">Contact</li>
+                <!-- 변경: 문의하기 클릭 시 채널톡 메신저 열기 -->
                 <li class="info-item"><a href="javascript:ChannelIO('showMessenger')">문의하기</a></li>
+                <!-- 변경: 제휴 문의 클릭 시 help@abland.kr 메일 작성 화면으로 연결 -->
                 <li class="info-item"><a href="mailto:help@abland.kr">제휴문의</a></li>
             </ul>
         </div>
     </section>
-    <!-- 변경: 채널톡 연동 (푸터 문의하기) -->
+    <!-- 변경: 히어로 타이틀 → 헤더 로고 위치 스크롤 연동 -->
+    <script src="../script/index-hero-scroll.js" defer></script>
+    <!-- 채널톡 -->
     <script>
         (function () {
             var w = window;

@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMMH</title>
-    <!-- 변경: 공통 레이아웃(루트) + B 색상 오버라이드(b/style) -->
-    <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
-    <!-- 변경: 로딩 오버레이 레이아웃만 인라인 유지(색상은 b/style/self.scss) -->
+    <!-- self.html: 스피너 로딩 오버레이 -->
     <style>
         .self-loading-overlay {
             position: fixed;
@@ -19,6 +17,7 @@
             display: none;
             justify-content: center;
             align-items: center;
+            background: rgba(249, 248, 244, 0.7);
             backdrop-filter: blur(4px);
             z-index: 9999;
             pointer-events: none;
@@ -38,13 +37,14 @@
             font-size: 16px;
             font-weight: 600;
             letter-spacing: -0.02em;
+            color: #111;
         }
         .self-spinner {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            border-width: 4px;
-            border-style: solid;
+            border: 4px solid rgba(240, 90, 26, 0.18);
+            border-top-color: #f05a1a;
             animation: selfSpin 0.9s linear infinite;
         }
         @keyframes selfSpin {
@@ -55,7 +55,7 @@
     <!-- 변경: Vercel Analytics 수집 스크립트 -->
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
-    <script defer src="script/tracking.js"></script>
+    <script defer src="../script/tracking.js"></script>
 </head>
 
 <body class="self-page">
@@ -297,19 +297,19 @@
             <span class="self-mobile-total-bar__label">예상 견적 금액(만원)</span>
             <strong class="self-mobile-total-bar__range">0</strong>
         </div>
-        <!-- 변경: 모바일 CTA — 상담 예약(reservation.html)으로 이동 -->
+        <!-- 변경: 모바일 CTA 버튼 문구를 '접수하기'로 수정 -->
         <button class="action-cta self-mobile-total-bar__cta">
-            <span class="label">상담 예약하기</span>
+            <span class="label">접수하기</span>
         </button>
     </div>
     <section class="action">
         <div class="action-container">
             <span class="action-description">
-                예상 견적을 바탕으로 상담을 예약해보세요.
+                예상 견적의 공사 방식을 확인해보세요.
             </span>
-            <!-- 변경: PC CTA — 상담 예약(reservation.html)으로 이동 -->
+            <!-- 변경: PC CTA 문구/색상 적용을 위해 self 전용 클래스 추가 및 문구를 '접수하기'로 수정 -->
             <button class="action-cta action-cta--self">
-                <span class="label">상담 예약하기</span>
+                <span class="label">접수하기</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
                         stroke-linejoin="round" />
@@ -358,7 +358,6 @@
         </div>
     </div>
     <!-- 셀프 견적 페이지 인보이스 번호 자동 생성 및 저장을 위한 스크립트 (모듈 로드로 변경) -->
-    <!-- 변경: 루트 script/self-invoice.js 경로 수정 -->
     <script type="module" src="../script/self-invoice.js"></script>
     <!-- 변경: 채널톡 연동 (index.html과 동일) -->
     <script>
