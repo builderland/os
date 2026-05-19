@@ -87,6 +87,7 @@ function formatManwon(won) {
 
 // 자주 접근하는 DOM 요소 캐싱을 위한 변수 정의
 let estimateRangeEl = null;
+let estimateSavingsEl = null;
 let estimateTableBody = null;
 let estimateTableFootRow = null;
 let mobileEstimateRangeEl = null;
@@ -117,6 +118,20 @@ function updateEstimateCard(data) {
     const formattedRange = `${manwonFormatter.format(totalMin)} ~ ${manwonFormatter.format(totalMax)}`;
     if (estimateRangeEl)       estimateRangeEl.textContent       = formattedRange;
     if (mobileEstimateRangeEl) mobileEstimateRangeEl.textContent = formattedRange;
+
+    // 변경: 일반 턴키 대비 약 20% 절감 예상 문구(중간값 기준)
+    if (estimateSavingsEl) {
+        const avgManwon = Math.round((totalMin + totalMax) / 2);
+        const savingsManwon = avgManwon > 0 ? Math.round(avgManwon * 0.25) : 0;
+
+        if (savingsManwon > 0) {
+            estimateSavingsEl.textContent = `턴키 업체 대비 약 ${manwonFormatter.format(savingsManwon)}만원 절감 예상`;
+            estimateSavingsEl.hidden = false;
+        } else {
+            estimateSavingsEl.textContent = '';
+            estimateSavingsEl.hidden = true;
+        }
+    }
 
     // 세부 항목 테이블
     if (estimateTableBody) {
@@ -319,7 +334,7 @@ async function calculateAndRender(payload, options = { useButtonLoading: false, 
     }
 }
 
-// 셀프 견적 정보를 sessionStorage에만 저장하고 about.html로 이동
+// 변경: 셀프 견적 정보를 sessionStorage에 저장 후 reservation.html로 이동
 function saveEstimateToSessionAndNavigate() {
     if (!lastPayload || !lastEstimate) {
         alert('먼저 입력값을 선택해 예상 견적을 확인해 주세요.');
@@ -361,13 +376,14 @@ function saveEstimateToSessionAndNavigate() {
         console.warn('sessionStorage에 셀프 견적 정보를 저장하지 못했습니다.', e);
     }
 
-    window.location.href = 'about.html';
+    window.location.href = 'reservation.html';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM 요소 캐싱
     globalInvoiceEl       = document.querySelector('.estimate-card__invoice');
     estimateRangeEl       = document.querySelector('.estimate-card__range');
+    estimateSavingsEl     = document.querySelector('.estimate-card__savings');
     mobileEstimateRangeEl = document.querySelector('.self-mobile-total-bar__range');
     estimateTableBody     = document.querySelector('.estimate-table tbody');
     estimateTableFootRow  = document.querySelector('.estimate-table tfoot tr');

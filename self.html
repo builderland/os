@@ -238,6 +238,8 @@
             <div class="estimate-card__price">
                 <p class="estimate-card__label">견적 금액(만원)</p>
                 <p class="estimate-card__range">0</p>
+                <!-- 변경: 견적 금액 아래 일반 턴키 대비 절감 예상 문구 -->
+                <p class="estimate-card__savings" hidden></p>
             </div>
 
             <div class="estimate-card__detail">
@@ -290,6 +292,15 @@
                 </div>
             </div>
         </div>
+        <!-- 변경: 모바일 전용 오리엔테이션 안내 카드(estimate-card 하단) -->
+        <div class="estimate-orientation-card">
+            <p class="estimate-orientation-card__title">오리엔테이션에서 확인할 수 있어요</p>
+            <ul class="estimate-orientation-card__list">
+                <li>공정별 단가표 제공</li>
+                <li>견적 계산기 직접 체험</li>
+                <li>궁금한 점 Q&amp;A</li>
+            </ul>
+        </div>
     </section>
     <!-- 변경: 모바일 전용 하단 고정 견적 바(금액+버튼) 추가 -->
     <div class="self-mobile-total-bar" aria-hidden="true">
@@ -299,7 +310,7 @@
         </div>
         <!-- 변경: 모바일 CTA — 상담 예약(reservation.html)으로 이동 -->
         <button class="action-cta self-mobile-total-bar__cta">
-            <span class="label">라운지 방문 예약</span>
+            <span class="label">오리엔테이션 신청하기</span>
         </button>
     </div>
     <section class="action">
@@ -309,11 +320,11 @@
             </span>
             <!-- 변경: PC CTA — 상담 예약(reservation.html)으로 이동 -->
             <button class="action-cta action-cta--self">
-                <span class="label">라운지 방문 예약</span>
+                <span class="label">오리엔테이션 신청하기</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 12H19" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                    <path d="M4 12H19" stroke="white" stroke-width="1.3" stroke-linecap="square"
                         stroke-linejoin="round" />
-                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.5" stroke-linecap="square"
+                    <path d="M13.5 5.25L20.25 12L13.5 18.75" stroke="white" stroke-width="1.3" stroke-linecap="square"
                         stroke-linejoin="bevel" />
                 </svg>
             </button>

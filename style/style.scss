@@ -2401,21 +2401,28 @@ body {
                     justify-content: center;
                 }
 
-                /* 선택되었을 때 */
+                /* 선택되었을 때 — 공사 범위·선택 공사 (#9CFFC3) */
                 .card input:checked+.card-content {
-                    background: #f05a1a;
-                    color: white;
+                    background: #9CFFC3;
+                    border-color: #9CFFC3;
+                    color: #111;
+                    // 변경: 선택 시 font-weight 2단계 상향(400→600)
+                    font-weight: 600;
+
+                    .text {
+                        font-weight: 600;
+                    }
                 }
 
                 /* 선택 시 체크 아이콘 스타일 */
                 .card input:checked+.card-content .check-icon {
-                    background: white;
-                    border-color: white;
+                    background: #111;
+                    border-color: #111;
                 }
 
                 .card input:checked+.card-content .check-icon::after {
                     content: "✓";
-                    color: #f05a1a;
+                    color: #9CFFC3;
                     font-weight: 400;
                 }
             }
@@ -2469,6 +2476,11 @@ body {
             }
         }
 
+        // 변경: 모바일 전용 오리엔테이션 안내 카드(데스크톱에서는 숨김)
+        .estimate-orientation-card {
+            display: none;
+        }
+
         // 변경: 모바일에서만 노출할 견적 안내 문구 블록(폼 박스 바깥, estimate-card__notice와 동일 스타일)
         .self-form-mobile-notice {
             display: none;
@@ -2489,7 +2501,9 @@ body {
             flex-direction: column;
             border-radius: 24px;
             padding: 40px;
-            background-color: #fff;
+            // 변경: 견적 카드 배경 다크 톤(#1E1E1C) 및 기본 글자색
+            background-color: #1E1E1C;
+            color: #F9F8F4;
 
             &__title {
                 font-size: 24px;
@@ -2497,6 +2511,7 @@ body {
                 line-height: 1;
                 letter-spacing: -0.03em;
                 margin-bottom: 56px;
+                color: #F9F8F4;
             }
 
             &__meta {
@@ -2504,9 +2519,10 @@ body {
                 justify-content: space-between;
                 align-items: center;
                 padding-bottom: 10px;
-                border-bottom: 1px solid #E2E4E8;
+                // 변경: 다크 배경에 맞춘 구분선·보조 텍스트 색
+                border-bottom: 1px solid #3D3D3B;
                 margin-bottom: 40px;
-                color: #90939B;
+                color: #A8ADB5;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 1;
@@ -2522,6 +2538,7 @@ body {
                     margin-bottom: 32px;
                     font-weight: 600;
                     line-height: 1;
+                    color: #F9F8F4;
                 }
 
                 .estimate-card__range {
@@ -2530,6 +2547,20 @@ body {
                     text-align: right;
                     letter-spacing: -0.03em;
                     line-height: 1;
+                    // 변경: 견적 금액 강조 색상
+                    color: #9CFFC3;
+                    margin: 0;
+                }
+
+                // 변경: 견적 금액 아래 절감 예상 문구(이미지 레퍼런스)
+                .estimate-card__savings {
+                    margin: 10px 0 0;
+                    font-size: 15px;
+                    font-weight: 500;
+                    line-height: 1.3;
+                    letter-spacing: -0.02em;
+                    text-align: right;
+                    color: rgba(156, 255, 195, 0.55);
                 }
             }
 
@@ -2539,26 +2570,28 @@ body {
                 margin-bottom: 16px;
                 font-weight: 600;
                 line-height: 1;
+                color: #F9F8F4;
             }
 
             .estimate-table {
                 width: 100%;
                 border-collapse: collapse;
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
+                // 변경: 테이블 테두리 다크 배경 대비
+                border-top: 1px solid #4A4A48;
+                border-bottom: 1px solid #4A4A48;
                 margin-bottom: 32px;
 
                 th,
                 td {
                     padding: 18px 10px;
                     font-size: 14px;
-                    border-bottom: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #3D3D3B;
                 }
 
                 th {
                     text-align: left;
                     font-weight: 600;
-                    color: #666;
+                    color: #A8ADB5;
                 }
 
                 thead th:nth-child(3),
@@ -2567,7 +2600,7 @@ body {
                 }
 
                 td {
-                    color: #111;
+                    color: #F9F8F4;
                 }
 
                 .number {
@@ -2578,11 +2611,12 @@ body {
                 tfoot {
                     td {
                         font-weight: 700;
-                        border-top: 1px solid #000;
+                        border-top: 1px solid #4A4A48;
                         border-bottom: none;
                         padding-top: 22px;
                         padding-bottom: 22px;
                         font-size: 14px;
+                        color: #F9F8F4;
                     }
                 }
 
@@ -2593,7 +2627,8 @@ body {
 
             &__notice {
                 font-size: 12px;
-                color: #9a9a9a;
+                // 변경: 안내 문구 보조 색(다크 배경용)
+                color: #8B8F97;
                 line-height: 1.3;
 
                 p {
@@ -2656,80 +2691,106 @@ body {
 
             }
 
-            // 변경: estimate-card가 숨겨지는 모바일 구간에서만 폼 박스 바로 아래 안내 문구를 표시
-            .self-form-mobile-notice {
-                display: block;
-                // 변경: 기존 estimate-card__notice와 동일 스타일 유지(추가 간격 보정 제거)
-                margin-top: 0;
-            }
-
+            // 변경: 모바일에서 estimate-card 다시 노출(하단 고정 바 대신 카드+action CTA 사용)
             .estimate-card {
-                // 변경: 모바일에서는 기존 estimate-card 전체를 숨기고 하단 고정 바로 대체
-                display: none;
-            }
-        }
+                padding: 24px;
+                margin-top: 0;
 
-        // 변경: 모바일에서는 하단 고정 바에 총 견적 금액과 CTA를 함께 노출
-        .self-mobile-total-bar {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: start;
-            justify-content: space-between;
-            gap: 16px;
-            // 변경: 모바일 하단 고정 바가 너무 위로 뜨지 않도록 하단 패딩을 소폭 축소
-            padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
-            background-color: #fff;
-            border-top: 1px solid #E2E4E8;
-            box-shadow: 0 -8px 24px rgba(17, 17, 17, 0.08);
+                &__title {
+                    font-size: 20px;
+                    margin-bottom: 32px;
+                }
 
-            &__summary {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                min-width: 0;
-            }
+                &__meta {
+                    margin-bottom: 24px;
+                }
 
-            &__label {
-                font-size: 12px;
-                font-weight: 500;
-                line-height: 1;
-                letter-spacing: -0.01em;
-                color: #767B86;
-            }
+                &__price {
+                    margin-bottom: 32px;
 
-            &__range {
-                font-size: 22px;
-                font-weight: 700;
-                line-height: 1;
-                letter-spacing: -0.03em;
-                color: #111;
-                white-space: nowrap;
-            }
+                    .estimate-card__label {
+                        font-size: 14px;
+                        margin-bottom: 16px;
+                    }
 
-            &__cta {
-                flex: 0 0 auto;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                // min-width: 156px;
-                padding: 16px 20px;
-                background-color: #EA591A;
-                border: none;
-                border-radius: 50px;
+                    .estimate-card__range {
+                        font-size: clamp(32px, 8vw, 40px);
+                    }
 
-                // 변경: 모바일 하단 고정 바 버튼 텍스트 색상을 흰색으로 지정
-                .label {
-                    color: #fff;
+                    .estimate-card__savings {
+                        margin-top: 8px;
+                        font-size: 13px;
+                    }
+                }
+
+                &__subtitle {
                     font-size: 14px;
                 }
 
-                // 변경: 모바일 하단 고정 바 버튼의 텍스트와 화살표 아이콘을 수직 가운데 정렬
-                svg {
-                    display: block;
+                .estimate-table-scroll {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .estimate-table {
+                    min-width: 320px;
+                    margin-bottom: 24px;
+
+                    th,
+                    td {
+                        padding: 14px 8px;
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            // 변경: estimate-card 하단 오리엔테이션 안내 카드(모바일만)
+            .estimate-orientation-card {
+                display: block;
+                margin-top: 16px;
+                // 변경: action CTA(action-cta--self)와 간격 24px
+                margin-bottom: 8px;
+                padding: 20px;
+                // 변경: 모서리 라운드 24px
+                border-radius: 24px;
+                background-color: #1E1E1C;
+                // border: 1px solid #9CFFC3;
+
+                &__title {
+                    margin: 0 0 16px;
+                    font-size: 15px;
+                    font-weight: 700;
+                    line-height: 1.35;
+                    letter-spacing: -0.02em;
+                    color: #9CFFC3;
+                }
+
+                &__list {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                &__list li {
+                    position: relative;
+                    padding-left: 20px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 1.4;
+                    letter-spacing: -0.01em;
+                    color: #C8CDD4;
+
+                    &::before {
+                        content: '→';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        color: #9CFFC3;
+                        font-weight: 600;
+                    }
                 }
             }
         }
@@ -4437,12 +4498,32 @@ body {
 // 변경: self.html 에서만 모바일 하단 고정 바 높이만큼 푸터 하단 여백 추가
 @media (max-width: 767px) {
     body.self-page .footer {
-        // 변경: 모바일에서 푸터가 바닥에 붙어 보이도록 self 페이지 하단 추가 여백 제거
-        padding-bottom: env(safe-area-inset-bottom);
+        // 변경: 모바일 푸터 하단 여백 복원(고정 바 제거 후에도 기본 40px + safe-area 유지)
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
     }
 
-    // 변경: self.html 에서만 모바일 하단 고정 바 CTA를 사용하므로 기존 action 섹션 숨김
+    // 변경: estimate-orientation-card ↔ action-cta--self 사이 간격 24px 유지
+    body.self-page section.self-form {
+        padding-bottom: 0;
+    }
+
     body.self-page .action {
-        display: none;
+        padding-top: 0;
+        padding-right: 20px;
+        padding-bottom: 96px;
+        padding-left: 20px;
+    }
+
+    // 변경: 모바일 self 페이지 CTA 배경색 #9CFFC3(기존 .action-container 규칙보다 우선순위 확보)
+    body.self-page .action .action-container .action-cta--self {
+        background-color: #9CFFC3;
+
+        .label {
+            color: #111;
+        }
+
+        svg path {
+            stroke: #111;
+        }
     }
 }
