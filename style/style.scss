@@ -2510,7 +2510,7 @@ body {
                 font-weight: 600;
                 line-height: 1;
                 letter-spacing: -0.03em;
-                margin-bottom: 56px;
+                margin-bottom: 24px;
                 color: #F9F8F4;
             }
 
@@ -2521,7 +2521,7 @@ body {
                 padding-bottom: 10px;
                 // 변경: 다크 배경에 맞춘 구분선·보조 텍스트 색
                 border-bottom: 1px solid #3D3D3B;
-                margin-bottom: 40px;
+                margin-bottom: 20px;
                 color: #A8ADB5;
                 font-size: 14px;
                 font-weight: 400;
@@ -2698,11 +2698,11 @@ body {
 
                 &__title {
                     font-size: 20px;
-                    margin-bottom: 32px;
+                    margin-bottom: 20px;
                 }
 
                 &__meta {
-                    margin-bottom: 24px;
+                    margin-bottom: 16px;
                 }
 
                 &__price {

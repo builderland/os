@@ -183,7 +183,8 @@ body .legal-page__def-list {
 body .legal-page__def-list > li {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   align-items: start;
   margin: 0;
   padding: 0;
@@ -406,8 +407,10 @@ body .hero-service-name-container .hero-image {
 body .hero-service-name-container .hero-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   display: block;
 }
 body .hero-service-name-container .hero-image .dim {
@@ -546,7 +549,8 @@ body .hero .hero-image {
 body .hero .hero-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body .hero .hero-image .dim {
   position: absolute;
@@ -696,7 +700,8 @@ body .problem-card__thumb {
 body .problem-card__thumb img {
   width: auto;
   height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   display: block;
   margin: 0 auto;
 }
@@ -911,6 +916,7 @@ body .how-card__badge {
   padding: 8px 14px;
   border-radius: 8px;
   margin-bottom: 64px;
+  width: -moz-fit-content;
   width: fit-content;
 }
 body .how-card__title {
@@ -1347,7 +1353,8 @@ body .pricing .table-header {
 body .pricing .left-col .table-header {
   display: grid;
   grid-template-columns: 30% minmax(0, 1fr) auto;
-  column-gap: 12px;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
   align-items: center;
 }
 body .pricing .left-col .table-header span:nth-child(1) {
@@ -1379,7 +1386,8 @@ body .pricing .cost-row {
 body .pricing .left-col .cost-row {
   display: grid;
   grid-template-columns: 30% minmax(0, 1fr) auto;
-  column-gap: 12px;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
   align-items: center;
 }
 body .pricing .left-col .cost-row .category {
@@ -1568,7 +1576,8 @@ body .pricing .pricing-info-container .pricing-info-content {
   body .pricing .left-col .table-header,
   body .pricing .left-col .cost-row {
     grid-template-columns: 44px minmax(0, 1fr) auto;
-    column-gap: 6px;
+    -moz-column-gap: 6px;
+         column-gap: 6px;
   }
   body .pricing .right-col .table-header {
     gap: 8px;
@@ -1991,7 +2000,7 @@ body section.self-form .estimate-card__title {
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
-  margin-bottom: 56px;
+  margin-bottom: 24px;
   color: #F9F8F4;
 }
 body section.self-form .estimate-card__meta {
@@ -2000,7 +2009,7 @@ body section.self-form .estimate-card__meta {
   align-items: center;
   padding-bottom: 10px;
   border-bottom: 1px solid #3D3D3B;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   color: #A8ADB5;
   font-size: 14px;
   font-weight: 400;
@@ -2138,10 +2147,10 @@ body section.self-form .estimate-card__notice p {
   }
   body section.self-form .estimate-card__title {
     font-size: 20px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
   body section.self-form .estimate-card__meta {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   body section.self-form .estimate-card__price {
     margin-bottom: 32px;
@@ -2712,6 +2721,12 @@ body .reservation-construction .reservation-construction__field .user-input {
   font-weight: 400;
   line-height: 1;
 }
+body .reservation-construction .reservation-construction__field .user-input::-moz-placeholder {
+  color: #E2E4E8;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
 body .reservation-construction .reservation-construction__field .user-input::placeholder {
   color: #E2E4E8;
   font-size: 16px;
@@ -2736,7 +2751,8 @@ body .reservation-construction .reservation-construction__field--date .reservati
   max-width: 100%;
   min-width: 0;
   cursor: pointer;
-  user-select: none;
+  -moz-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
 }
 body .reservation-construction .reservation-construction__field--date .reservation-construction__date-placeholder {
@@ -2929,6 +2945,12 @@ body .reservation-form .reservation-form-item .reservation-form-item-content .re
   font-weight: 400;
   line-height: 1;
 }
+body .reservation-form .reservation-form-item .reservation-form-item-content .reservation-form-item-content-item .user-input::-moz-placeholder {
+  color: #E2E4E8;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
 body .reservation-form .reservation-form-item .reservation-form-item-content .reservation-form-item-content-item .user-input::placeholder {
   color: #E2E4E8;
   font-size: 16px;
@@ -3001,7 +3023,9 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
   height: 44px;
   font-size: 16px;
   font-weight: 400;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .date-number {
   display: flex;
@@ -3275,6 +3299,9 @@ body .reservation-form .reservation-form-item .calendar-wrapper .calendar-grid .
     padding: 18px 16px;
     font-size: 15px;
   }
+  body .reservation-form .reservation-form-item .reservation-form-item-content .reservation-form-item-content-item .user-input::-moz-placeholder {
+    font-size: 15px;
+  }
   body .reservation-form .reservation-form-item .reservation-form-item-content .reservation-form-item-content-item .user-input::placeholder {
     font-size: 15px;
   }
@@ -3307,7 +3334,8 @@ body .confirm .confirm-container .confirm-image {
 body .confirm .confirm-container .confirm-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body .confirm .confirm-container .confirm-content {
   display: flex;
@@ -3382,7 +3410,8 @@ body .confirm .confirm-container .confirm-lounge dl dd {
   body .confirm .confirm-container .confirm-content dl {
     display: grid;
     grid-template-columns: 72px 1fr;
-    column-gap: 0px;
+    -moz-column-gap: 0px;
+         column-gap: 0px;
     row-gap: 6px;
   }
   body .confirm .confirm-container .confirm-content dl dt {
@@ -3406,7 +3435,8 @@ body .confirm .confirm-container .confirm-lounge dl dd {
   body .confirm .confirm-container .confirm-lounge dl {
     display: grid;
     grid-template-columns: 72px 1fr;
-    column-gap: 0px;
+    -moz-column-gap: 0px;
+         column-gap: 0px;
     row-gap: 6px;
   }
   body .confirm .confirm-container .confirm-lounge dl dt {
@@ -3609,6 +3639,4 @@ body .footer .info .list-items .info-item a:hover, body .footer .info .list-item
   body.self-page .action .action-container .action-cta--self svg path {
     stroke: #111;
   }
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
