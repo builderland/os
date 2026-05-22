@@ -712,8 +712,14 @@ body.page-b > .footer {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   font-family: "Pretendard", sans-serif;
   transition: background 0.2s ease, transform 0.15s ease;
@@ -992,7 +998,7 @@ body.page-b > .footer {
   }
   .lp .cta-btn {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     justify-content: center;
     box-sizing: border-box;
   }

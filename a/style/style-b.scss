@@ -847,8 +847,15 @@ body.page-b {
         font-size: 16px;
         font-weight: 700;
         cursor: pointer;
-        display: inline-flex;
+        // 변경: PC — str-wrap·trust-wrap 등 상단 콘텐츠 블록과 동일 max-width(520px), 모바일은 @media에서 100%
+        display: flex;
+        width: 100%;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         font-family: 'Pretendard', sans-serif;
         transition: background 0.2s ease, transform 0.15s ease;
@@ -1190,9 +1197,10 @@ body.page-b {
             margin-bottom: 28px;
         }
 
+        // 변경: .sec(48px 20px)과 동일 좌우 20px — 버튼 max-width 제한 제거해 상단 섹션 콘텐츠 폭과 맞춤
         .cta-btn {
             width: 100%;
-            max-width: 320px;
+            max-width: 100%;
             justify-content: center;
             box-sizing: border-box;
         }
