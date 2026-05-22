@@ -16,6 +16,190 @@
     --muted: #888780;
 }
 
+// 변경: b/index 히어로 스크롤 인트로 — page-b 전용 (이미지·MMMH 워터마크·nav 로고 연동)
+body.page-b {
+    overflow-x: clip;
+
+    // 변경: 헤더 전경색 — 배경(어두움/밝음)에 따라 JS가 .nav-on-light 토글
+    --nav-fg: #edecea;
+    --nav-link: rgba(255, 255, 255, 0.55);
+    --nav-link-hover: rgba(255, 255, 255, 0.85);
+
+    &.nav-on-light {
+        --nav-fg: #0e0e0d;
+        --nav-link: #6b6962;
+        --nav-link-hover: #0e0e0d;
+    }
+
+    // 변경: .lp 배경색이 fixed 히어로 이미지(z-index:-2)를 가리지 않도록 투명 처리
+    .lp {
+        background: transparent;
+    }
+
+    .lp .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: transparent;
+        border-bottom: none;
+    }
+
+    .lp .nav-logo {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        color: var(--nav-fg);
+        transition: color 0.25s ease;
+    }
+
+    // 변경: 스크롤 후 nav에 고정되는 MMMH — 헤더 테마 색상 연동
+    .hero-service-name.hero-service-name--fixed {
+        color: var(--nav-fg) !important;
+        transition: color 0.25s ease;
+    }
+
+    // 변경: 첫 화면에서는 숨김 — .hero 상단이 뷰포트에 닿은 뒤(.nav-links-visible) 표시
+    .lp .nav .nav-link {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        color: var(--nav-link);
+        transition: opacity 0.25s ease, visibility 0.25s ease, color 0.25s ease;
+
+        &:hover {
+            color: var(--nav-link-hover);
+        }
+    }
+
+    .lp .nav.nav-links-visible .nav-link {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .lp .hero .hero-service-name.hero-service-name--fixed {
+        inset: auto;
+        padding: 0;
+        display: block;
+        align-items: unset;
+        justify-content: unset;
+    }
+
+    .lp .hero-service-name-container {
+        position: relative;
+        z-index: auto;
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        // 변경: MMMH 구간 — 100dvh 대비 소폭만 축소(과도한 조기 노출 방지)
+        min-height: 94vh;
+        min-height: 94dvh;
+        background: transparent;
+
+        .hero-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+
+            // 변경: picture 반응형 이미지(PC/모바일) 레이아웃
+            picture {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+            }
+
+            .dim {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0);
+            }
+        }
+
+        .hero-service-name {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0 100px;
+            box-sizing: border-box;
+            pointer-events: none;
+            font-family: "Google Sans Flex", sans-serif;
+            font-weight: 700;
+            // 변경: PC MMMH 워터마크 — 화면 넘침 방지(추가 축소)
+            font-size: clamp(3.25rem, min(calc(max(0px, 100vw - 220px) * 0.36), 52vmin), 32rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            color: #fff;
+            white-space: nowrap;
+        }
+    }
+
+    .lp .hero {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        // 변경: b 원본처럼 MMMH와 카피 분리, 카피는 세로 중앙 정렬
+        min-height: 100vh;
+        min-height: 100dvh;
+        width: 100%;
+        background-color: transparent;
+        justify-content: center;
+        padding: calc(72px + env(safe-area-inset-top)) 40px 72px;
+        text-align: center;
+    }
+
+    // 변경: 모바일 MMMH·히어로 — .lp .hero 정의 뒤에 두어 padding 등이 덮이지 않게 함
+    @media (max-width: 767px) {
+        .lp .hero-service-name-container {
+            min-height: 92vh;
+            min-height: 92dvh;
+        }
+
+        .lp .hero-service-name-container .hero-service-name {
+            padding: 0 20px;
+            font-size: clamp(2.4rem, min(calc(max(0px, 100vw - 40px) * 0.29), 46vmin), 24rem);
+        }
+
+        .lp .hero {
+            padding: calc(64px + env(safe-area-inset-top)) 20px 56px;
+        }
+    }
+
+    .lp .sec,
+    .lp .cta {
+        position: relative;
+        z-index: 1;
+    }
+
+    > .footer {
+        position: relative;
+        z-index: 1;
+    }
+}
+
 .lp {
     font-family: 'Pretendard', sans-serif;
     width: 100%;
@@ -115,8 +299,8 @@
     .hero-h1 {
         font-size: 46px;
         font-weight: 700;
-        // 변경: br로 나뉜 타이틀 줄 간격 확대
-        line-height: 1.32;
+        // 변경: br로 나뉜 타이틀 줄 간격
+        line-height: 1.44;
         letter-spacing: -0.03em;
         color: #EDECEA;
         margin-bottom: 20px;
@@ -130,7 +314,8 @@
     .hero-p {
         font-size: 17px;
         color: rgba(255, 255, 255, 0.38);
-        line-height: 1.7;
+        // 변경: 본문 줄 간격 축소
+        line-height: 1.5;
         margin-bottom: 40px;
         max-width: 420px;
         margin-left: auto;
@@ -781,8 +966,14 @@
             font-size: 12px;
         }
 
+        .hero-service-name-container {
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
         .hero {
-            padding: 48px 20px 56px;
+            min-height: 100dvh;
+            padding: calc(64px + env(safe-area-inset-top)) 20px 56px;
         }
 
         .hero-badge {
@@ -790,13 +981,15 @@
         }
 
         .hero-h1 {
-            // 변경: 모바일 줄바꿈 완화를 위해 타이틀 크기 축소
-            font-size: 28px;
+            // 변경: 모바일 줄바꿈 완화 — 타이틀 폰트 크기 축소
+            font-size: 24px;
+            line-height: 1.44;
             margin-bottom: 16px;
         }
 
         .hero-p {
             font-size: 15px;
+            line-height: 1.45;
             margin-bottom: 28px;
             max-width: 100%;
         }
@@ -1021,8 +1214,8 @@
     // 변경: 초소형 화면 (390px 이하)
     @media (max-width: 390px) {
         .hero-h1 {
-            // 변경: 초소형 화면 타이틀 추가 축소
-            font-size: 24px;
+            // 변경: 초소형 화면 타이틀 폰트 크기 축소
+            font-size: 21px;
         }
 
         .sec-h2 {

@@ -54,8 +54,8 @@
     </style>
     <!-- 변경: Vercel Analytics 수집 스크립트 -->
     <script defer src="/_vercel/insights/script.js"></script>
-    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
-    <script defer src="script/tracking.js"></script>
+    <!-- 변경: a 폴더 이동에 따라 공통 스크립트 경로를 상위 폴더로 수정 -->
+    <script defer src="../script/tracking.js"></script>
 </head>
 
 <body class="self-page">
@@ -355,8 +355,6 @@
             </ul>
             <ul class="list-items">
                 <li class="info-title">Contact</li>
-                <!-- 변경: 헤더의 문의하기 버튼을 Contact 영역으로 이동 -->
-                <li class="info-item"><a href="javascript:ChannelIO('showMessenger')">문의하기</a></li>
                 <!-- 변경: 제휴 문의 클릭 시 help@abland.kr 메일 작성 화면으로 연결 -->
                 <li class="info-item"><a href="mailto:help@abland.kr">제휴문의</a></li>
             </ul>
@@ -369,8 +367,8 @@
             <div class="self-loading-overlay__text">계산 중...</div>
         </div>
     </div>
-    <!-- 셀프 견적 페이지 인보이스 번호 자동 생성 및 저장을 위한 스크립트 (모듈 로드로 변경) -->
-    <script type="module" src="script/self-invoice.js"></script>
+    <!-- 변경: a 폴더 이동에 따라 모듈 스크립트 경로를 상위 폴더로 수정 -->
+    <script type="module" src="../script/self-invoice.js"></script>
     <!-- 변경: 채널톡 연동 (index.html과 동일) -->
     <script>
         (function () {
@@ -406,9 +404,9 @@
             }
         })();
 
+        // 변경: 채널톡 기본 플로팅 버튼 사용
         ChannelIO('boot', {
-            pluginKey: "1bc68edb-9418-4735-a798-0fee5f1427dd",
-            hideChannelButtonOnBoot: true
+            pluginKey: "1bc68edb-9418-4735-a798-0fee5f1427dd"
         });
     </script>
 </body>

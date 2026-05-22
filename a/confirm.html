@@ -11,8 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css" rel="stylesheet">
     <!-- 변경: Vercel Analytics 수집 스크립트 -->
     <script defer src="/_vercel/insights/script.js"></script>
-    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
-    <script defer src="script/tracking.js"></script>
+    <!-- 변경: a 폴더 이동에 따라 공통 스크립트 경로를 상위 폴더로 수정 -->
+    <script defer src="../script/tracking.js"></script>
 </head>
 
 <body class="confirm-page">
@@ -99,15 +99,13 @@
             </ul>
             <ul class="list-items">
                 <li class="info-title">Contact</li>
-                <!-- 변경: 문의하기 클릭 시 채널톡 메신저 열기 -->
-                <li class="info-item"><a href="javascript:ChannelIO('showMessenger')">문의하기</a></li>
                 <!-- 변경: 제휴 문의 클릭 시 help@abland.kr 메일 작성 화면으로 연결 -->
                 <li class="info-item"><a href="mailto:help@abland.kr">제휴문의</a></li>
             </ul>
         </div>
     </section>
-    <!-- 예약 완료 페이지에서 sessionStorage에 저장된 예약 정보를 불러오기 위한 스크립트 -->
-    <script type="module" src="script/confirm.js"></script>
+    <!-- 변경: a 폴더 이동에 따라 모듈 스크립트 경로를 상위 폴더로 수정 -->
+    <script type="module" src="../script/confirm.js"></script>
     <!-- 변경: 채널톡 연동 (index.html과 동일) -->
     <script>
         (function () {
@@ -143,9 +141,9 @@
             }
         })();
 
+        // 변경: 채널톡 기본 플로팅 버튼 사용
         ChannelIO('boot', {
-            pluginKey: "1bc68edb-9418-4735-a798-0fee5f1427dd",
-            hideChannelButtonOnBoot: true
+            pluginKey: "1bc68edb-9418-4735-a798-0fee5f1427dd"
         });
     </script>
 </body>
