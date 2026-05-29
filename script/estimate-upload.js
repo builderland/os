@@ -186,6 +186,12 @@ function openBottomSheet() {
     sheet.setAttribute("aria-hidden", "false");
     sheet.classList.add("is-open");
     lockScroll();
+    // 변경: 바텀시트 열림 시 채널톡 플로팅 버튼 숨김
+    if (typeof window.updateChannelButtonVisibility === "function") {
+        window.updateChannelButtonVisibility();
+    } else if (typeof window.ChannelIO === "function") {
+        window.ChannelIO("hideChannelButton");
+    }
     if (overlay) overlay.focus();
 }
 
@@ -195,6 +201,10 @@ function closeBottomSheet() {
     sheet.hidden = true;
     sheet.setAttribute("aria-hidden", "true");
     unlockScroll();
+    // 변경: 바텀시트 닫힘 시 스크롤 위치에 따라 채널톡 버튼 복원
+    if (typeof window.updateChannelButtonVisibility === "function") {
+        window.updateChannelButtonVisibility();
+    }
 }
 
 function resetSessionState() {

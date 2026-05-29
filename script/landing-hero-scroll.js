@@ -103,13 +103,23 @@
         lastHeroBgHidden = hide;
     }
 
-    /** 변경: .hero-copy 상단이 뷰포트에 도달하면 채널톡 플로팅 버튼 표시 */
+    /** 변경: .hero-copy 상단이 뷰포트에 도달하면 채널톡 플로팅 버튼 표시 (바텀시트 열림 시 숨김) */
     function updateChannelButtonVisibility() {
+        var sheet = document.getElementById("estimate-sheet");
+        if (sheet && sheet.classList.contains("is-open")) {
+            if (typeof window.ChannelIO === "function") {
+                window.ChannelIO("hideChannelButton");
+            }
+            return;
+        }
         var show = heroCopy.getBoundingClientRect().top <= 0;
         if (typeof window.ChannelIO === "function") {
             window.ChannelIO(show ? "showChannelButton" : "hideChannelButton");
         }
     }
+
+    // 변경: 견적서 바텀시트 열림/닫힘 시 채널톡 표시 상태 갱신
+    window.updateChannelButtonVisibility = updateChannelButtonVisibility;
 
     function update() {
         refreshStartIfAtTop();
