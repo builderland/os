@@ -101,8 +101,10 @@ body.page-b .lp .hero-service-name-container .hero-image picture {
 body.page-b .lp .hero-service-name-container .hero-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   display: block;
 }
 body.page-b .lp .hero-service-name-container .hero-image .dim {
@@ -291,6 +293,9 @@ body.page-b > .footer {
   color: #EDECEA;
   flex: 1;
   font-family: "Pretendard", sans-serif;
+}
+.lp .hero-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.2);
 }
 .lp .hero-input::placeholder {
   color: rgba(255, 255, 255, 0.2);
@@ -1091,6 +1096,4 @@ body.page-b > .footer {
   .footer .info .list-items .info-title {
     padding-bottom: 14px;
   }
-}
-
-/*# sourceMappingURL=style-b.css.map */
+}/*# sourceMappingURL=style-b.css.map */
