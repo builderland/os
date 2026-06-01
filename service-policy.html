@@ -306,16 +306,24 @@
             }
         }
     </style>
+    <!-- Vercel Analytics 수집 스크립트 -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- 변경: GA4·Meta Pixel 공통 스니펫(script/tracking.js 상단에 ID 설정) -->
+    <script defer src="script/tracking.js"></script>
 </head>
 
 <body>
+    <!-- 변경: Meta Pixel — JS 비활성 시 PageView(공식 noscript) -->
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=957125517307149&ev=PageView&noscript=1" alt="" /></noscript>
     <main class="legal-page">
         <h1 class="legal-page__title">서비스 이용약관</h1>
 
         <article class="legal-page__article">
             <h2 class="legal-page__article-title">제1조 (목적)</h2>
             <p class="legal-page__paragraph">
-                본 약관은 &quot;(주)똑똑한소비자&quot;(이하 &quot;회사&quot;)가 제공하는 견적 및 예약 서비스의 이용조건 및 절차, 회사와 이용자 간의 권리&middot;의무 및 책임사항을 규정함을 목적으로 합니다.
+                본 약관은 &quot;(주)똑똑한소비자&quot;(이하 &quot;회사&quot;)가 제공하는 견적 및 예약 서비스의 이용조건 및 절차, 회사와 이용자 간의 권리&middot;의무 및
+                책임사항을 규정함을 목적으로 합니다.
             </p>
         </article>
 
@@ -346,7 +354,8 @@
         <article class="legal-page__article">
             <h2 class="legal-page__article-title">제4조 (서비스의 내용)</h2>
             <p class="legal-page__paragraph">회사가 제공하는 서비스는 다음과 같습니다.</p>
-            <ul class="legal-page__plain-num-list legal-page__plain-num-list--tight-top legal-page__plain-num-list--bare">
+            <ul
+                class="legal-page__plain-num-list legal-page__plain-num-list--tight-top legal-page__plain-num-list--bare">
                 <li>1. 이용자 입력 기반 예상 견적 산출</li>
                 <li>2. 인테리어 공사 관련 정보 제공</li>
                 <li>3. 상담 및 예약 신청 접수</li>
@@ -363,7 +372,8 @@
                 </li>
                 <li>
                     <span class="legal-page__def-num" aria-hidden="true">②</span>
-                    <div class="legal-page__def-body">이용자는 본인의 정확한 정보를 입력해야 하며, 허위 정보 입력으로 발생하는 문제에 대한 책임은 이용자에게 있습니다.</div>
+                    <div class="legal-page__def-body">이용자는 본인의 정확한 정보를 입력해야 하며, 허위 정보 입력으로 발생하는 문제에 대한 책임은 이용자에게 있습니다.
+                    </div>
                 </li>
             </ol>
         </article>
@@ -394,7 +404,8 @@
             <ol class="legal-page__def-list">
                 <li>
                     <span class="legal-page__def-num" aria-hidden="true">①</span>
-                    <div class="legal-page__def-body">회사가 제공하는 견적은 이용자가 입력한 정보를 기반으로 산출된 예상 금액이며, 실제 시공 비용과 차이가 발생할 수 있습니다.</div>
+                    <div class="legal-page__def-body">회사가 제공하는 견적은 이용자가 입력한 정보를 기반으로 산출된 예상 금액이며, 실제 시공 비용과 차이가 발생할 수
+                        있습니다.</div>
                 </li>
                 <li>
                     <span class="legal-page__def-num" aria-hidden="true">②</span>
@@ -428,7 +439,8 @@
         <article class="legal-page__article">
             <h2 class="legal-page__article-title">제9조 (이용자의 의무)</h2>
             <p class="legal-page__paragraph">이용자는 다음 행위를 하여서는 안 됩니다.</p>
-            <ul class="legal-page__plain-num-list legal-page__plain-num-list--tight-top legal-page__plain-num-list--bare">
+            <ul
+                class="legal-page__plain-num-list legal-page__plain-num-list--tight-top legal-page__plain-num-list--bare">
                 <li>1. 허위 정보 입력</li>
                 <li>2. 타인의 정보 도용</li>
                 <li>3. 서비스 운영을 방해하는 행위</li>
